@@ -1,0 +1,194 @@
+{
+  "name": "GitHub Vector Storage MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "3dde79eb-a0b8-46c6-80b9-cdd07e971138"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0411f9ba-e885-44b7-87a5-a4f45bf0237a",
+      "name": "MCP Server Trigger",
+      "webhookId": "3dde79eb-a0b8-46c6-80b9-cdd07e971138"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        416
+      ],
+      "id": "bc3bba26-edbf-4469-96fa-5fa2f3f1d664",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Vector storage which contains metadata for all the repositories of Aman. It contains data like, URL, hosted URL, language, etc. ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "Repository Metadata"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        224
+      ],
+      "id": "d5b28236-66d3-4e88-94a3-05422fc71c22",
+      "name": "Pinecone Vector Store Metadata",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        416
+      ],
+      "id": "5ea1d9db-7ab7-461f-bdb0-35dec6fff03f",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Vector storage which contains data and the whole codebase for all the repositories of Aman. ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "Repository Data"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        224
+      ],
+      "id": "454808f2-dc12-4a0e-bd03-070b1513a350",
+      "name": "Pinecone Vector Store Data",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis is the MCP server for GitHub Vector Storages. It has access to two namespaces under index github.\n\na. Repository Metadata\nb. Repository Data",
+        "height": 192,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        224
+      ],
+      "id": "0b9091ae-c54a-493b-9ae8-447e652bc7f3",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store Metadata",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store Metadata": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store Data",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store Data": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "34cdc307-94ab-41ec-a4e3-7ca797f84ba5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "BPbtmlIxMqtQuy2k",
+  "tags": []
+}

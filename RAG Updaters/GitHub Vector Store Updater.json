@@ -1,0 +1,1271 @@
+{
+  "name": "GitHub Vector Store Updater",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1120,
+        432
+      ],
+      "id": "00ad91fb-53ab-4746-ab79-b81ba3589adb",
+      "name": "Schedule Trigger",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1264,
+        112
+      ],
+      "id": "cdf9da00-6fb7-415e-a305-3ac29d893a2e",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        112
+      ],
+      "id": "279ee1a8-f2d4-4f9f-a9dd-cd5f0657ef42",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2128,
+        432
+      ],
+      "id": "632b2ce3-50c1-4540-acda-4beb0f54ce36",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over all input items\nconst results = [];\n\nfor (const item of $input.all()) {\n  // Convert the entire JSON object into a single string\n  const jsonString = JSON.stringify(item.json, null, 2);\n\n  // Keep only the 'chunk' field\n  results.push({ json: { chunk: jsonString } });\n}\n\n// Return the modified list\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -256
+      ],
+      "id": "9f878497-51e7-4f13-8b06-520f10037f0c",
+      "name": "Stringify Metadata"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://github-4chlyf1.svc.aped-4627-b74a.pinecone.io/vectors/delete",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "pineconeApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"deleteAll\": true,\n  \"namespace\": \"Repository Data\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -560,
+        192
+      ],
+      "id": "0d269384-c647-484e-bac0-85fefb95f765",
+      "name": "Delete Namespace for Repository Data",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://github-4chlyf1.svc.aped-4627-b74a.pinecone.io/vectors/delete",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "pineconeApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"deleteAll\": true,\n  \"namespace\": \"Repository Metadata\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -320,
+        192
+      ],
+      "id": "b04f4ff3-0012-4969-8ac8-6ac6a541b0bd",
+      "name": "Delete Namespace for Repository Metadata",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "owner": {
+          "__rl": true,
+          "value": "AmanJain2903",
+          "mode": "list",
+          "cachedResultName": "AmanJain2903",
+          "cachedResultUrl": "https://github.com/AmanJain2903"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        192
+      ],
+      "id": "2cdf0cb8-67c4-412d-b0ad-b0d3e764338d",
+      "name": "Get all my repositories",
+      "webhookId": "29404e4a-49dd-4f90-84ce-0607b149e39b",
+      "credentials": {
+        "githubApi": {
+          "id": "w0ufKep0hgVHJiSS",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6977ea48-ef8b-4e75-a963-284312714a2b",
+              "name": "=name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "a954c510-1940-4405-873e-a29f6a3a55b4",
+              "name": "full_name",
+              "value": "={{ $json.full_name }}",
+              "type": "string"
+            },
+            {
+              "id": "5febff20-8562-4333-b9d8-a396565adf71",
+              "name": "html_url",
+              "value": "={{ $json.html_url }}",
+              "type": "string"
+            },
+            {
+              "id": "7e68335b-c3af-47ed-bf98-f1597fd4e1c0",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "e8a2cb00-e750-45d4-a7bb-f0f58fdac508",
+              "name": "clone_url",
+              "value": "={{ $json.clone_url }}",
+              "type": "string"
+            },
+            {
+              "id": "2f5c2705-8838-40da-a846-8fee72cce51d",
+              "name": "created_at",
+              "value": "={{ $json.created_at }}",
+              "type": "string"
+            },
+            {
+              "id": "4fbc8d5d-9383-412f-aee1-922f2215cac5",
+              "name": "updated_at",
+              "value": "={{ $json.updated_at }}",
+              "type": "string"
+            },
+            {
+              "id": "7d546f22-bd84-49a9-8591-768624ba8ea5",
+              "name": "language",
+              "value": "={{ $json.language }}",
+              "type": "string"
+            },
+            {
+              "id": "71dfeeb5-270c-4f2f-bc0a-95329b43575d",
+              "name": "homepage",
+              "value": "={{ $json.homepage }}",
+              "type": "string"
+            },
+            {
+              "id": "001329cf-9f43-4e85-8847-7aab70a1b341",
+              "name": "default_branch",
+              "value": "={{ $json.default_branch }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        112,
+        192
+      ],
+      "id": "7fa3e788-0cc5-467e-8862-af2b92c052e6",
+      "name": "Filter get results"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all input items\nconst results = [];\n\nfor (const item of $input.all()) {\n  const { name, full_name, language, default_branch, html_url } = item.json;\n\n  // Keep only the selected fields\n  results.push({\n    json: {\n      name,\n      full_name,\n      html_url,\n      default_branch,\n      language\n    },\n  });\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        640
+      ],
+      "id": "0a3329cc-c8d2-4107-afed-08247fcc962d",
+      "name": "Prepare input for Github Data Loader"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "options": {
+          "clearNamespace": false,
+          "pineconeNamespace": "Repository Metadata"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1264,
+        -80
+      ],
+      "id": "62f75cfd-c429-4fe9-b1b3-caababecc4f7",
+      "name": "Repository Metadata",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -336,
+        -752
+      ],
+      "id": "bdf80fb1-f086-4193-8837-ce042cebbec1",
+      "name": "When chat message received",
+      "webhookId": "12180925-7b5c-4f46-99b4-9acf3b107add"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -304,
+        -544
+      ],
+      "id": "48256ca9-5439-4f83-8078-22dd62c28377",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        -544
+      ],
+      "id": "745a93bb-8e69-479f-a245-75fbb4915569",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -112,
+        -160
+      ],
+      "id": "d40a298a-6f9e-4ff0-a583-7392f1f5a139",
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        -160
+      ],
+      "id": "e67cd6f6-64da-4081-9df8-e8ce9ba966dc",
+      "name": "Embeddings OpenAI3",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ GitHub Vector Store Metadata Updated Successfully",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly GitHub vector store metadata update has been completed successfully.  \nAll repositories have been processed, embedded, and stored in Pinecone without any issues.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n📁 Namespaces: Repository Metadata\n\nNo action is required — everything went smoothly.\n\nBest,  \nGitHub Vector Store Updater Bot - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2176,
+        -272
+      ],
+      "id": "27d39c2a-3007-4036-90e7-ad397ec82ccd",
+      "name": "Metadata Success",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ GitHub Vector Store Data Updated Successfully",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly GitHub vector store data update has been completed successfully.  \nAll repositories have been processed, embedded, and stored in Pinecone without any issues.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n📁 Namespaces: Repository Data\n\nNo action is required — everything went smoothly.\n\nBest,  \nGitHub Vector Store Updater Bot - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2176,
+        48
+      ],
+      "id": "b421035a-03d2-4b4c-bfa1-e63f07401ebd",
+      "name": "Data Success",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️ GitHub Vector Store Update Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly GitHub vector store update encountered an error during execution.  \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nGitHub Vector Store Updater Bot - n8n 🚨",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -784,
+        656
+      ],
+      "id": "4c57e6b7-81ac-4863-a0e5-3072d25f8ef6",
+      "name": "Workflow Error",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        944,
+        -256
+      ],
+      "id": "57544680-8152-4489-a1f9-663b9a1939cb",
+      "name": "Loop over Repositories Metadata"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        640
+      ],
+      "id": "b52fcae8-4a8f-4fbe-bd62-576e3f07a95d",
+      "name": "Loop over Repositories Data"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2128,
+        1216
+      ],
+      "id": "053910bd-ea23-4f4e-b768-823323463993",
+      "name": "Embeddings OpenAI4",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Stores vector data for Aman's Github and includes all his projects overview. ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "Repository Metadata"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -112,
+        -336
+      ],
+      "id": "7d8e3b94-95bc-4485-a6f2-187284906c5f",
+      "name": "Pinecone Vector Store Metadata",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Stores vector data for Aman's Github and includes all his projects code. ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "Repository Data"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        -336
+      ],
+      "id": "c3218752-02a7-4e85-ae96-7e6f348c418f",
+      "name": "Pinecone Vector Store Data",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bdf7ac2d-8416-423f-b5d0-cb35ab4d7cdc",
+              "leftValue": "[\"cpp\", \"go\", \"java\", \"js\", \"php\", \"proto\", \"python\", \"rst\", \"ruby\", \"rust\", \"scala\", \"swift\", \"markdown\", \"latex\", \"html\"]",
+              "rightValue": "={{ $json.language }}",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        656
+      ],
+      "id": "479b9311-4a42-47a8-b08f-6cb63892b2af",
+      "name": "If Language Splitter Available"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "options": {
+          "clearNamespace": false,
+          "pineconeNamespace": "Repository Data"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        2128,
+        240
+      ],
+      "id": "6bec644c-431e-4ac6-be2b-f8d049a51001",
+      "name": "Repository Data Copy",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "github",
+          "mode": "list",
+          "cachedResultName": "github"
+        },
+        "options": {
+          "clearNamespace": false,
+          "pineconeNamespace": "Repository Data"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        2128,
+        1024
+      ],
+      "id": "a014851b-653c-4bac-8c4a-2cd9e58f66a5",
+      "name": "Repository Data",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "repository": "={{ $('Prepare input for Github Data Loader').item.json.html_url }}",
+        "branch": "={{ $('Prepare input for Github Data Loader').item.json.default_branch }}",
+        "textSplittingMode": "custom",
+        "additionalOptions": {
+          "recursive": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentGithubLoader",
+      "typeVersion": 1.1,
+      "position": [
+        2272,
+        432
+      ],
+      "id": "f01779f2-093a-4b4a-adef-745899497d59",
+      "name": "GitHub Document Loader Copy",
+      "credentials": {
+        "githubApi": {
+          "id": "w0ufKep0hgVHJiSS",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "repository": "={{ $('Prepare input for Github Data Loader').item.json.html_url }}",
+        "branch": "={{ $('Prepare input for Github Data Loader').item.json.default_branch }}",
+        "textSplittingMode": "custom",
+        "additionalOptions": {
+          "recursive": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentGithubLoader",
+      "typeVersion": 1.1,
+      "position": [
+        2272,
+        1216
+      ],
+      "id": "c8365c13-63fc-464c-8394-34db2f56b9b4",
+      "name": "GitHub Document Loader",
+      "credentials": {
+        "githubApi": {
+          "id": "w0ufKep0hgVHJiSS",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chunkSize": 2000,
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        2272,
+        1376
+      ],
+      "id": "cd8e4824-8053-4b9d-a5de-83d97935943b",
+      "name": "Recursive Character Text Splitter Simple"
+    },
+    {
+      "parameters": {
+        "chunkSize": 2000,
+        "chunkOverlap": 200,
+        "options": {
+          "splitCode": "={{ $('Loop over Repositories Data').item.json.language.toLowerCase() }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        2272,
+        592
+      ],
+      "id": "e137a462-02d0-427e-b38c-98b38c3f70ff",
+      "name": "Recursive Character Text Splitter With Language Splitter"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role\nYou are a software engineer who is currently assigned a role to answer questions related to Aman's projects. \n\n# Tools\n1. Pinecone Vector Store Metadata: Vector storage which contains the metadata like URLs, hosted links, language and overview for each of the projects on Aman's github. \n2. Pinecone Vector Store Data: Vector storage which contains the complete codebase for each of the projects on Aman's github. \n\n# Instructions\nBased on the user's query choose to call either one or both of the vector storages and answer the user queries in a technical manner.\n\n# Tone\nKeep the tone firendly but be technical in you answers. \n\n# Important\nDo not answer any queries unrelated to Aman's projects and the data mentioned in the vector storages. For answering each query only use the knowledge you get from the Vector Storages. \n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        -752
+      ],
+      "id": "e6a6a09f-a51e-4a68-b66f-4b203761d6ab",
+      "name": "Chat Bot"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7b44e04-e8e0-440f-99da-fdbe75441578",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "=AmanJain2903",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "fca5fcee-2603-433c-9b96-cbfc4db793f8",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "Data-Structures-Algorithms",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "2b2e5642-6779-450e-92e4-bfc9c8b46798",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "Flowise",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "7ffc9270-5ddd-4e75-ae58-f30752f2918b",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "n8n",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        192
+      ],
+      "id": "daaf4cf8-842e-480c-95b1-5f60f9f9964f",
+      "name": "Repo Filter"
+    },
+    {
+      "parameters": {
+        "content": "## Testing Bot\n\nUse me for testing the retrieval from vector database.\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -656
+      ],
+      "id": "ba9b19c2-325c-40eb-850b-28aeea2abcd7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ GitHub Vector Store Data Update Started",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly GitHub vector store data update has been started successfully.  \nAll repositories are now being processed, embedded, and stored in Pinecone. \n\n🗓 Start Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n📁 Namespaces: Repository Metadata & Repository Data\n\nKeep an eye out for notifications regarding success or failure of the process.\n\nBest,  \nGitHub Vector Store Updater Bot - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -784,
+        192
+      ],
+      "id": "b43dc77f-7e01-439c-bcbe-246c46eb0961",
+      "name": "Workflow Started",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis workflow will be scheduled for automatic runs and will get all my repositories and store them in PineCone vector storage. It will store repo metadata in one namespace and the actual codes in another namespace.\n\nTo filter the repositories you do not want in the vector storage, make changes in repo filter.\n\n",
+        "height": 272,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        464
+      ],
+      "id": "343f1314-e209-420a-af13-bd217a604732",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Workflow Started",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Workflow Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Repository Metadata",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Repository Metadata",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Repository Data Copy",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stringify Metadata": {
+      "main": [
+        [
+          {
+            "node": "Loop over Repositories Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Namespace for Repository Data": {
+      "main": [
+        [
+          {
+            "node": "Delete Namespace for Repository Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Namespace for Repository Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Namespace for Repository Metadata": {
+      "main": [
+        [
+          {
+            "node": "Get all my repositories",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get all my repositories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get all my repositories": {
+      "main": [
+        [
+          {
+            "node": "Filter get results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter get results": {
+      "main": [
+        [
+          {
+            "node": "Repo Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare input for Github Data Loader": {
+      "main": [
+        [
+          {
+            "node": "Loop over Repositories Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store Metadata",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI3": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store Data",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repository Metadata": {
+      "main": [
+        [
+          {
+            "node": "Loop over Repositories Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop over Repositories Data": {
+      "main": [
+        [
+          {
+            "node": "Data Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If Language Splitter Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop over Repositories Metadata": {
+      "main": [
+        [
+          {
+            "node": "Metadata Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Repository Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI4": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Repository Data",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store Metadata": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store Data": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Language Splitter Available": {
+      "main": [
+        [
+          {
+            "node": "Repository Data Copy",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Repository Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repository Data Copy": {
+      "main": [
+        [
+          {
+            "node": "Loop over Repositories Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repository Data": {
+      "main": [
+        [
+          {
+            "node": "Loop over Repositories Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub Document Loader Copy": {
+      "ai_document": [
+        [
+          {
+            "node": "Repository Data Copy",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub Document Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Repository Data",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter Simple": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "GitHub Document Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter With Language Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "GitHub Document Loader Copy",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repo Filter": {
+      "main": [
+        [
+          {
+            "node": "Stringify Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare input for Github Data Loader",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Started": {
+      "main": [
+        [
+          {
+            "node": "Delete Namespace for Repository Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0ea0120d-c759-4b89-9d25-b9a402319d43",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "oEFNjuJ4Z7kZfQf5",
+  "tags": []
+}
