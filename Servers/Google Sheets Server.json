@@ -1,0 +1,349 @@
+{
+  "name": "Google Sheets Server",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Query"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        -16
+      ],
+      "id": "6cf2dec4-dcbe-4672-875e-e873ddbe0b1b",
+      "name": "When Executed by Another Workflow",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.Query }}, extract the name, email, phone, organization, designation and intent of the lead. \n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        -320
+      ],
+      "id": "71b13340-f428-4db5-bf30-d9bc6be23422",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        864,
+        -112
+      ],
+      "id": "8d2c7282-58ba-405a-a0cb-1643d618e36d",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        -112
+      ],
+      "id": "08c6e14a-cbc7-4eda-82c4-35f5d33a877d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk",
+          "mode": "list",
+          "cachedResultName": "Mickey AI Clone Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automated Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy\") }}",
+            "Time": "={{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }}",
+            "Name": "={{ $json.output.name }}",
+            "Email": "={{ $json.output.email }}",
+            "Phone Number": "={{ $json.output.phone }}",
+            "Organization": "={{ $json.output.organization }}",
+            "Designation": "={{ $json.output.designation }}",
+            "Intent": "={{ $json.output.intent }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Organization",
+              "displayName": "Organization",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Designation",
+              "displayName": "Designation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Intent",
+              "displayName": "Intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        -320
+      ],
+      "id": "6b0aaa6d-427b-4dc6-87c7-b93c27d33f9f",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rMYZebLCfIpWCqHZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Google Sheets Automated Leads Workflow Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was a lead generation attempt made and it failed unexpectedly. \n\nDo visit the n8n workflow once to examine the issue. \nWorkflow: {{ $workflow.id }}\nExecution: {{ $execution.id }}\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        112
+      ],
+      "id": "128950d5-e329-4a51-9850-9945f9bf55a8",
+      "name": "Leads Error",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ Google Sheets Automated Leads  - New Lead Added",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nYayyy. You have a new lead added just now. \nDo take a look as their might be an opportunity waiting for you.\n\n👤 {{ $json.Name || \"Not Available\"}}\n📧 {{ $json.Email || \"Not Available\"}}\n📞 {{ $json[\"Phone Number\"] || \"Not Available\"}}\n\n📋 Leads Sheet: https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=sharing\n\n🗓 Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Google Sheets Server\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1296,
+        -320
+      ],
+      "id": "e333e8af-969c-446b-bf70-8ebf4980046a",
+      "name": "Leads Success",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis is the Automated Lead Generation Bot, which on receiving a possible lead query, adds the lead and contact details to a Google Sheet.\n",
+        "height": 208,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -80
+      ],
+      "id": "b70c2a5a-d32c-427a-8f04-4757737a67be",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Leads Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Leads Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7e1777bf-a77d-4367-bf2d-fc005def2a26",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "AVOyHGxl4SYih3FR",
+  "tags": []
+}
