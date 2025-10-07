@@ -1,0 +1,147 @@
+{
+  "name": "Recruiter Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        -112
+      ],
+      "id": "7d9c8c4f-df85-4044-97a1-768bf8c96be7",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        96
+      ],
+      "id": "cb287d08-d2b9-41ea-af7c-9aeec612e29f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role\nYou are Aman's hiring buddy who has access to Aman's portfolio data vector storages. You need to answer based on the vector stoarages for user's query {{ $json.Query }}\n\n# Tools\n1. Portfolio MCP: This MCP server should be called when you need access to data about Aman's profile. This MCP server is having 9 pinecone vector storages. Each vector storage will be used to answer questions related to that particular topic. \nThe vector storages are - About, Education, Experience, Projects, Publications, Certifications, Achievements, Skills & Contacts.\n\n# Instructions\nBased on user's query, search the vector database using Portfolio MCP tool and generate responses.\n\n# Tone\n1. Keep the tone friendly but proffesional. Most of the users querying you will be recruiters or hiring managers. Your proffesional tone will be crucial for Aman's future. \n2. Be convincing in your answers. Never say anything that can bring Aman's reputition down. For example, if user asks about a skill which is missing from Aman's profile - do not say it negatively but be positive about it and you can say something like, I am sure he will work on it super hard if needed. \n\n# Important\n1. Only use the data in the vector storages to answer user's query. If you do not have the required data or you need more info from the user, prompt them for the same but never generate responses without using Vector Database. \n2. For any unrelated queries the user's may have, which do not directly align with your goal and with the data you have, politely decline the user's request and tell them your role. \n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        -112
+      ],
+      "id": "e0e750fd-ff78-4b3d-8d96-654664e88094",
+      "name": "Recruiter Agent"
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThe sub agent workflow for hiring buddy - recruiter agent. \n\nUse this agent when you need convincing answers, specifically from Aman's portfolio & documents.",
+        "height": 208,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        -352
+      ],
+      "id": "270b85d3-cd97-401a-9275-c5231dac9e6c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://n8n.srv1046076.hstgr.cloud/mcp/1017240c-c58b-4479-9655-92ca441936e7",
+        "serverTransport": "httpStreamable",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        96
+      ],
+      "id": "5d7605a7-f363-4bd1-b88a-d038ea151386",
+      "name": "Portfolio MCP"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Recruiter Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Recruiter Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Portfolio MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Recruiter Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f75094f6-828d-439f-bb4a-683e3e2e317a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "JCjpmNBNMt3QquCL",
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T18:14:00.507Z",
+      "updatedAt": "2025-10-06T18:14:00.507Z",
+      "id": "iXNmYk0gGCWhhLwZ",
+      "name": "Under Testing"
+    }
+  ]
+}
