@@ -14,7 +14,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1120,
+        -1584,
         432
       ],
       "id": "00ad91fb-53ab-4746-ab79-b81ba3589adb",
@@ -103,7 +103,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -560,
+        -1072,
         224
       ],
       "id": "0d269384-c647-484e-bac0-85fefb95f765",
@@ -130,7 +130,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -320,
+        -576,
         208
       ],
       "id": "b04f4ff3-0012-4969-8ac8-6ac6a541b0bd",
@@ -448,7 +448,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -784,
+        -1296,
         624
       ],
       "id": "4c57e6b7-81ac-4863-a0e5-3072d25f8ef6",
@@ -845,7 +845,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -784,
+        -1296,
         224
       ],
       "id": "b43dc77f-7e01-439c-bcbe-246c46eb0961",
@@ -887,7 +887,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -320,
+        -816,
         416
       ],
       "id": "445e4c00-32dd-42d1-b406-a522c9f7f61f",
@@ -899,7 +899,8 @@
           "id": "uKHVlxwPwA4qSKVT",
           "name": "Gmail account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -914,7 +915,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -96,
+        -320,
         416
       ],
       "id": "88959216-ae8a-4043-a01d-a882c2a779ec",
@@ -926,7 +927,8 @@
           "id": "uKHVlxwPwA4qSKVT",
           "name": "Gmail account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {},
@@ -1309,13 +1311,35 @@
           }
         ]
       ]
+    },
+    "Can't Delete Namespace Repository Data": {
+      "main": [
+        [
+          {
+            "node": "Delete Namespace for Repository Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Can't Delete Namespace Repository Metadata": {
+      "main": [
+        [
+          {
+            "node": "Get all my repositories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ce91817e-c9df-4008-8f9c-8922157eb0c4",
+  "versionId": "7fd2db09-a9be-4ada-8113-2ade1785063f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
