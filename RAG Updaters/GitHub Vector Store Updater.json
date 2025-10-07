@@ -1290,15 +1290,14 @@
             "node": "Stringify Metadata",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
             "node": "Prepare input for Github Data Loader",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Workflow Started": {
@@ -1339,7 +1338,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7fd2db09-a9be-4ada-8113-2ade1785063f",
+  "versionId": "cb8cb5a2-1000-4123-87df-a952884f9d57",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
