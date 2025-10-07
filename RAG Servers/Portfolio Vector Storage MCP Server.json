@@ -1,0 +1,718 @@
+{
+  "name": "Portfolio Vector Storage MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "1017240c-c58b-4479-9655-92ca441936e7"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "400a6c84-4483-40c8-afb7-3e0d3c14c9a9",
+      "name": "MCP Server Trigger",
+      "webhookId": "1017240c-c58b-4479-9655-92ca441936e7"
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis is the MCP server for Portfolio Vector Storages. It has access to 9 namespaces under index portfolio.\n\nNamespaces are - about, education, experience, achievements, certifications, publications, skills, projects & contacts.\n",
+        "height": 224,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -256
+      ],
+      "id": "08ae0580-485d-4cad-8490-17c8f7bd0be9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1088,
+        416
+      ],
+      "id": "d33ccf98-3029-4cba-936c-b3b796147375",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -784,
+        416
+      ],
+      "id": "85f88f90-8bf9-4413-abad-ab25aa1a30bc",
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -496,
+        416
+      ],
+      "id": "c23db0b2-5204-4f43-b1b5-8f602f68e0e5",
+      "name": "Embeddings OpenAI3",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        416
+      ],
+      "id": "ed282cc5-9507-484d-a797-689049e74d5a",
+      "name": "Embeddings OpenAI4",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        416
+      ],
+      "id": "6dee2391-3b45-4eeb-8728-05addc6885e4",
+      "name": "Embeddings OpenAI5",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        416
+      ],
+      "id": "a89ca455-424a-4357-b070-61ff2e9fa826",
+      "name": "Embeddings OpenAI6",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1152,
+        416
+      ],
+      "id": "e88f81c7-b312-4166-9c87-90ebd9855d63",
+      "name": "Embeddings OpenAI7",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        416
+      ],
+      "id": "fb325763-6f02-411c-ad59-7d5b457c44e2",
+      "name": "Embeddings OpenAI8",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        416
+      ],
+      "id": "40b2b55f-3919-4f5f-affd-94339a8951f8",
+      "name": "Embeddings OpenAI9",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This includes Aman's Projects.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "projects"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -1088,
+        240
+      ],
+      "id": "7637753b-b9ee-4df1-b18e-ef88f0ee54a9",
+      "name": "projects",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Skills.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "skills"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -784,
+        240
+      ],
+      "id": "02f2dcd5-5e6f-4fa4-a3b7-17813dec51db",
+      "name": "skills",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Certifications",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "certifications"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -496,
+        240
+      ],
+      "id": "030a4d3a-72ae-4b23-9d77-db9feb6383ee",
+      "name": "certifications",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Achievements",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "achievements"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        240
+      ],
+      "id": "08ba54c0-282d-4040-9928-e852890e71f5",
+      "name": "achievements",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Experience/Work Experience.  ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "experience"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        64,
+        240
+      ],
+      "id": "1c632fb1-e32c-402d-bb31-156cb8b14083",
+      "name": "experience",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Education.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "education"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        336,
+        240
+      ],
+      "id": "fb7c7692-1a55-435b-bf6e-8e6b4f58e589",
+      "name": "education",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains basic information about Aman.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "about"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        240
+      ],
+      "id": "e548196e-a9f9-44a7-b5b4-de3da1516b22",
+      "name": "about",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Contact Details for Aman.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "contacts"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        880,
+        240
+      ],
+      "id": "80b9769a-47f4-41de-a185-f0adf07db075",
+      "name": "contacts",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contain Aman's Publications.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "publications"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1152,
+        240
+      ],
+      "id": "5fc7be96-b7ca-4601-bec6-944c32b525ee",
+      "name": "publications",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "projects",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "skills",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI3": {
+      "ai_embedding": [
+        [
+          {
+            "node": "certifications",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI4": {
+      "ai_embedding": [
+        [
+          {
+            "node": "achievements",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI5": {
+      "ai_embedding": [
+        [
+          {
+            "node": "experience",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI6": {
+      "ai_embedding": [
+        [
+          {
+            "node": "education",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI7": {
+      "ai_embedding": [
+        [
+          {
+            "node": "publications",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI8": {
+      "ai_embedding": [
+        [
+          {
+            "node": "contacts",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI9": {
+      "ai_embedding": [
+        [
+          {
+            "node": "about",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "experience": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "publications": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "about": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "education": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "achievements": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "certifications": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "skills": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "projects": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f6187f15-7253-4e59-8e93-7116839dafc6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "FLNlwPrzFY9SPMPg",
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T19:53:07.647Z",
+      "updatedAt": "2025-10-06T19:53:07.647Z",
+      "id": "H9CgNjj1fwpkxyIt",
+      "name": "Deployment Ready"
+    }
+  ]
+}
