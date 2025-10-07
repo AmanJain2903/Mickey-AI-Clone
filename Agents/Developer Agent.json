@@ -49,7 +49,7 @@
         "promptType": "define",
         "text": "={{ $json.Query }}",
         "options": {
-          "systemMessage": "=# Role\nYou are a technical expert who has access to Aman's GitHub data vector storages. You need to answer based on the vector stoarages for user's query {{ $json.Query }}\n\n# Tools\n1. GitHub MCP: This MCP server should be called when you need access to Aman's GitHub repositories and projects. It also includes all the codebase for Aman's each project.\n\n# Instructions\nBased on user's query, search the vector database using GitHub MCP tool and generate responses.\n\n# Tone\nKeep the tone friendly but be very technical in your responses. Most of your user's will be developers so they can handle technical tone. \n\n# Important\nOnly use the data in the vector databases to answer user's query. If you do not have the required data or you need more info from the user, prompt them for the same but never generate responses without using Vector Database. \n\n"
+          "systemMessage": "=# Role\nYou are a technical expert who has access to Aman's GitHub data vector storages. You need to answer based on the vector stoarages for user's query {{ $json.Query }}\n\n# Tools\n1. GitHub MCP: This MCP server should be called when you need access to Aman's GitHub repositories and projects. It also includes all the codebase for Aman's each project.\n\n# Instructions\nBased on user's query, search the vector database using GitHub MCP tool and generate responses.\n\n# Tone\nKeep the tone friendly but be very technical in your responses. Most of your user's will be developers so they can handle technical tone. \n\n# Important\n1. Only use the data in the vector databases to answer user's query. If you do not have the required data or you need more info from the user, prompt them for the same but never generate responses without using Vector Database. \n2. For any unrelated queries the user's may have, which do not directly align with your goal and with the data you have, politely decline the user's request and tell them your role. \n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -132,11 +132,24 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "28b5b464-586e-4ff9-bbc9-11d65e233c61",
+  "versionId": "0d1aa22c-3b31-4486-83c0-5bb3aa2a0f89",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
   },
   "id": "gffjvY561DfS3nF9",
-  "tags": []
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T18:14:00.507Z",
+      "updatedAt": "2025-10-06T18:14:00.507Z",
+      "id": "iXNmYk0gGCWhhLwZ",
+      "name": "Under Testing"
+    }
+  ]
 }
