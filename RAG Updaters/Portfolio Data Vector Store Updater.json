@@ -1,0 +1,1283 @@
+{
+  "name": "Portfolio Data Vector Store Updater",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "d8f3d7b4-0f08-4c6f-ba2e-4bc0765725a4",
+      "name": "Schedule Trigger",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1696,
+        -48
+      ],
+      "id": "29b2482a-83cf-442f-ac9c-1fe191113dc3",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1840,
+        -48
+      ],
+      "id": "063287f6-7483-4240-a11e-27f74705daaa",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 10000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        128
+      ],
+      "id": "f1243861-83e0-4106-aff7-76d1ed327f3f",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e215d2b4-321f-4da1-9e08-8cff789944ca",
+              "name": "Collections",
+              "value": "[\"about\", \"achievements\", \"certifications\", \"contacts\", \"education\", \"experience\", \"projects\", \"publications\", \"skills\"] ",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        -240
+      ],
+      "id": "8c3d7348-cc5f-4c5a-95de-70a126c81518",
+      "name": "Define Collections to Extract"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Assume the previous node outputs the array under \"Collections\"\nconst input = items[0].json.Collections;\n\n// Map each collection name to its own item\nreturn input.map(name => ({ json: { collection: name } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        -240
+      ],
+      "id": "1176774a-b208-4dc0-855a-6e84f62e679d",
+      "name": "Convert Collections to List"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        544,
+        -240
+      ],
+      "id": "1f287963-ded3-4ebd-8c5d-44a40adcaa7b",
+      "name": "Loop over Collections"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://portfolio-4chlyf1.svc.aped-4627-b74a.pinecone.io/vectors/delete",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "pineconeApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"deleteAll\": true,\n  \"namespace\": \"{{ $json.collection }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        784,
+        -48
+      ],
+      "id": "cd91543a-ced1-4210-88e6-a63928acee3f",
+      "name": "Delete Namespace for Collection",
+      "retryOnFail": true,
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "collection": "={{ $('Loop over Collections').item.json.collection }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        -256
+      ],
+      "id": "e8090dbc-c56e-4a03-9735-0e03e071ee0b",
+      "name": "Find Documents in Collection",
+      "credentials": {
+        "mongoDb": {
+          "id": "NKo8Dsqb9mpQXTaL",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "include": "except",
+        "excludeFields": "_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1248,
+        -256
+      ],
+      "id": "66a142e2-5d34-4e78-a9c9-064714782232",
+      "name": "Exclude _id"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.category = $('Loop over Collections').first().json.collection;\n}\n\n// Loop over all input items\nconst results = [];\n\nfor (const item of $input.all()) {\n  // Convert the entire JSON object into a single string\n  const jsonString = JSON.stringify(item.json, null, 2);\n\n  // Keep only the 'chunk' field\n  results.push({ json: { chunk: jsonString } });\n}\n\n// Return the modified list\nreturn results;\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1472,
+        -256
+      ],
+      "id": "8957b213-7bfa-4956-9387-706ac2231a8c",
+      "name": "Stringify Each Entry"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "options": {
+          "pineconeNamespace": "={{ $('Loop over Collections').item.json.collection }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1696,
+        -256
+      ],
+      "id": "f6e0c248-5fb9-4e8a-baf2-b9c8cb78d218",
+      "name": "Portfolio Data Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ Portfolio Vector Store Data Updated Successfully",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store data update has been completed successfully.  \nAll the collections have been processed, embedded, and stored in Pinecone without any issues.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nNo action is required — everything went smoothly.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        784,
+        -256
+      ],
+      "id": "8f73d163-2066-467e-a8ff-cf389253ec4f",
+      "name": "Data Success",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️ Portfolio Vector Store Update Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution.  \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        128,
+        16
+      ],
+      "id": "ef9d54c7-534f-4d13-a7e8-b1cc54a247e6",
+      "name": "Workflow Error",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️ Portfolio Vector Store Update Encountered Error",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution. \nThe namespace {{ $('Loop over Collections').item.json.collection }} was not deleted so it is not updated. \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1040,
+        -48
+      ],
+      "id": "37197794-6519-447f-b7ca-f519e66f3f03",
+      "name": "Can't Delete Namespace",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis is the automated workflow set for executing weekly to update the vector store portfolio using the mongo db storage for Aman's portfolio website.\n",
+        "height": 224,
+        "width": 352
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        -16
+      ],
+      "id": "37a572da-30f4-48d9-b9c5-d96fba2f975c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        368
+      ],
+      "id": "90f94aa8-5b1b-4ac3-ac9f-680e0cef40a8",
+      "name": "When chat message received",
+      "webhookId": "12180925-7b5c-4f46-99b4-9acf3b107add"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        624
+      ],
+      "id": "c7ca54bd-da16-46ac-bb92-2a377734b4a5",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        928,
+        624
+      ],
+      "id": "ade99dc3-0e08-42ff-b3fd-97575d2d2ccc",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role\nYou are a recruiting buddy who is assigned a role to answer questions related to Aman's portfolio, profile and basic information about him.\n\n# Tools\nYou have access to 9 pinecone vector storages. Each vector storage will be used to answer questions related to that particular topic. \nThe vector storages are - About, Education, Experience, Projects, Publications, Certifications, Achievements, Skills & Contacts.\n\n\n# Instructions\nBased on the user's query {{ $json.chatInput }} choose to call either one or multiple of the vector storages and answer the user queries in a proffesinal manner. \n\nCall the vector storages with the right query in order to get data from them.\n\n# Tone\n1. Keep the tone friendly but proffesional. Most of the users querying you will be recruiters or hirin manager. Your proffesional tone will be crucial for Aman's future. \n2. Be convincing in your answers. Never say anything that can bring Aman's reputition down. For example, if user asks about a skill which is missing from Aman's profile - do not say it negatively but be positive about it and you can say something like, I am sure he will work on it super hard if needed. \n\n# Important\n1. Do not answer any queries unrelated to Aman's profile and the data mentioned in the vector storages. For answering each query only use the knowledge you get from the Vector Storages. \n2. In case you are unable to answer the query from vector storage or the query is irrelevant to your role, politely deny the request and tell the user your role. \n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        368
+      ],
+      "id": "b934e9a0-ccfd-4548-b02b-156a113de3d1",
+      "name": "Chat Bot"
+    },
+    {
+      "parameters": {
+        "content": "## Testing Bot\n\nUse me for testing the retrieval from vector database.\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        320,
+        352
+      ],
+      "id": "7e2a8a85-4626-4b6c-8afd-3599d22c4609",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        928
+      ],
+      "id": "842f6fd5-b3a4-41c2-9e99-622fce2abf40",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        928
+      ],
+      "id": "31438144-3c76-4f6d-be8e-3718f8e7d8a8",
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        928
+      ],
+      "id": "70e176ef-a9e2-4cc0-b16f-790a7a80e33b",
+      "name": "Embeddings OpenAI3",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        928
+      ],
+      "id": "d51f7c85-2403-4f82-8a9f-a546c04f98bb",
+      "name": "Embeddings OpenAI4",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        928
+      ],
+      "id": "6b34f76b-975d-439a-a9b5-21c25ea214b9",
+      "name": "Embeddings OpenAI5",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        928
+      ],
+      "id": "8700aac8-8fc3-4781-94ee-6e28ec73d8e7",
+      "name": "Embeddings OpenAI6",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1984,
+        928
+      ],
+      "id": "6f28d7ae-968c-4175-9c7b-5ed3e1af4a32",
+      "name": "Embeddings OpenAI7",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1712,
+        928
+      ],
+      "id": "f5837da5-fe1e-474b-8a12-d186dfb4be40",
+      "name": "Embeddings OpenAI8",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        928
+      ],
+      "id": "d4dcc884-342d-4f69-be98-01d8c9de1ed5",
+      "name": "Embeddings OpenAI9",
+      "credentials": {
+        "openAiApi": {
+          "id": "bQxW0gjt5BQOa1iQ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This includes Aman's Projects.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "projects"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        752
+      ],
+      "id": "4b7477a2-0145-44e8-8026-e934d5ee97c9",
+      "name": "projects",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Skills.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "skills"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        752
+      ],
+      "id": "cfe24118-e564-442d-aa81-a6dc56edcbcc",
+      "name": "skills",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Certifications",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "certifications"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        336,
+        752
+      ],
+      "id": "9e98041c-1d62-47fc-8ada-38bb728af16b",
+      "name": "certifications",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Achievements",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "achievements"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        752
+      ],
+      "id": "2cf10f37-18b9-419c-a132-ffa5c478bde6",
+      "name": "achievements",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Experience/Work Experience.  ",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "experience"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        752
+      ],
+      "id": "541f807f-05ed-43f4-a67e-b9a1f6c7c5b7",
+      "name": "experience",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Aman's Education.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "education"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1168,
+        752
+      ],
+      "id": "fcf09733-24fb-4acf-b9be-edf7cbed1666",
+      "name": "education",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains basic information about Aman.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "about"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1440,
+        752
+      ],
+      "id": "35353a43-d622-4909-8d8f-422387c310b3",
+      "name": "about",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contains Contact Details for Aman.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "contacts"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1712,
+        752
+      ],
+      "id": "92fef86d-acf4-42fc-85f5-948baa0fa418",
+      "name": "contacts",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This contain Aman's Publications.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "portfolio",
+          "mode": "list",
+          "cachedResultName": "portfolio"
+        },
+        "topK": 5,
+        "options": {
+          "pineconeNamespace": "publications"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1984,
+        752
+      ],
+      "id": "25dcf846-6604-4d0a-b27e-ce575caa83bc",
+      "name": "publications",
+      "credentials": {
+        "pineconeApi": {
+          "id": "IyHlGPWaKhxMrE0j",
+          "name": "PineconeApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Define Collections to Extract",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Workflow Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Portfolio Data Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Portfolio Data Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Collections to Extract": {
+      "main": [
+        [
+          {
+            "node": "Convert Collections to List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Collections to List": {
+      "main": [
+        [
+          {
+            "node": "Loop over Collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop over Collections": {
+      "main": [
+        [
+          {
+            "node": "Data Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Namespace for Collection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Namespace for Collection": {
+      "main": [
+        [
+          {
+            "node": "Find Documents in Collection",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Can't Delete Namespace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Documents in Collection": {
+      "main": [
+        [
+          {
+            "node": "Exclude _id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exclude _id": {
+      "main": [
+        [
+          {
+            "node": "Stringify Each Entry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stringify Each Entry": {
+      "main": [
+        [
+          {
+            "node": "Portfolio Data Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Portfolio Data Vector Store": {
+      "main": [
+        [
+          {
+            "node": "Loop over Collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Can't Delete Namespace": {
+      "main": [
+        [
+          {
+            "node": "Loop over Collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "projects",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "skills",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI3": {
+      "ai_embedding": [
+        [
+          {
+            "node": "certifications",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI4": {
+      "ai_embedding": [
+        [
+          {
+            "node": "achievements",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI5": {
+      "ai_embedding": [
+        [
+          {
+            "node": "experience",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI6": {
+      "ai_embedding": [
+        [
+          {
+            "node": "education",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI9": {
+      "ai_embedding": [
+        [
+          {
+            "node": "about",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI8": {
+      "ai_embedding": [
+        [
+          {
+            "node": "contacts",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI7": {
+      "ai_embedding": [
+        [
+          {
+            "node": "publications",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "projects": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "skills": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "certifications": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "achievements": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "experience": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "education": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "about": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "publications": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c09853fd-5ff6-4bc2-8557-4f2647ea0403",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "PapwrhYgAIDxNcbq",
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T19:53:07.647Z",
+      "updatedAt": "2025-10-06T19:53:07.647Z",
+      "id": "H9CgNjj1fwpkxyIt",
+      "name": "Deployment Ready"
+    }
+  ]
+}
