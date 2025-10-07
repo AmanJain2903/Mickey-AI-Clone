@@ -104,7 +104,7 @@
       "typeVersion": 4.2,
       "position": [
         -560,
-        192
+        224
       ],
       "id": "0d269384-c647-484e-bac0-85fefb95f765",
       "name": "Delete Namespace for Repository Data",
@@ -131,7 +131,7 @@
       "typeVersion": 4.2,
       "position": [
         -320,
-        192
+        208
       ],
       "id": "b04f4ff3-0012-4969-8ac8-6ac6a541b0bd",
       "name": "Delete Namespace for Repository Metadata",
@@ -449,7 +449,7 @@
       "typeVersion": 2.1,
       "position": [
         -784,
-        656
+        624
       ],
       "id": "4c57e6b7-81ac-4863-a0e5-3072d25f8ef6",
       "name": "Workflow Error",
@@ -846,7 +846,7 @@
       "typeVersion": 2.1,
       "position": [
         -784,
-        192
+        224
       ],
       "id": "b43dc77f-7e01-439c-bcbe-246c46eb0961",
       "name": "Workflow Started",
@@ -868,11 +868,65 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -320,
-        464
+        112,
+        416
       ],
       "id": "343f1314-e209-420a-af13-bd217a604732",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️ Github Vector Store Update Encountered Error",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution. \nThe namespace Repository Data was not deleted so it may include recurrent data. \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nGithub Vector Store Updater Bot - n8n 🚨",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        416
+      ],
+      "id": "445e4c00-32dd-42d1-b406-a522c9f7f61f",
+      "name": "Can't Delete Namespace Repository Data",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️ Github Vector Store Update Encountered Error",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution. \nThe namespace Repository Metadata was not deleted so it may include recurrent data. \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: github\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nGithub Vector Store Updater Bot - n8n 🚨",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        416
+      ],
+      "id": "88959216-ae8a-4043-a01d-a882c2a779ec",
+      "name": "Can't Delete Namespace Repository Metadata",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -950,7 +1004,7 @@
         ],
         [
           {
-            "node": "Delete Namespace for Repository Metadata",
+            "node": "Can't Delete Namespace Repository Data",
             "type": "main",
             "index": 0
           }
@@ -968,7 +1022,7 @@
         ],
         [
           {
-            "node": "Get all my repositories",
+            "node": "Can't Delete Namespace Repository Metadata",
             "type": "main",
             "index": 0
           }
@@ -1261,11 +1315,24 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0ea0120d-c759-4b89-9d25-b9a402319d43",
+  "versionId": "ce91817e-c9df-4008-8f9c-8922157eb0c4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
   },
   "id": "oEFNjuJ4Z7kZfQf5",
-  "tags": []
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T19:53:07.647Z",
+      "updatedAt": "2025-10-06T19:53:07.647Z",
+      "id": "H9CgNjj1fwpkxyIt",
+      "name": "Deployment Ready"
+    }
+  ]
 }
