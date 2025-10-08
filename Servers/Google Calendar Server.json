@@ -3,51 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "workflowInputs": {
-          "values": [
-            {
-              "name": "Query"
-            },
-            {
-              "name": "Requestor Name"
-            },
-            {
-              "name": "Requestor Email"
-            },
-            {
-              "name": "Requestor Phone"
-            },
-            {
-              "name": "Meeting Name"
-            },
-            {
-              "name": "Meeting Agenda"
-            },
-            {
-              "name": "Meeting Start"
-            },
-            {
-              "name": "Meeting End"
-            },
-            {
-              "name": "Meeting Location"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        192,
-        -384
-      ],
-      "id": "73a3a681-9f97-4942-91c5-efc6e796f7f7",
-      "name": "When Executed by Another Workflow",
-      "retryOnFail": false,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "sendTo": "amanjn2003@gmail.com",
         "subject": "⚠️  Gmail Server Workflow Failed",
         "emailType": "text",
@@ -75,10 +30,10 @@
     },
     {
       "parameters": {
-        "sendTo": "={{ $('When Executed by Another Workflow').item.json[\"Requestor Email\"] }}",
+        "sendTo": "={{ $('Webhook').item.json.query[\"Requestor Email\"] }}",
         "subject": "Mickey, Aman's AI Assistant - Meeting Invite was Declined.",
         "emailType": "text",
-        "message": "=Hi {{ $('When Executed by Another Workflow').item.json['Requestor Name'] || \"there\"}},\n\nThank you for inviting Aman to the meeting - {{ $('When Executed by Another Workflow').item.json['Meeting Name'] }}.\nUnfortunately, Aman won’t be able to attend at the scheduled time {{ $('When Executed by Another Workflow').item.json['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm a\") }} - {{ $('When Executed by Another Workflow').item.json['Meeting End'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm a\") }}\n\nIf needed, I’ll be happy to facilitate a reschedule for another slot that works for everyone.\n\nBest regards,  \nMickey AI, on behalf of Aman",
+        "message": "=Hi {{ $('Webhook').item.json.query['Requestor Name'] || there}},\n\nThank you for inviting Aman to the meeting - {{ $('Webhook').item.json.query['Meeting Name'] }}.\nUnfortunately, Aman won’t be able to attend at the scheduled time {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} - {{ $('Webhook').item.json.query['Meeting End'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} on {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n\nIf needed, I’ll be happy to facilitate a reschedule for another slot that works for everyone.\n\nBest regards,  \nMickey AI, on behalf of Aman",
         "options": {
           "ccList": "amanjn2003@gmail.com"
         }
@@ -143,8 +98,8 @@
           "mode": "list",
           "cachedResultName": "amanjn2003@gmail.com"
         },
-        "timeMin": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Start\"] }}",
-        "timeMax": "={{ $('When Executed by Another Workflow').item.json[\"Meeting End\"] }}",
+        "timeMin": "={{ $('Webhook').item.json.query[\"Meeting Start\"] }}",
+        "timeMax": "={{ $('Webhook').item.json.query[\"Meeting End\"] }}",
         "options": {
           "outputFormat": "availability",
           "timezone": {
@@ -206,10 +161,10 @@
     },
     {
       "parameters": {
-        "sendTo": "={{ $('When Executed by Another Workflow').item.json[\"Requestor Email\"] }}",
+        "sendTo": "={{ $('Webhook').item.json.query[\"Requestor Email\"] }}",
         "subject": "Mickey, Aman's AI Assistant - Meeting Cancelled",
         "emailType": "text",
-        "message": "=Hi {{ $('When Executed by Another Workflow').item.json['Requestor Name'] || \"there\" }},\n\nThank you for inviting Aman to the meeting {{ $('When Executed by Another Workflow').item.json['Meeting Name'] }}.\nThough, Aman accepted the meeting invite, but unfortunately his calendar got booked with some another event at the scheduled time {{ $('When Executed by Another Workflow').item.json['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm a\") }} - {{ $('When Executed by Another Workflow').item.json['Meeting End'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm a\") }}\n\n\nIf needed, I’ll be happy to facilitate a reschedule for another slot that works for everyone.\n\nBest regards,  \nMickey AI, on behalf of Aman",
+        "message": "=Hi {{ $('Webhook').item.json.query['Requestor Name'] || there}},\n\nThank you for inviting Aman to the meeting {{ $('Webhook').item.json.query['Meeting Name'] }}.\nThough, Aman accepted the meeting invite, but unfortunately his calendar got booked with some another event at the scheduled time {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} - {{ $('Webhook').item.json.query['Meeting End'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} on {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n\n\nIf needed, I’ll be happy to facilitate a reschedule for another slot that works for everyone.\n\nBest regards,  \nMickey AI, on behalf of Aman",
         "options": {
           "ccList": "amanjn2003@gmail.com"
         }
@@ -239,16 +194,16 @@
           "mode": "list",
           "cachedResultName": "amanjn2003@gmail.com"
         },
-        "start": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Start\"] }}",
-        "end": "={{ $('When Executed by Another Workflow').item.json[\"Meeting End\"]}}",
+        "start": "={{ $('Webhook').item.json.query[\"Meeting Start\"] }}",
+        "end": "={{ $('Webhook').item.json.query[\"Meeting End\"] }}",
         "additionalFields": {
           "attendees": [
             "amanjn2003@gmail.com",
-            "={{ $('When Executed by Another Workflow').item.json[\"Requestor Email\"] }}"
+            "={{ $('Webhook').item.json.query[\"Requestor Email\"] }}"
           ],
-          "description": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Agenda\"] }}",
-          "location": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Location\"] }}",
-          "summary": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Name\"] }}"
+          "description": "={{ $('Webhook').item.json.query[\"Meeting Agenda\"] }}",
+          "location": "={{ $('Webhook').item.json.query[\"Meeting Location\"] }}",
+          "summary": "={{ $('Webhook').item.json.query[\"Meeting Name\"] }}"
         }
       },
       "type": "n8n-nodes-base.googleCalendar",
@@ -268,10 +223,10 @@
     },
     {
       "parameters": {
-        "sendTo": "={{ $('When Executed by Another Workflow').item.json[\"Requestor Email\"] }}",
+        "sendTo": "={{ $('Webhook').item.json.query[\"Requestor Email\"] }}",
         "subject": "Mickey, Aman's AI Assistant - Meeting Scheduled",
         "emailType": "text",
-        "message": "=Hi {{ $('When Executed by Another Workflow').item.json['Requestor Name'] ||\"there\"}},\n\nThank you for inviting Aman to the meeting {{ $('When Executed by Another Workflow').item.json['Meeting Name'] }}.\nAman has accepted the meeting invite and is really excited for meeting you at {{ $('When Executed by Another Workflow').item.json['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} on {{ $('When Executed by Another Workflow').item.json['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy\") }}\n\n\nBest regards,  \nMickey AI, on behalf of Aman",
+        "message": "=Hi {{ $('Webhook').item.json.query['Requestor Name'] || there}},\n\nThank you for inviting Aman to the meeting {{ $('Webhook').item.json.query['Meeting Name'] }}.\nAman has accepted the meeting invite and is really excited for meeting you at {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"hh:mm a\") }} on {{ $('Webhook').item.json.query['Meeting Start'].toDateTime().setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n\n\nBest regards,  \nMickey AI, on behalf of Aman",
         "options": {
           "ccList": "amanjn2003@gmail.com"
         }
@@ -379,10 +334,15 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "Query": "={{ $json.Query }}",
-            "Requestor Name": "={{ $json[\"Requestor Name\"] }}",
-            "Requestor Email": "={{ $json[\"Requestor Email\"] }}",
-            "Requestor Phone": "={{ $json[\"Requestor Phone\"] }}"
+            "Query": "={{ $json.query.Query }}",
+            "Requestor Name": "={{ $json.query[\"Requestor Name\"] }}",
+            "Requestor Email": "={{ $json.query[\"Requestor Email\"] }}",
+            "Requestor Phone": "={{ $json.query[\"Requestor Phone\"] }}",
+            "Meeting Name": "={{ $json.query[\"Meeting Name\"] }}",
+            "Meeting Agenda": "={{ $json.query[\"Meeting Agenda\"] }}",
+            "Meeting Start": "={{ $json.query[\"Meeting Start\"] }}",
+            "Meeting End": "={{ $json.query[\"Meeting End\"] }}",
+            "Meeting Location": "={{ $json.query[\"Meeting Location\"] }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -425,6 +385,56 @@
               "canBeUsedToMatch": true,
               "type": "string",
               "removed": false
+            },
+            {
+              "id": "Meeting Name",
+              "displayName": "Meeting Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Agenda",
+              "displayName": "Meeting Agenda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Start",
+              "displayName": "Meeting Start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting End",
+              "displayName": "Meeting End",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Location",
+              "displayName": "Meeting Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
             }
           ],
           "attemptToConvertTypes": false,
@@ -440,28 +450,63 @@
       ],
       "id": "de750dff-d864-4ebd-b1d4-0d6d8d8c5c9d",
       "name": "Call 'Email Creation Server'"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        96,
+        -416
+      ],
+      "id": "503b8f15-446f-477a-84ce-92ec8525021f",
+      "name": "Webhook",
+      "webhookId": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.srv1046076.hstgr.cloud",
+            "user-agent": "axios/1.12.0",
+            "content-length": "0",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.srv1046076.hstgr.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "c70f14ef469b",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {
+            "Query": "John wants to discuss about some New Grad roles with Aman.",
+            "Requestor Name": "John Doe",
+            "Requestor Email": "johndo@google.com",
+            "Requestor Phone": "4253806319",
+            "Meeting Name": "Recruiter Call",
+            "Meeting Agenda": "Discuss about new grad roles at Google",
+            "Meeting Start": "2025-10-09T16:00:00-07:00",
+            "Meeting End": "2025-10-09T17:00:00-07:00",
+            "Meeting Location": "Google Meet"
+          },
+          "body": {},
+          "webhookUrl": "https://n8n.srv1046076.hstgr.cloud/webhook/9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "connections": {
-    "When Executed by Another Workflow": {
-      "main": [
-        [
-          {
-            "node": "Call 'Email Creation Server'",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Gmail Server Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Decline Meeting Request": {
       "main": [
         [],
@@ -570,13 +615,31 @@
           }
         ]
       ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Call 'Email Creation Server'",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail Server Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "468356c7-509d-452c-8bf1-16e6d1c59aa8",
+  "versionId": "d10768ee-fd3b-4d62-9dae-b2c3f9f09e09",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
@@ -590,10 +653,10 @@
       "name": "Completed Development"
     },
     {
-      "createdAt": "2025-10-06T18:14:00.507Z",
-      "updatedAt": "2025-10-06T18:14:00.507Z",
-      "id": "iXNmYk0gGCWhhLwZ",
-      "name": "Under Testing"
+      "createdAt": "2025-10-06T18:12:24.605Z",
+      "updatedAt": "2025-10-06T18:12:24.605Z",
+      "id": "G74D4ZpdRxF4NP7l",
+      "name": "Deployed"
     }
   ]
 }

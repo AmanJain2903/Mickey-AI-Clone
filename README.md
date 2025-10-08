@@ -1,6 +1,21 @@
 # Mickey AI Clone 🤖
 
-> **An intelligent AI assistant that serves as Aman's digital clone, capable of answering queries about his portfolio, projects, and professional profile using advanced RAG (Retrieval Augmented Generation) technology with enhanced calendar and communication capabilities.**
+> **An intelligent AI assistant that serves as Aman's digital clone, capable of answering queries about his portfolio, projects, and professional profile### 📅 **NEW: Calendar & - **🗞️ Professional Boundaries & Data Management**
+- **Scope Enforcement**: Strict adherence to professional query handling with enhanced capabilities
+- **Contact Requirements**: Mandatory name and email verification for communication features
+- **Working Hours Validation**: Business hours enforcement (8AM-8PM PT) with appropriate messaging
+- **Data Freshness**: Automated monthly GitHub updates, weekly portfolio updates
+- **Lead Tracking**: Automatic lead capture and Google Sheets integration
+- **Notification System**: Comprehensive email alerts for updates, errors, and interactions
+- **Meeting Data Security**: Secure handling of meeting details and attendee informationg Management**
+- **Real-time Availability**: Direct Google Calendar integration for live availability checking
+- **Smart Scheduling**: Automated meeting coordination with professional communication
+- **Timezone Awareness**: America/Los_Angeles timezone with proper time formatting
+- **Meeting Lifecycle**: Complete meeting invitation, acceptance, and decline workflow
+- **Professional Communication**: Automated email responses for meeting requests
+- **Working Hours Compliance**: 8AM-8PM Pacific Time business hours enforcement
+- **Meeting Data Handling**: Comprehensive support for meeting name, agenda, location, and attendee management
+- **HTTP Webhook Integration**: Streamlined meeting request processing through webhook endpoints advanced RAG (Retrieval Augmented Generation) technology with enhanced calendar and communication capabilities.**
 
 ## 🎯 Overview
 
@@ -12,19 +27,24 @@ The Mickey AI Clone follows a **supervisor-agent architecture** with intelligent
 
 ```
 User Query → Mickey (Supervisor) → Query Classification → Specialized Agent/Service → Contextual Response
-                                  ↓
-                            Calendar Integration ← → Email Communication
+                ↓                                           ↓
+         Public Webhook                             HTTP Webhook Integration
+                ↓                                           ↓
+       Chat Interface                        Meeting Scheduling System
+                ↓                                           ↓
+        Calendar Integration ←────────→ Email Communication Suite
 ```
 
 ### Core Components
 
-1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar and communication management
+1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar and communication management, featuring public webhook access
 2. **Recruiter Agent** - Handles HR/recruitment-focused queries using Portfolio Vector Storage
 3. **Developer Agent** - Manages technical queries using GitHub Vector Storage with complete codebase access
 4. **Calendar Integration** - Real-time Google Calendar availability checking and meeting coordination
 5. **Email Communication Suite** - Automated email creation, sending, and meeting management
-6. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
-7. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
+6. **Meeting Coordination System** - HTTP webhook-based meeting scheduling with complete lifecycle management
+7. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
+8. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
 
 ## 🆕 **Latest Updates - Enhanced Communication & Calendar Features**
 
@@ -33,17 +53,20 @@ Mickey AI Clone has been significantly enhanced with professional communication 
 ### **🔥 Major New Features:**
 - **📅 Real-time Calendar Integration**: Direct Google Calendar access for instant availability checking
 - **📧 Professional Email System**: AI-powered email creation and automated sending
-- **🤝 Meeting Coordination**: Complete meeting scheduling workflow from invitation to acceptance
-- **⚡ Enhanced Routing**: 4-tool system (up from 2) with calendar and communication capabilities
-- **🎯 Smart Query Classification**: Expanded to handle availability and communication requests
+- **🤝 Complete Meeting Coordination**: Full meeting scheduling workflow with HTTP webhook integration
+- **⚡ Enhanced Routing**: 5-tool system with comprehensive calendar and communication capabilities
+- **🎯 Smart Query Classification**: Expanded to handle availability, communication, and meeting requests
 - **🔧 Improved Temperature Control**: 0.6 setting for balanced creativity and accuracy
+- **🕐 Working Hours Integration**: 8AM-8PM Pacific Time availability enforcement
 
 ### **💡 What's New:**
-- **Email Creation Server**: Dedicated AI service for professional email generation
-- **Google Calendar Server**: Comprehensive meeting management and scheduling
+- **Email Creation Server**: Dedicated AI service for professional email generation with meeting support
+- **Google Calendar Server**: HTTP webhook-based meeting management and scheduling system
 - **Enhanced Gmail Integration**: Improved error handling and notification systems
+- **Meeting Data Flow**: Comprehensive meeting information handling (name, agenda, start/end times, location)
 - **Contact Verification**: Mandatory requestor information for communication features
 - **Timezone Management**: Proper America/Los_Angeles timezone handling throughout
+- **Working Hours Validation**: Business hours (8AM-8PM PT) enforcement and communication
 
 ## 🧠 Intelligence Layer
 
@@ -77,8 +100,9 @@ Mickey automatically classifies incoming queries into multiple categories with e
   - "Is Aman available next Tuesday afternoon?"
   - "Can we schedule a meeting with Aman?"
   - "What's his availability this week?"
+  - "Can we meet at 10 PM tonight?" (Working hours validation)
 - **Handler**: Google Calendar integration with real-time availability checking
-- **Features**: 1-hour availability windows, America/Los_Angeles timezone, meeting coordination
+- **Features**: 1-hour availability windows, America/Los_Angeles timezone, meeting coordination, business hours enforcement (8AM-8PM PT)
 
 #### 📧 **Communication & Notification Requests**
 - **NEW FEATURE**: Requests to send messages, notifications, or meeting invites to Aman
@@ -86,9 +110,10 @@ Mickey automatically classifies incoming queries into multiple categories with e
   - "Can you let Aman know about this opportunity?"
   - "Please send him my contact information"
   - "Schedule a meeting about the project discussion"
-- **Handler**: Gmail Server with automated professional communication
+  - "Set up a call for tomorrow at 3 PM"
+- **Handler**: Gmail Server with automated professional communication and HTTP webhook meeting scheduling
 - **Requirements**: Requestor name and email verification before sending
-- **Features**: Structured email generation, meeting invites, professional formatting
+- **Features**: Structured email generation, meeting invites, professional formatting, working hours validation
 
 #### ❌ **Unrelated Query**
 - **Triggers**: Questions outside Aman's professional scope
@@ -128,7 +153,7 @@ Mickey automatically classifies incoming queries into multiple categories with e
 
 ```
 Mickey-AI-Clone/
-├── Mickey AI Clone.json                              # Main supervisor workflow (GPT-4 Mini + enhanced routing)
+├── Mickey AI Clone.json                              # Main supervisor workflow (GPT-4 Mini + 5-tool enhanced routing)
 ├── README.md                                         # Project documentation
 ├── Agents/
 │   ├── Developer Agent.json                         # Technical query handler
@@ -140,9 +165,9 @@ Mickey-AI-Clone/
 │   ├── GitHub Vector Store Updater.json             # Monthly automated GitHub data refresh
 │   └── Portfolio Data Vector Store Updater.json     # Weekly automated portfolio data refresh
 └── Servers/
-    ├── Email Creation Server.json                   # NEW: Automated email generation service
+    ├── Email Creation Server.json                   # AI-powered email generation with meeting support
     ├── Gmail Server.json                            # Email sending and notification system
-    ├── Google Calendar Server.json                  # NEW: Meeting scheduling and calendar management
+    ├── Google Calendar Server.json                  # HTTP webhook-based meeting scheduling and calendar management
     └── Google Sheets Server.json                    # Lead generation and tracking
 ```
 
@@ -151,6 +176,7 @@ Mickey-AI-Clone/
 ### 🎭 **Intelligent Persona Management**
 - **Consistent Personality**: Acts as Aman's digital clone with professional, convincing tone
 - **Context-Aware Responses**: Maintains conversation history with 20-message buffer
+- **Public Accessibility**: Available through public webhook for real-time interactions
 - **Role-Specific Communication**: 
   - Professional and convincing tone for recruiters
   - Technical and detailed responses for developers
@@ -178,12 +204,14 @@ Mickey-AI-Clone/
 - **Professional Communication**: Automated email responses for meeting requests
 
 ### 📧 **Enhanced Email Communication System**
-- **Intelligent Email Creation**: AI-powered email generation with proper formatting
+- **Intelligent Email Creation**: AI-powered email generation with proper formatting and meeting context
 - **Professional Templates**: Time-based greetings and structured professional communication
 - **Third-party Communication**: Emails sent as Mickey on behalf of requestors
+- **Meeting Integration**: Complete meeting information inclusion in email communications
 - **Contact Verification**: Email format validation and required requestor information
 - **Error Handling**: Automated failure notifications and retry mechanisms
-- **Meeting Integration**: Calendar invite generation and meeting-specific communications
+- **Meeting Coordination**: Calendar invite generation and meeting-specific communications
+- **Business Hours Awareness**: Working hours validation and appropriate messaging
 
 ### �🔒 **Professional Boundaries & Data Management**
 - **Scope Enforcement**: Strict adherence to professional query handling with enhanced capabilities
@@ -247,15 +275,18 @@ Mickey-AI-Clone/
 - **Top-K Retrieval**: 5 most relevant results per query
 
 #### Supervisor Agent Configuration
-- **Enhanced System Prompt**: Now includes 4 available tools (up from 2)
+- **Enhanced System Prompt**: Now includes 5 available tools with complete communication suite
   1. Call 'Recruiter Agent'
   2. Call 'Developer Agent'  
-  3. **NEW**: Get availability in Google Calendar
-  4. **NEW**: Call 'Gmail Server'
+  3. **Get availability in Google Calendar** - Real-time calendar checking
+  4. **Call 'Gmail Server'** - Professional email communication
+  5. **Call 'Google Calendar Server'** - Meeting scheduling and coordination
 - **Temperature Setting**: 0.6 for balanced creativity and accuracy
 - **Calendar Integration**: Real-time availability checking with 1-hour duration windows
+- **Meeting Scheduling**: Complete meeting invite and scheduling workflow
 - **Email Requirements**: Mandatory requestor name and email verification
 - **Timezone Awareness**: America/Los_Angeles timezone for all calendar operations
+- **Working Hours**: 8AM to 8PM Pacific Time enforcement
 
 #### Agent Configurations
 - **Recruiter Agent**: GPT-4 Mini optimized for professional, convincing responses
@@ -263,11 +294,13 @@ Mickey-AI-Clone/
 - **Memory Management**: 20-message conversation window for context retention
 
 #### Communication & Calendar Services
-- **Email Creation Server**: AI-powered email generation with professional templates
+- **Email Creation Server**: AI-powered email generation with professional templates and meeting support
 - **Gmail Server**: Automated email sending with error handling and notifications
-- **Google Calendar Server**: Meeting scheduling, invite generation, and availability management
+- **Google Calendar Server**: HTTP webhook-based meeting scheduling with complete lifecycle management
 - **Calendar Integration**: Direct Google Calendar API integration with real-time data
-- **Meeting Workflow**: Complete meeting lifecycle from invitation to acceptance/decline
+- **Meeting Workflow**: Complete meeting lifecycle from invitation to acceptance/decline with automated communications
+- **Working Hours Enforcement**: Business hours validation (8AM-8PM Pacific Time)
+- **Meeting Data Management**: Comprehensive handling of meeting details (name, agenda, time, location, attendees)
 
 ## 🎯 Getting Started
 
