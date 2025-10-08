@@ -22,7 +22,9 @@
           "mode": "list",
           "value": "gpt-4.1-mini"
         },
-        "options": {}
+        "options": {
+          "temperature": 0.6
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -55,7 +57,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=# Role\nYou are Mickey, Aman's AI Clone & Assistant. You are here specificaly to talk to people and answer their queries regarding Aman, his portfolio, his profile & his projects.\n\n# Tools\nYou have access to the following tools, services & workflows. \n1. **Call 'Recruiter Agent'**\n2. **Call 'Developer Agent'**\n\n# Instructions\n  - First you must classify all user queries into 3 classes.\n    - **Asked By A Recruiter** - If you identify the user is        asking something about Aman's profile & portfolio. For        example work experience, education, skills and also           projects but not in so much technical depth. Also if          they seems to you to be hiring or having an opportunity       for Aman.\n    - **Asked By A Developer** - If you identify that the           user is asking about Aman's projects, specifically in         more technical aspects and more code related. Also            catch technical keywords for identifying such users.\n    - **Unrelated Query** - If the query user is asking about       is really not related to Aman, his profile & portfolio        or you are unable to find the answers for them using          any or all of the tools or the query does not aligns          with your role. \n  - If the user query was classified as **Asked By A              Recruiter** - use the **Call 'Recruiter Agent'** to           answer the query. \n  - If the user query was classified as **Asked By A              Developer** - use the **Call 'Developer Agent'** to           answer the query. \n  - If the user query was classified as **Unrelated Query** -     politely deny the user's request and remind them of your      role again. \n\n# Important\n  - Only use the tools to answer all the user queries. If you     are unable to answer the user or perform the required         task, simply deny the user's request. \n\n\n"
+          "systemMessage": "=# Role\nYou are Mickey, Aman's AI Clone & Assistant. You are here specificaly to talk to people and answer their queries regarding Aman, his portfolio, his profile & his projects.\n\n# Tools\nYou have access to the following tools, services & workflows. \n1. **Call 'Recruiter Agent'**\n2. **Call 'Developer Agent'**\n3. **Get availability in a calendar in Google Calendar**\n4. **Call 'Gmail Server'**\n\n# Instructions\n  - First you must classify all user queries into 3 classes.\n    - **Asked By A Recruiter** - If you identify the user is asking something about Aman's profile & portfolio. For example work experience, education, skills and also projects but not in so much technical depth. Also if they seems to you to be hiring or having an opportunity for Aman.\n    - **Asked By A Developer** - If you identify that the user is asking about Aman's projects, specifically in more technical aspects and more code related. Also catch technical keywords for identifying such users.\n    - **Unrelated Query** - If the query user is asking about is really not related to Aman, his profile & portfolio or you are unable to find the answers for them using any or all of the tools or the query does not aligns with your role. \n\n  - If the user query was classified as **Asked By A Recruiter** - use the **Call 'Recruiter Agent'** to answer the query. \n\n  - If the user query was classified as **Asked By A Developer** - use the **Call 'Developer Agent'** to answer the query. \n\n  - If the user query was classified as **Unrelated Query** - politely deny the user's request and remind them of your role again. \n\n  - If the user asks about Aman's availability for a meeting or a call or anything else, use the **Get availability in a calendar in Google Calendar** to answer him. Also use this time as the current time reference - {{ $now.setZone('America/Los_Angeles') }}. Keep the duration you will check for as 1 hour.\n\n  - If the user wants to message or notify Aman about about something, first ask him if he wants you to send him an email. If he agrees use the **Call 'Gmail Server'** tool to send emails to Aman. The tool expects you to pass the following details. \n    - Query: What is the message or the notification user wants to give Aman.\n    - Requestor Name: Name of the Requestor\n    - Requestor Email: Email ID of the Requestor (Verify the email format)\n    - Requestor Phone: Phone number of the Requestor (Not Required, Optional Field)\n\n# Important\n  - Only use the tools to answer all the user queries. If you are unable to answer the user or perform the required task, simply deny the user's request. \n  - Never use the **Call 'Gmail Server'** tool without having User's Name and Email. \n  - Never use the **Get availability in a calendar in Google Calendar** tool without knowing why the user wants to know."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -167,6 +169,315 @@
       ],
       "id": "ba2eb821-0a43-4680-b9e9-1e9798ec8abb",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to send mails to Aman on someone's behalf. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "3V6okPNG2j9sG51q",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/3V6okPNG2j9sG51q",
+          "cachedResultName": "Gmail Server"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}",
+            "Requestor Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Name', ``, 'string') }}",
+            "Requestor Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Email', ``, 'string') }}",
+            "Requestor Phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Phone', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Query",
+              "displayName": "Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Name",
+              "displayName": "Requestor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Email",
+              "displayName": "Requestor Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Phone",
+              "displayName": "Requestor Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        -192
+      ],
+      "id": "b98d193d-70ee-4743-9453-77329420faf8",
+      "name": "Call 'Gmail Server'"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "amanjn2003@gmail.com",
+          "mode": "list",
+          "cachedResultName": "amanjn2003@gmail.com"
+        },
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "options": {
+          "timezone": {
+            "__rl": true,
+            "value": "America/Los_Angeles",
+            "mode": "list",
+            "cachedResultName": "America/Los_Angeles"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        656,
+        16
+      ],
+      "id": "516a24c8-5099-4513-922f-da8ece65ceb4",
+      "name": "Get availability in a calendar in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "1DIVf8SsiUtRfGc5",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Call this tool when you need to schedule meetings and call with Aman. This sends Meeting Invites to Aman and notifies user if he accepts or rejects the request later. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "uWN8RMLATFrUNwaj",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/uWN8RMLATFrUNwaj",
+          "cachedResultName": "Google Calendar Server"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}",
+            "Requestor Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Name', ``, 'string') }}",
+            "Requestor Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Email', ``, 'string') }}",
+            "Requestor Phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Requestor_Phone', ``, 'string') }}",
+            "Meeting Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Name', ``, 'string') }}",
+            "Meeting Agenda": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Agenda', ``, 'string') }}",
+            "Meeting Start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Start', ``, 'string') }}",
+            "Meeting End": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_End', ``, 'string') }}",
+            "Meeting Location": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Location', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Query",
+              "displayName": "Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Name",
+              "displayName": "Requestor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Email",
+              "displayName": "Requestor Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Phone",
+              "displayName": "Requestor Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Name",
+              "displayName": "Meeting Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Agenda",
+              "displayName": "Meeting Agenda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Start",
+              "displayName": "Meeting Start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting End",
+              "displayName": "Meeting End",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Meeting Location",
+              "displayName": "Meeting Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        -192
+      ],
+      "id": "a0c6980c-c01f-4d74-b0a8-8c7cabe6b647",
+      "name": "Call 'Google Calendar Server'"
+    },
+    {
+      "parameters": {
+        "content": "## I'm a Google Calendar Server\n\nHi I have not been tested and added in the Mickey's prompt yet.",
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -432
+      ],
+      "id": "d06c15f8-d8fc-4971-ba60-34cfb42a9fe7",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool when a lead is suspected and it is to be added in the Google Sheets for future refernece.",
+        "workflowId": {
+          "__rl": true,
+          "value": "AVOyHGxl4SYih3FR",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/AVOyHGxl4SYih3FR",
+          "cachedResultName": "Google Sheets Server"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Query"
+          ],
+          "schema": [
+            {
+              "id": "Query",
+              "displayName": "Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        -192
+      ],
+      "id": "7b2c37e0-f65d-4914-ae09-689016a61ad5",
+      "name": "Call 'Google Sheets Server'"
+    },
+    {
+      "parameters": {
+        "content": "## I'm a Google Sheets Server\n\nHi I have not been tested and added in the Mickey's prompt yet.",
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        880,
+        -208
+      ],
+      "id": "3d9475e0-3fbd-4559-a847-1d0bf80ce228",
+      "name": "Sticky Note2"
     }
   ],
   "pinData": {},
@@ -230,13 +541,57 @@
           }
         ]
       ]
+    },
+    "Call 'Gmail Server'": {
+      "ai_tool": [
+        [
+          {
+            "node": "Mickey AI Clone",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get availability in a calendar in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "Mickey AI Clone",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Google Calendar Server'": {
+      "ai_tool": [
+        [
+          {
+            "node": "Mickey AI Clone",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Google Sheets Server'": {
+      "ai_tool": [
+        [
+          {
+            "node": "Mickey AI Clone",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "43e294f8-987c-47f8-a9a1-8ab35a85d9bf",
+  "versionId": "d1bc13fb-e643-4f23-9050-cb51f7afea90",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
@@ -248,6 +603,12 @@
       "updatedAt": "2025-10-06T18:12:08.518Z",
       "id": "Dy1A2tuIrl3MYdfv",
       "name": "Under Development"
+    },
+    {
+      "createdAt": "2025-10-06T18:14:00.507Z",
+      "updatedAt": "2025-10-06T18:14:00.507Z",
+      "id": "iXNmYk0gGCWhhLwZ",
+      "name": "Under Testing"
     }
   ]
 }

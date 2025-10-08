@@ -23,24 +23,6 @@
     },
     {
       "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.Query }}",
-        "hasOutputParser": true,
-        "options": {
-          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.Query }}, extract the name, email, phone, organization, designation and intent of the lead. \n\n"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        688,
-        -320
-      ],
-      "id": "71b13340-f428-4db5-bf30-d9bc6be23422",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
         "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
@@ -193,12 +175,15 @@
       ],
       "id": "6b0aaa6d-427b-4dc6-87c7-b93c27d33f9f",
       "name": "Append row in sheet",
+      "executeOnce": true,
+      "retryOnFail": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "rMYZebLCfIpWCqHZ",
           "name": "Google Sheets account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -240,8 +225,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1296,
-        -320
+        1344,
+        -432
       ],
       "id": "e333e8af-969c-446b-bf70-8ebf4980046a",
       "name": "Leads Success",
@@ -263,11 +248,56 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1040,
-        -80
+        944,
+        48
       ],
       "id": "b70c2a5a-d32c-427a-8f04-4757737a67be",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.Query }}, extract the name, email, phone, organization, designation and intent of the lead. \n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        -320
+      ],
+      "id": "71b13340-f428-4db5-bf30-d9bc6be23422",
+      "name": "Lead Generator"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Google Sheets API Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was a lead generation attempt made and it failed unexpectedly due to the failure in Google Sheets API. \n\nDo visit the n8n workflow once to examine the issue. \nWorkflow: {{ $workflow.id }}\nExecution: {{ $execution.id }}\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1344,
+        -192
+      ],
+      "id": "10230eb2-2082-491f-b47e-66bc77f1e270",
+      "name": "Google Sheets API Error",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -276,7 +306,7 @@
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Lead Generator",
             "type": "main",
             "index": 0
           }
@@ -294,7 +324,7 @@
       "ai_outputParser": [
         [
           {
-            "node": "AI Agent",
+            "node": "Lead Generator",
             "type": "ai_outputParser",
             "index": 0
           }
@@ -305,19 +335,8 @@
       "ai_languageModel": [
         [
           {
-            "node": "AI Agent",
+            "node": "Lead Generator",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "Append row in sheet",
-            "type": "main",
             "index": 0
           }
         ]
@@ -331,6 +350,24 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Google Sheets API Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Generator": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     }
@@ -339,11 +376,24 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7e1777bf-a77d-4367-bf2d-fc005def2a26",
+  "versionId": "7f1e0553-dac0-4678-a9bd-b7427db7abf4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
   },
   "id": "AVOyHGxl4SYih3FR",
-  "tags": []
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T18:14:00.507Z",
+      "updatedAt": "2025-10-06T18:14:00.507Z",
+      "id": "iXNmYk0gGCWhhLwZ",
+      "name": "Under Testing"
+    }
+  ]
 }

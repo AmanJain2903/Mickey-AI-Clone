@@ -1,5 +1,5 @@
 {
-  "name": "Gmail & Calendar Server",
+  "name": "Google Calendar Server",
   "nodes": [
     {
       "parameters": {
@@ -9,14 +9,13 @@
               "name": "Query"
             },
             {
-              "name": "Meeting Request",
-              "type": "boolean"
-            },
-            {
               "name": "Requestor Name"
             },
             {
               "name": "Requestor Email"
+            },
+            {
+              "name": "Requestor Phone"
             },
             {
               "name": "Meeting Name"
@@ -39,117 +38,13 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -208,
-        -16
+        192,
+        -384
       ],
-      "id": "e1a58046-770d-48f6-b68d-bdd368fae02c",
+      "id": "73a3a681-9f97-4942-91c5-efc6e796f7f7",
       "name": "When Executed by Another Workflow",
       "retryOnFail": false,
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "mode": "list",
-          "value": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        48,
-        -208
-      ],
-      "id": "3c5bf1b3-0f3f-47e9-8790-981857f23cc3",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.Query }}",
-        "hasOutputParser": true,
-        "options": {
-          "systemMessage": "=# Role\nYou are Aman's AI Clone - Mickey's Personal Assistant for handling Emails. \n\n# Instructions\nBased on the {{ $json.Query }} recieved, you craft email subject and email body which can be sent to notify Aman. \n\n# Rules\n1. Emails will be sent as and by Mickey and in third person. For example, if the request is John asking Aman for a time to meet. Then you must mail something like, \"John want's a meeting at 6PM tomorrow, would you be willing to take that up?\"\n2. Email subject will always start as \"Mickey AI Clone - Then the actual subject\"\n3. For email body, always format the email and make it structured. Leave line spaces as well to make it look nicely formatted. \n4. Always start with a greeting to Aman. Greeting will be time based. For example Good Morning, Good Evening, Hello, etc. Use {{ $now.setZone(\"America/Los_Angeles\") }} for getting the current time. And obviously, do not greet with goodbye greetings like Good Day, Good Night, etc.\n5. Sign off the email if details of requestor are available. Add all the details you have about the actual email requestor. \n6. Always end the email with ending regards and always as Mickey, on behalf of the actual requestor. \n6. At the end of the email leave 2 lines and Add a line \"Sent automatically through Mickey - Clone AI\".\n\n\n\n\n"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        128,
-        -416
-      ],
-      "id": "bf7bc7e7-02d7-4cd3-b8e7-4de85ebefea0",
-      "name": "Email Subject & Body"
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n\t\"subject\": \"MickeyCloneAI - Requesting Meeting at 6PM Tomorrow.\",\n\t\"body\": \"Hi Aman,\\n\\nI hope you're doing well. This is MickeyCloneAI reaching out to confirm a meeting request for tomorrow at 6 PM.\\n\\nThe purpose of the meeting is to discuss the latest updates on the AI agent’s integration progress, review current challenges, and align on the next development milestones.\\n\\nPlease let me know if this time works for you or if you'd prefer a different slot. Once confirmed, I’ll send a calendar invite with the meeting link.\\n\\nLooking forward to your response.\\n\\nBest regards,\\nMickeyCloneAI\\nAI Development Assistant\"\n}",
-        "autoFix": true
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        272,
-        -208
-      ],
-      "id": "d4ee1762-36c1-4605-afb5-c3348cd0f4b7",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "mode": "list",
-          "value": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        336,
-        -64
-      ],
-      "id": "176975da-4ed0-49c4-98e7-19d2e8adcdc4",
-      "name": "OpenAI Chat Model1",
-      "credentials": {
-        "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "sendTo": "amanjn2003@gmail.com",
-        "subject": "={{ $json.output.subject }}",
-        "emailType": "text",
-        "message": "={{ $json.output.body }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 2.1,
-      "position": [
-        688,
-        -288
-      ],
-      "id": "3dc5836d-d3cd-4730-ad3f-014218fdc61c",
-      "name": "Send a message",
-      "webhookId": "ad48c8c9-4056-4064-9318-591290abd32f",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
-        }
-      }
     },
     {
       "parameters": {
@@ -164,12 +59,12 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        64,
-        0
+        464,
+        -208
       ],
-      "id": "e7cd0ce1-dae9-4754-a73a-a973a134059b",
+      "id": "01752be4-d279-4113-90f9-cce5b40275d2",
       "name": "Gmail Server Error",
-      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "webhookId": "843b59e1-b417-4d06-8baa-43714b845aac",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
@@ -194,9 +89,9 @@
         1104,
         -448
       ],
-      "id": "3e61d6d3-a422-4224-8263-59bb10056f42",
+      "id": "8e923e53-cc60-4b1e-ab16-86944b2a2cfd",
       "name": "Decline Meeting Request",
-      "webhookId": "e67e0994-e733-4c03-8e18-3c7fc410eebb",
+      "webhookId": "b3b46f2c-a504-41de-bf4a-65a31d765678",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
@@ -236,7 +131,7 @@
         896,
         -560
       ],
-      "id": "28315c0f-d2e6-443f-8efe-cf988d11cb1e",
+      "id": "427167dd-ae6d-4529-89bb-a338e1417d14",
       "name": "If accepted"
     },
     {
@@ -251,7 +146,13 @@
         "timeMin": "={{ $('When Executed by Another Workflow').item.json[\"Meeting Start\"] }}",
         "timeMax": "={{ $('When Executed by Another Workflow').item.json[\"Meeting End\"] }}",
         "options": {
-          "outputFormat": "availability"
+          "outputFormat": "availability",
+          "timezone": {
+            "__rl": true,
+            "value": "America/Los_Angeles",
+            "mode": "list",
+            "cachedResultName": "America/Los_Angeles"
+          }
         }
       },
       "type": "n8n-nodes-base.googleCalendar",
@@ -260,7 +161,7 @@
         1104,
         -672
       ],
-      "id": "cf3b3215-8cc8-4164-b556-d2d1aaee8396",
+      "id": "4c584e01-022d-429d-b6fb-d9373c2f4e47",
       "name": "Get availability in a calendar",
       "credentials": {
         "googleCalendarOAuth2Api": {
@@ -268,40 +169,6 @@
           "name": "Google Calendar account"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "f7078569-0921-4932-a856-37175eaf643d",
-              "leftValue": "={{ $('When Executed by Another Workflow').item.json['Meeting Request'] }}",
-              "rightValue": "Yes",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        480,
-        -416
-      ],
-      "id": "0885c53a-05d1-4290-a328-0201b3d9cf2b",
-      "name": "Meeting Request"
     },
     {
       "parameters": {
@@ -334,7 +201,7 @@
         1312,
         -672
       ],
-      "id": "378e6edd-eb96-4d9b-9785-6899a8aa19f3",
+      "id": "0a12b166-d6c1-44a3-98bc-b121159f7585",
       "name": "If available"
     },
     {
@@ -353,9 +220,9 @@
         1504,
         -496
       ],
-      "id": "f82b86d0-d3e0-437a-92da-51cb24edb613",
+      "id": "fceee4a1-6e07-4d86-847c-639d7d638fd6",
       "name": "Calendar Got Booked",
-      "webhookId": "e67e0994-e733-4c03-8e18-3c7fc410eebb",
+      "webhookId": "e608a83a-50f9-41ba-afbe-3497d64c9eaa",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
@@ -390,7 +257,7 @@
         1504,
         -848
       ],
-      "id": "cb0a6e09-274d-4a8e-a60c-f9929691d396",
+      "id": "ee7d4286-f751-45a9-a627-de46109e3b98",
       "name": "Create an event",
       "credentials": {
         "googleCalendarOAuth2Api": {
@@ -415,9 +282,9 @@
         1728,
         -848
       ],
-      "id": "1b2c0078-9fe2-40ff-82a8-14ce24bfa5ae",
+      "id": "61d57a2c-3588-4e75-8d20-74530c096b5d",
       "name": "Meeting Scheduled",
-      "webhookId": "e67e0994-e733-4c03-8e18-3c7fc410eebb",
+      "webhookId": "584ba627-48f4-4c6b-bf72-0b4906d97b7a",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
@@ -445,7 +312,7 @@
         2000,
         -832
       ],
-      "id": "85813e9f-8cf0-4ef2-9f4b-82f6e6da9ab7",
+      "id": "f3786c0b-be18-4fb0-9e48-eeab96828533",
       "name": "Delete an event",
       "credentials": {
         "googleCalendarOAuth2Api": {
@@ -475,9 +342,9 @@
         688,
         -560
       ],
-      "id": "1d7fed58-04e4-45a1-92a2-9b80fa87e261",
+      "id": "1b1566cb-db9c-4221-a116-f4acbacc2471",
       "name": "Send Meeting Invite",
-      "webhookId": "2f56b9e0-5ef8-410d-9671-8ea758ade664",
+      "webhookId": "2f607306-8442-4650-bc2f-f3c5ec1c3a80",
       "credentials": {
         "gmailOAuth2": {
           "id": "uKHVlxwPwA4qSKVT",
@@ -487,18 +354,92 @@
     },
     {
       "parameters": {
-        "content": "## What's this?\n\nThis is the server for Gmail and it handles sending notification emails and meeting invites to Aman. \n\nIt also handles scheduling meetings based on if Aman accepts/declines.",
+        "content": "## What's this?\n\nThis is the server for Google Calendar and it handles meeting invites to Aman. \n\nIt also handles scheduling meetings based on if Aman accepts/declines.",
         "height": 256,
         "width": 352
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        992,
-        -192
+        800,
+        -240
       ],
-      "id": "05b51927-bed8-4219-9fd5-456d20905763",
+      "id": "5d25de1c-3aba-4a86-a24f-0ca510df11f7",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "kzkDb5ukCVH2uhjX",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/kzkDb5ukCVH2uhjX",
+          "cachedResultName": "Email Creation Server"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Query": "={{ $json.Query }}",
+            "Requestor Name": "={{ $json[\"Requestor Name\"] }}",
+            "Requestor Email": "={{ $json[\"Requestor Email\"] }}",
+            "Requestor Phone": "={{ $json[\"Requestor Phone\"] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Query",
+              "displayName": "Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Name",
+              "displayName": "Requestor Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Email",
+              "displayName": "Requestor Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Requestor Phone",
+              "displayName": "Requestor Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        464,
+        -560
+      ],
+      "id": "de750dff-d864-4ebd-b1d4-0d6d8d8c5c9d",
+      "name": "Call 'Email Creation Server'"
     }
   ],
   "pinData": {},
@@ -507,7 +448,7 @@
       "main": [
         [
           {
-            "node": "Email Subject & Body",
+            "node": "Call 'Email Creation Server'",
             "type": "main",
             "index": 0
           }
@@ -515,50 +456,6 @@
         [
           {
             "node": "Gmail Server Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Email Subject & Body",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Email Subject & Body",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Chat Model1": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Structured Output Parser",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Email Subject & Body": {
-      "main": [
-        [
-          {
-            "node": "Meeting Request",
             "type": "main",
             "index": 0
           }
@@ -583,24 +480,6 @@
         [
           {
             "node": "Decline Meeting Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Meeting Request": {
-      "main": [
-        [
-          {
-            "node": "Send Meeting Invite",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Send a message",
             "type": "main",
             "index": 0
           }
@@ -680,18 +559,29 @@
           }
         ]
       ]
+    },
+    "Call 'Email Creation Server'": {
+      "main": [
+        [
+          {
+            "node": "Send Meeting Invite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "38746b6c-ad7e-49e9-9397-4c9af08da687",
+  "versionId": "468356c7-509d-452c-8bf1-16e6d1c59aa8",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
   },
-  "id": "3V6okPNG2j9sG51q",
+  "id": "uWN8RMLATFrUNwaj",
   "tags": [
     {
       "createdAt": "2025-10-06T18:12:19.307Z",
