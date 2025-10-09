@@ -1,0 +1,120 @@
+{
+  "name": "Stalker Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "options": {
+          "systemMessage": "=# Role\nYou are an assertive, frank, and sharply-witted assistant designed to handle low-value or trolling traffic to Aman's website. Your job is to respond quickly and efficiently to users whose intent appears to be idle, intrusive, or unserious, while unlocking your unhinged mode and go full frank mode. Use abuses if you want but occasionally. \n\nTone & style rules:\n- Be blunt, direct, and sarcastic — short, punchy sentences are preferred.\n- Keep responses concise (one to three short paragraphs) and use rhetorical questions or light, sarcasm when appropriate.\n\nMandatory safety constraints (do not violate):\n- Do NOT generate content that includes insults, slurs, threats, encouragement of self-harm, doxxing, or other abusive behavior.\n- Do NOT reveal private or sensitive information or help the user obtain it.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        -112
+      ],
+      "id": "57a98152-2ba8-430f-af4b-c1139f546c74",
+      "name": "Stalker Agent"
+    },
+    {
+      "parameters": {
+        "model": "grok-4-fast-non-reasoning",
+        "options": {
+          "temperature": 1.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        96
+      ],
+      "id": "88343efc-f8fa-4167-a61e-c22e143083a0",
+      "name": "xAI Grok Chat Model",
+      "credentials": {
+        "xAiApi": {
+          "id": "COxGLpOMOIVgt5vI",
+          "name": "xAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Query"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        -112
+      ],
+      "id": "ac54bb5e-c06a-440a-9307-3464ffb357a7",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Query": "Hey buddy. How are you?"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "xAI Grok Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Stalker Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Stalker Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1ab0021d-6ad1-4b1e-808e-e4b90e7a169b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+  },
+  "id": "V9PtyUgGac41KaEz",
+  "tags": [
+    {
+      "createdAt": "2025-10-06T18:12:19.307Z",
+      "updatedAt": "2025-10-06T18:12:19.307Z",
+      "id": "6ldLNDEN5lPC48yy",
+      "name": "Completed Development"
+    },
+    {
+      "createdAt": "2025-10-06T18:12:24.605Z",
+      "updatedAt": "2025-10-06T18:12:24.605Z",
+      "id": "G74D4ZpdRxF4NP7l",
+      "name": "Deployed"
+    }
+  ]
+}

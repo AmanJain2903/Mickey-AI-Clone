@@ -35,7 +35,7 @@
 
 ## 🎯 Overview
 
-Mickey AI Clone is a sophisticated AI-powered assistant designed to represent Aman Jain professionally. The system uses a **supervisor-agent architecture** with intelligent query classification and routing, powered by vector databases containing Aman's complete GitHub repositories, portfolio data, and professional information. Mickey provides accurate, contextual responses while also managing calendar availability, scheduling meetings, and facilitating professional communication through automated email systems.
+Mickey AI Clone is a sophisticated AI-powered assistant designed to represent Aman Jain professionally. The system uses a **supervisor-agent architecture** with intelligent query classification and routing, powered by vector databases containing Aman's complete GitHub repositories, portfolio data, and professional information. Mickey provides accurate, contextual responses while also managing calendar availability, scheduling meetings, facilitating professional communication through automated email systems, and intelligently filtering traffic with a specialized agent for handling unrelated queries and potential trolling attempts.
 
 ## 🏗️ Architecture
 
@@ -55,15 +55,16 @@ User Query → Mickey (Supervisor) → Query Classification → Specialized Agen
 
 ### Core Components
 
-1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar, communication, and intelligent lead management, featuring public webhook access
+1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar, communication, and intelligent lead management, featuring public webhook access and 7-tool integration
 2. **Recruiter Agent** - Handles HR/recruitment-focused queries using Portfolio Vector Storage
 3. **Developer Agent** - Manages technical queries using GitHub Vector Storage with complete codebase access
-4. **Calendar Integration** - Real-time Google Calendar availability checking and meeting coordination
-5. **Email Communication Suite** - Automated email creation, sending, and meeting management
-6. **Meeting Coordination System** - HTTP webhook-based meeting scheduling with complete lifecycle management
-7. **Intelligent Lead Management** - HTTP webhook-based lead detection, capture, and Google Sheets integration
-8. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
-9. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
+4. **Stalker Agent** - Intelligent traffic filter for unrelated queries and trolling attempts using xAI Grok with frank, assertive responses
+5. **Calendar Integration** - Real-time Google Calendar availability checking and meeting coordination
+6. **Email Communication Suite** - Automated email creation, sending, and meeting management
+7. **Meeting Coordination System** - HTTP webhook-based meeting scheduling with complete lifecycle management
+8. **Intelligent Lead Management** - HTTP webhook-based lead detection, capture, and Google Sheets integration
+9. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
+10. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
 
 ## 🆕 **Latest Updates - Enhanced Communication & Calendar Features**
 
@@ -74,7 +75,7 @@ Mickey AI Clone has been significantly enhanced with professional communication 
 - **📧 Professional Email System**: AI-powered email creation and automated sending
 - **🤝 Complete Meeting Coordination**: Full meeting scheduling workflow with HTTP webhook integration
 - **📊 Intelligent Lead Management**: Automated lead detection and Google Sheets integration with smart contact capture
-- **⚡ Enhanced Routing**: 6-tool system with comprehensive professional capabilities including private lead tracking
+- **⚡ Enhanced Routing**: 7-tool system with comprehensive professional capabilities including private lead tracking and intelligent traffic filtering
 - **🎯 Smart Query Classification**: Expanded to handle availability, communication, meeting requests, and lead identification
 - **🔧 Improved Temperature Control**: 0.6 setting for balanced creativity and accuracy
 - **🕐 Working Hours Integration**: 8AM-8PM Pacific Time availability enforcement
@@ -90,6 +91,9 @@ Mickey AI Clone has been significantly enhanced with professional communication 
 - **Timezone Management**: Proper America/Los_Angeles timezone handling throughout
 - **Working Hours Validation**: Business hours (8AM-8PM PT) enforcement and communication
 - **Private Tool Operations**: Intelligent background lead tracking without user disclosure
+- **🛡️ Intelligent Traffic Filtering**: Advanced Stalker Agent for handling unrelated queries and trolling prevention
+- **xAI Grok Integration**: High-creativity language model for frank, assertive responses to inappropriate traffic
+- **Safety-Constrained Operations**: Intelligent filtering while maintaining professional boundaries and preventing harmful content
 
 ## 🧠 Intelligence Layer
 
@@ -149,14 +153,17 @@ Mickey automatically classifies incoming queries into multiple categories with e
 - **Requirements**: Requestor name and email verification before sending
 - **Features**: Structured email generation, meeting invites, professional formatting, working hours validation
 
-#### ❌ **Unrelated Query**
-- **Triggers**: Questions outside Aman's professional scope
-- **Response**: Polite redirection emphasizing Mickey's role and available capabilities
+#### ❌ **Asked By A Stalker (Unrelated/Trolling)**
+- **Triggers**: Questions outside Aman's professional scope, trolling attempts, idle or intrusive behavior
+- **Handler**: Stalker Agent with xAI Grok using frank, assertive, and sarcastic responses
+- **Response Style**: Blunt, direct, short punchy sentences designed to deter inappropriate usage
+- **Features**: High creativity temperature (1.2), safety-constrained frankness, traffic filtering
 
 ## 🛠️ Technology Stack
 
 ### AI & Language Models
-- **OpenAI GPT-4 Mini** - Primary language model for all agents
+- **OpenAI GPT-4 Mini** - Primary language model for supervisor and professional agents
+- **xAI Grok** - High-creativity language model for Stalker Agent with frank response capabilities
 - **LangChain** - Framework for building AI applications and agent workflows
 - **Model Context Protocol (MCP)** - Standardized communication between AI agents and data sources
 
@@ -185,11 +192,12 @@ Mickey automatically classifies incoming queries into multiple categories with e
 
 ```
 Mickey-AI-Clone/
-├── Mickey AI Clone.json                              # Enhanced supervisor workflow with 6-tool system and intelligent lead management
+├── Mickey AI Clone.json                              # Enhanced supervisor workflow with 7-tool system and intelligent lead management
 ├── README.md                                         # Project documentation
 ├── Agents/
 │   ├── Developer Agent.json                         # Technical query handler
-│   └── Recruiter Agent.json                         # HR/recruitment query handler
+│   ├── Recruiter Agent.json                         # HR/recruitment query handler
+│   └── Stalker Agent.json                           # Traffic filtering and trolling prevention handler
 ├── RAG Servers/
 │   ├── GitHub Vector Storage MCP Server.json        # MCP server for GitHub data (2 namespaces)
 │   └── Portfolio Vector Storage MCP Server.json     # MCP server for portfolio data (9 namespaces)
@@ -309,13 +317,14 @@ Mickey-AI-Clone/
 - **Top-K Retrieval**: 5 most relevant results per query
 
 #### Supervisor Agent Configuration
-- **Enhanced System Prompt**: Now includes 6 available tools with complete communication and lead management suite
+- **Enhanced System Prompt**: Now includes 7 available tools with complete communication, lead management, and traffic filtering suite
   1. Call 'Recruiter Agent'
   2. Call 'Developer Agent'  
-  3. **Get availability in Google Calendar** - Real-time calendar checking
-  4. **Call 'Gmail Server'** - Professional email communication
-  5. **Call 'Google Calendar Server'** - Meeting scheduling and coordination
-  6. **Call 'Google Sheets Server'** - Intelligent lead management (private tool operation)
+  3. **Call 'Stalker Agent'** - Traffic filtering and trolling prevention
+  4. **Get availability in Google Calendar** - Real-time calendar checking
+  5. **Call 'Gmail Server'** - Professional email communication
+  6. **Call 'Google Calendar Server'** - Meeting scheduling and coordination
+  7. **Call 'Google Sheets Server'** - Intelligent lead management (private tool operation)
 - **Temperature Setting**: 0.6 for balanced creativity and accuracy
 - **Calendar Integration**: Real-time availability checking with 1-hour duration windows
 - **Meeting Scheduling**: Complete meeting invite and scheduling workflow
@@ -328,6 +337,7 @@ Mickey-AI-Clone/
 #### Agent Configurations
 - **Recruiter Agent**: GPT-4 Mini optimized for professional, convincing responses
 - **Developer Agent**: GPT-4 Mini configured for technical depth and accuracy
+- **Stalker Agent**: xAI Grok with high creativity (temperature 1.2) for frank, assertive traffic filtering
 - **Memory Management**: 20-message conversation window for context retention
 
 #### Communication & Calendar Services
@@ -361,9 +371,10 @@ Mickey-AI-Clone/
 
 2. **Deploy Specialized Agents**
    ```bash
-   # Import Recruiter Agent.json and Developer Agent.json
+   # Import Recruiter Agent.json, Developer Agent.json, and Stalker Agent.json
    # Link agents to supervisor workflow
    # Configure agent-specific prompts and settings
+   # Set up xAI Grok credentials for Stalker Agent
    ```
 
 3. **Initialize RAG Infrastructure**
@@ -418,6 +429,7 @@ Mickey-AI-Clone/
 ### Modifying Response Patterns
 - **Recruiter Agent Tone**: Professional, convincing, career-focused
 - **Developer Agent Tone**: Technical, detailed, code-focused
+- **Stalker Agent Tone**: Frank, assertive, sarcastic for traffic filtering
 - **Classification Criteria**: Keyword matching and intent recognition
 - **Fallback Responses**: Graceful handling of edge cases
 
