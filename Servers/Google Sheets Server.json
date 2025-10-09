@@ -3,26 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "workflowInputs": {
-          "values": [
-            {
-              "name": "Query"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        368,
-        -16
-      ],
-      "id": "6cf2dec4-dcbe-4672-875e-e873ddbe0b1b",
-      "name": "When Executed by Another Workflow",
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
@@ -46,7 +26,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        656,
+        688,
         -112
       ],
       "id": "08c6e14a-cbc7-4eda-82c4-35f5d33a877d",
@@ -78,14 +58,14 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Date": "={{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy\") }}",
-            "Time": "={{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }}",
-            "Name": "={{ $json.output.name }}",
-            "Email": "={{ $json.output.email }}",
-            "Phone Number": "={{ $json.output.phone }}",
-            "Organization": "={{ $json.output.organization }}",
-            "Designation": "={{ $json.output.designation }}",
-            "Intent": "={{ $json.output.intent }}"
+            "Date": "='{{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}",
+            "Time": "='{{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }}",
+            "Name": "='{{ $('Lead Generator').item.json.output.name }}",
+            "Email": "='{{ $('Lead Generator').item.json.output.email }}",
+            "Phone Number": "='{{ $('Lead Generator').item.json.output.phone }}",
+            "Organization": "='{{ $('Lead Generator').item.json.output.organization }}",
+            "Designation": "='{{ $('Lead Generator').item.json.output.designation }}",
+            "Intent": "='{{ $('Lead Generator').item.json.output.intent }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -170,8 +150,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1040,
-        -320
+        1520,
+        -112
       ],
       "id": "6b0aaa6d-427b-4dc6-87c7-b93c27d33f9f",
       "name": "Append row in sheet",
@@ -217,7 +197,7 @@
         "sendTo": "amanjn2003@gmail.com",
         "subject": "✅ Google Sheets Automated Leads  - New Lead Added",
         "emailType": "text",
-        "message": "=Hi Aman,\n\nYayyy. You have a new lead added just now. \nDo take a look as their might be an opportunity waiting for you.\n\n👤 {{ $json.Name || \"Not Available\"}}\n📧 {{ $json.Email || \"Not Available\"}}\n📞 {{ $json[\"Phone Number\"] || \"Not Available\"}}\n\n📋 Leads Sheet: https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=sharing\n\n🗓 Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Google Sheets Server\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "message": "=Hi Aman,\n\nYayyy. You have a new lead added just now. \nDo take a look as their might be an opportunity waiting for you.\n\n👤 {{ $('Lead Generator').item.json.output.name || \"Not Avaliable\"}}\n📧 {{ $('Lead Generator').item.json.output.email || \"Not Avaliable\"}}\n📞 {{ $('Lead Generator').item.json.output.phone || \"Not Avaliable\"}}\n\n📋 Leads Sheet: https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=sharing\n\n🗓 Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
         "options": {
           "appendAttribution": true
         }
@@ -225,8 +205,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        -432
+        1824,
+        -224
       ],
       "id": "e333e8af-969c-446b-bf70-8ebf4980046a",
       "name": "Leads Success",
@@ -257,10 +237,10 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.Query }}",
+        "text": "={{ $json.query.Query }}",
         "hasOutputParser": true,
         "options": {
-          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.Query }}, extract the name, email, phone, organization, designation and intent of the lead. \n\n"
+          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.query.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.query.Query }}, extract the name, email, phone, organization, designation and intent of the lead. Fields may or may not be present. \n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -277,7 +257,7 @@
         "sendTo": "amanjn2003@gmail.com",
         "subject": "⚠️  Google Sheets API Failed",
         "emailType": "text",
-        "message": "=Hi Aman,\n\nTheir was a lead generation attempt made and it failed unexpectedly due to the failure in Google Sheets API. \n\nDo visit the n8n workflow once to examine the issue. \nWorkflow: {{ $workflow.id }}\nExecution: {{ $execution.id }}\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "message": "=Hi Aman,\n\nTheir was a lead generation attempt made and it failed unexpectedly due to the failure in Google Sheets API. \n\nDo visit the n8n workflow once to examine the issue. \nWorkflow: {{ $workflow.id }}\nExecution: {{ $execution.id }}\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
         "options": {
           "appendAttribution": true
         }
@@ -285,8 +265,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        -192
+        1824,
+        16
       ],
       "id": "10230eb2-2082-491f-b47e-66bc77f1e270",
       "name": "Google Sheets API Error",
@@ -298,28 +278,164 @@
           "name": "Gmail account"
         }
       }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3c7cb900-584b-470f-999f-9e015f9a938e",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        336,
+        -128
+      ],
+      "id": "243b6683-6fe4-497d-8140-ce4702952acd",
+      "name": "Webhook",
+      "webhookId": "3c7cb900-584b-470f-999f-9e015f9a938e",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk",
+          "mode": "list",
+          "cachedResultName": "Mickey AI Clone Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automated Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Phone Number",
+              "lookupValue": "={{ $json.output.phone }}"
+            },
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.output.email }}"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        -320
+      ],
+      "id": "7007175e-8dcf-4f53-a67b-3b6719fbb998",
+      "name": "Get Existing Entries for Same Contact",
+      "executeOnce": false,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rMYZebLCfIpWCqHZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4033ea59-d25f-4140-8773-ce57f53b27d8",
+              "leftValue": "={{ $json.row_number }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1248,
+        -320
+      ],
+      "id": "1463fce3-01d3-4e27-bb1b-a92879a49f84",
+      "name": "If exists already"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Google Sheets Duplicate Entry Attempted",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was a duplicate lead generation attempt made and I was able to intercept it. \n\n👤 {{ $('Lead Generator').item.json.output.name || \"Not Avaliable\"}}\n📧 {{ $('Lead Generator').item.json.output.email || \"Not Avaliable\"}}\n📞 {{ $('Lead Generator').item.json.output.phone || \"Not Avaliable\"}}\n\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1520,
+        -336
+      ],
+      "id": "87805e88-6f48-4197-93ab-f7c34ea4b1ca",
+      "name": "Google Sheets Duplicate Entry",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uKHVlxwPwA4qSKVT",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.srv1046076.hstgr.cloud",
+            "user-agent": "axios/1.12.0",
+            "content-length": "0",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.srv1046076.hstgr.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "c70f14ef469b",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {
+            "Query": "Name: Riya, Organization: TechNova Labs, Email: riya@technovalabs.com, Phone: +1-415-555-2012, Intent: Collaboration on integrating AI-driven resume parsing into recruitment platform"
+          },
+          "body": {},
+          "webhookUrl": "https://n8n.srv1046076.hstgr.cloud/webhook/3c7cb900-584b-470f-999f-9e015f9a938e",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "connections": {
-    "When Executed by Another Workflow": {
-      "main": [
-        [
-          {
-            "node": "Lead Generator",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Leads Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Structured Output Parser": {
       "ai_outputParser": [
         [
@@ -364,6 +480,53 @@
       "main": [
         [
           {
+            "node": "Get Existing Entries for Same Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Lead Generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Leads Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Existing Entries for Same Contact": {
+      "main": [
+        [
+          {
+            "node": "If exists already",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If exists already": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Duplicate Entry",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Append row in sheet",
             "type": "main",
             "index": 0
@@ -372,11 +535,11 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7f1e0553-dac0-4678-a9bd-b7427db7abf4",
+  "versionId": "847d9e51-988d-4a4a-9950-acd39c9e459d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
@@ -390,10 +553,10 @@
       "name": "Completed Development"
     },
     {
-      "createdAt": "2025-10-06T18:14:00.507Z",
-      "updatedAt": "2025-10-06T18:14:00.507Z",
-      "id": "iXNmYk0gGCWhhLwZ",
-      "name": "Under Testing"
+      "createdAt": "2025-10-06T18:12:24.605Z",
+      "updatedAt": "2025-10-06T18:12:24.605Z",
+      "id": "G74D4ZpdRxF4NP7l",
+      "name": "Deployed"
     }
   ]
 }

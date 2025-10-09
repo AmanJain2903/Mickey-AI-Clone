@@ -1,6 +1,22 @@
 # Mickey AI Clone 🤖
 
-> **An intelligent AI assistant that serves as Aman's digital clone, capable of answering queries about his portfolio, projects, and professional profile### 📅 **NEW: Calendar & - **🗞️ Professional Boundaries & Data Management**
+> **An intelligent AI assistant that serves as Aman's digital clone, capable of answering queries about his portfolio, projects, and professional profile### 📅 **NEW: Calendar & - **🗞️ Professional Boundaries &### 📊 *### 🔒 **Professional Boundaries & Data Management**
+- **Scope Enforcement**: Strict adherence to professional query handling with enhanced capabilities
+- **Contact Requirements**: Mandatory name and email verification for communication features
+- **Working Hours Validation**: Business hours enforcement (8AM-8PM PT) with appropriate messaging
+- **Lead Privacy**: Transparent lead tracking without user disclosure while maintaining professional standards
+- **Data Freshness**: Automated monthly GitHub updates, weekly portfolio updates
+- **Lead Tracking**: Automatic lead capture and Google Sheets integration with intelligent contact validation
+- **Notification System**: Comprehensive email alerts for updates, errors, interactions, and new leads
+- **Meeting Data Security**: Secure handling of meeting details and attendee informationIntelligent Lead Management System**
+- **Automated Lead Detection**: AI-powered identification of business opportunities and potential collaborations
+- **Smart Contact Capture**: Intelligent extraction of contact details (name, email, phone, organization, designation)
+- **Intent Analysis**: Automatic categorization of opportunity types (hiring, collaboration, partnership, client inquiry)
+- **HTTP Webhook Architecture**: Streamlined lead processing through dedicated webhook endpoints
+- **Google Sheets Integration**: Real-time lead tracking with automated data organization and duplicate prevention
+- **Professional Notifications**: Email alerts for new leads, duplicate detection, and API errors with comprehensive contact information
+- **Privacy-First Approach**: Operates transparently without disclosing lead tracking to users
+- **Contact Validation**: Ensures minimum contact information before lead capture to maintain data qualityData Management**
 - **Scope Enforcement**: Strict adherence to professional query handling with enhanced capabilities
 - **Contact Requirements**: Mandatory name and email verification for communication features
 - **Working Hours Validation**: Business hours enforcement (8AM-8PM PT) with appropriate messaging
@@ -33,18 +49,21 @@ User Query → Mickey (Supervisor) → Query Classification → Specialized Agen
        Chat Interface                        Meeting Scheduling System
                 ↓                                           ↓
         Calendar Integration ←────────→ Email Communication Suite
+                ↓                                           ↓
+      Lead Detection System ←────────→ Google Sheets Integration
 ```
 
 ### Core Components
 
-1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar and communication management, featuring public webhook access
+1. **Supervisor Agent (Mickey)** - Main orchestrator using GPT-4 Mini with enhanced capabilities for calendar, communication, and intelligent lead management, featuring public webhook access
 2. **Recruiter Agent** - Handles HR/recruitment-focused queries using Portfolio Vector Storage
 3. **Developer Agent** - Manages technical queries using GitHub Vector Storage with complete codebase access
 4. **Calendar Integration** - Real-time Google Calendar availability checking and meeting coordination
 5. **Email Communication Suite** - Automated email creation, sending, and meeting management
 6. **Meeting Coordination System** - HTTP webhook-based meeting scheduling with complete lifecycle management
-7. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
-8. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
+7. **Intelligent Lead Management** - HTTP webhook-based lead detection, capture, and Google Sheets integration
+8. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
+9. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
 
 ## 🆕 **Latest Updates - Enhanced Communication & Calendar Features**
 
@@ -54,8 +73,9 @@ Mickey AI Clone has been significantly enhanced with professional communication 
 - **📅 Real-time Calendar Integration**: Direct Google Calendar access for instant availability checking
 - **📧 Professional Email System**: AI-powered email creation and automated sending
 - **🤝 Complete Meeting Coordination**: Full meeting scheduling workflow with HTTP webhook integration
-- **⚡ Enhanced Routing**: 5-tool system with comprehensive calendar and communication capabilities
-- **🎯 Smart Query Classification**: Expanded to handle availability, communication, and meeting requests
+- **📊 Intelligent Lead Management**: Automated lead detection and Google Sheets integration with smart contact capture
+- **⚡ Enhanced Routing**: 6-tool system with comprehensive professional capabilities including private lead tracking
+- **🎯 Smart Query Classification**: Expanded to handle availability, communication, meeting requests, and lead identification
 - **🔧 Improved Temperature Control**: 0.6 setting for balanced creativity and accuracy
 - **🕐 Working Hours Integration**: 8AM-8PM Pacific Time availability enforcement
 
@@ -63,10 +83,13 @@ Mickey AI Clone has been significantly enhanced with professional communication 
 - **Email Creation Server**: Dedicated AI service for professional email generation with meeting support
 - **Google Calendar Server**: HTTP webhook-based meeting management and scheduling system
 - **Enhanced Gmail Integration**: Improved error handling and notification systems
+- **Google Sheets Server**: HTTP webhook-based intelligent lead management with automated contact capture and duplicate prevention
+- **Advanced Lead Detection**: AI-powered lead identification with duplicate validation and professional opportunity tracking
 - **Meeting Data Flow**: Comprehensive meeting information handling (name, agenda, start/end times, location)
 - **Contact Verification**: Mandatory requestor information for communication features
 - **Timezone Management**: Proper America/Los_Angeles timezone handling throughout
 - **Working Hours Validation**: Business hours (8AM-8PM PT) enforcement and communication
+- **Private Tool Operations**: Intelligent background lead tracking without user disclosure
 
 ## 🧠 Intelligence Layer
 
@@ -104,6 +127,17 @@ Mickey automatically classifies incoming queries into multiple categories with e
 - **Handler**: Google Calendar integration with real-time availability checking
 - **Features**: 1-hour availability windows, America/Los_Angeles timezone, meeting coordination, business hours enforcement (8AM-8PM PT)
 
+#### � **NEW: Intelligent Lead Management**
+- **NEW FEATURE**: Automatic lead detection and professional opportunity tracking
+- **Examples**:
+  - "I'm from Microsoft, we have an opening for a software engineer"
+  - "Our startup is looking for a technical co-founder"
+  - "We'd like to collaborate on a project"
+  - "I represent a client interested in your expertise"
+- **Handler**: Google Sheets Server with intelligent lead analysis and automated capture
+- **Features**: Contact extraction (name, email, phone, organization, designation), intent analysis, smart prompting for missing information
+- **Privacy**: Operates as private tool - users unaware of lead tracking functionality
+- **Requirements**: Minimum contact information (email or phone) before lead capture
 #### 📧 **Communication & Notification Requests**
 - **NEW FEATURE**: Requests to send messages, notifications, or meeting invites to Aman
 - **Examples**:
@@ -143,17 +177,15 @@ Mickey automatically classifies incoming queries into multiple categories with e
 - **GitHub API** - Repository data and codebase access
 - **Gmail API** - Professional email communication and notifications
 - **Google Calendar API** - Real-time availability checking and meeting scheduling
-- **Google Sheets API** - Lead tracking and data management
+- **Google Sheets API** - Intelligent lead tracking and business opportunity management
 - **OpenAI API** - Language model and embedding services
-- **Gmail API** - Email notifications and communication
-- **Google Calendar API** - Meeting scheduling capabilities
-- **Google Sheets API** - Lead tracking and data management
+- **Pinecone API** - Vector database operations and semantic search
 
 ## 📁 Project Structure
 
 ```
 Mickey-AI-Clone/
-├── Mickey AI Clone.json                              # Main supervisor workflow (GPT-4 Mini + 5-tool enhanced routing)
+├── Mickey AI Clone.json                              # Enhanced supervisor workflow with 6-tool system and intelligent lead management
 ├── README.md                                         # Project documentation
 ├── Agents/
 │   ├── Developer Agent.json                         # Technical query handler
@@ -168,7 +200,7 @@ Mickey-AI-Clone/
     ├── Email Creation Server.json                   # AI-powered email generation with meeting support
     ├── Gmail Server.json                            # Email sending and notification system
     ├── Google Calendar Server.json                  # HTTP webhook-based meeting scheduling and calendar management
-    └── Google Sheets Server.json                    # Lead generation and tracking
+    └── Google Sheets Server.json                    # Enhanced: HTTP webhook-based intelligent lead management system
 ```
 
 ## 🚀 Key Features
@@ -240,10 +272,12 @@ Mickey-AI-Clone/
 ### For Business & Professional Networking
 - **Quick Professional Introductions**: Get elevator pitch-style summaries
 - **Collaboration Opportunities**: Understand areas of expertise and potential partnerships
-- **Meeting Coordination**: **NEW** - Real-time availability checking and meeting scheduling
-- **Professional Communication**: **NEW** - Send messages and notifications to Aman through Mickey
-- **Lead Generation**: Automatic capture and tracking of professional inquiries
-- **Calendar Integration**: **NEW** - Check availability and coordinate meetings seamlessly
+- **Meeting Coordination**: **Enhanced** - Real-time availability checking with business hours enforcement
+- **Professional Communication**: **Enhanced** - HTTP webhook-based messaging and notifications
+- **Lead Generation**: **Enhanced** - Intelligent lead detection with automated Google Sheets tracking
+- **Calendar Integration**: **Enhanced** - Complete meeting scheduling lifecycle with professional communications
+- **Working Hours Intelligence**: **NEW** - Business hours validation and appropriate messaging
+- **Opportunity Tracking**: **NEW** - Transparent lead identification and professional contact management
 
 ## 🎯 System Specifications
 
@@ -275,18 +309,21 @@ Mickey-AI-Clone/
 - **Top-K Retrieval**: 5 most relevant results per query
 
 #### Supervisor Agent Configuration
-- **Enhanced System Prompt**: Now includes 5 available tools with complete communication suite
+- **Enhanced System Prompt**: Now includes 6 available tools with complete communication and lead management suite
   1. Call 'Recruiter Agent'
   2. Call 'Developer Agent'  
   3. **Get availability in Google Calendar** - Real-time calendar checking
   4. **Call 'Gmail Server'** - Professional email communication
   5. **Call 'Google Calendar Server'** - Meeting scheduling and coordination
+  6. **Call 'Google Sheets Server'** - Intelligent lead management (private tool operation)
 - **Temperature Setting**: 0.6 for balanced creativity and accuracy
 - **Calendar Integration**: Real-time availability checking with 1-hour duration windows
 - **Meeting Scheduling**: Complete meeting invite and scheduling workflow
+- **Lead Management**: Intelligent lead detection with automated Google Sheets integration
 - **Email Requirements**: Mandatory requestor name and email verification
 - **Timezone Awareness**: America/Los_Angeles timezone for all calendar operations
 - **Working Hours**: 8AM to 8PM Pacific Time enforcement
+- **Private Operations**: Background lead tracking without user disclosure
 
 #### Agent Configurations
 - **Recruiter Agent**: GPT-4 Mini optimized for professional, convincing responses
@@ -297,8 +334,10 @@ Mickey-AI-Clone/
 - **Email Creation Server**: AI-powered email generation with professional templates and meeting support
 - **Gmail Server**: Automated email sending with error handling and notifications
 - **Google Calendar Server**: HTTP webhook-based meeting scheduling with complete lifecycle management
+- **Google Sheets Server**: HTTP webhook-based intelligent lead management with automated contact capture and duplicate prevention
 - **Calendar Integration**: Direct Google Calendar API integration with real-time data
 - **Meeting Workflow**: Complete meeting lifecycle from invitation to acceptance/decline with automated communications
+- **Lead Management**: Intelligent opportunity detection with structured data extraction, duplicate prevention, and privacy-first operations
 - **Working Hours Enforcement**: Business hours validation (8AM-8PM Pacific Time)
 - **Meeting Data Management**: Comprehensive handling of meeting details (name, agenda, time, location, attendees)
 
