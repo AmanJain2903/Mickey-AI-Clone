@@ -14,17 +14,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        464,
-        -208
+        -1040,
+        640
       ],
-      "id": "01752be4-d279-4113-90f9-cce5b40275d2",
+      "id": "21b9412e-6a24-43b4-bcb9-d9507f3d11cc",
       "name": "Gmail Server Error",
       "webhookId": "843b59e1-b417-4d06-8baa-43714b845aac",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -41,17 +41,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1104,
-        -448
+        -400,
+        400
       ],
-      "id": "8e923e53-cc60-4b1e-ab16-86944b2a2cfd",
+      "id": "1cd5ac18-188f-48dd-a8e9-0da18cf809d1",
       "name": "Decline Meeting Request",
       "webhookId": "b3b46f2c-a504-41de-bf4a-65a31d765678",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -83,10 +83,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        896,
-        -560
+        -608,
+        288
       ],
-      "id": "427167dd-ae6d-4529-89bb-a338e1417d14",
+      "id": "97905ee0-6704-4f4c-86cf-45e5532efc2c",
       "name": "If accepted"
     },
     {
@@ -113,15 +113,15 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        1104,
-        -672
+        -400,
+        176
       ],
-      "id": "4c584e01-022d-429d-b6fb-d9373c2f4e47",
+      "id": "0df31cd4-5213-402d-80e6-3e51540bbcb3",
       "name": "Get availability in a calendar",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "1DIVf8SsiUtRfGc5",
-          "name": "Google Calendar account"
+          "id": "lutakqmpM9dwxSBm",
+          "name": "Google Calendar Mickey AI Clone"
         }
       }
     },
@@ -153,10 +153,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1312,
-        -672
+        -192,
+        176
       ],
-      "id": "0a12b166-d6c1-44a3-98bc-b121159f7585",
+      "id": "e531238b-27ef-4dd2-b68a-ad06d5d518cb",
       "name": "If available"
     },
     {
@@ -172,17 +172,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1504,
-        -496
+        0,
+        352
       ],
-      "id": "fceee4a1-6e07-4d86-847c-639d7d638fd6",
+      "id": "253acdba-4063-4b5c-b3bf-3c3fcd5386a5",
       "name": "Calendar Got Booked",
       "webhookId": "e608a83a-50f9-41ba-afbe-3497d64c9eaa",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -209,15 +209,15 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        1504,
-        -848
+        0,
+        0
       ],
-      "id": "ee7d4286-f751-45a9-a627-de46109e3b98",
+      "id": "9e40b9dd-6f2b-4fc7-9be0-bd91ebceced7",
       "name": "Create an event",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "1DIVf8SsiUtRfGc5",
-          "name": "Google Calendar account"
+          "id": "lutakqmpM9dwxSBm",
+          "name": "Google Calendar Mickey AI Clone"
         }
       }
     },
@@ -234,17 +234,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1728,
-        -848
+        224,
+        0
       ],
-      "id": "61d57a2c-3588-4e75-8d20-74530c096b5d",
+      "id": "597773fa-2ff2-4526-996c-7dd97737e54c",
       "name": "Meeting Scheduled",
       "webhookId": "584ba627-48f4-4c6b-bf72-0b4906d97b7a",
       "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       },
       "onError": "continueErrorOutput"
@@ -264,15 +264,15 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        2000,
-        -832
+        496,
+        16
       ],
-      "id": "f3786c0b-be18-4fb0-9e48-eeab96828533",
+      "id": "6064a956-6d1b-4782-83b9-892b29d318e1",
       "name": "Delete an event",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "1DIVf8SsiUtRfGc5",
-          "name": "Google Calendar account"
+          "id": "lutakqmpM9dwxSBm",
+          "name": "Google Calendar Mickey AI Clone"
         }
       }
     },
@@ -294,16 +294,16 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        688,
-        -560
+        -816,
+        288
       ],
-      "id": "1b1566cb-db9c-4221-a116-f4acbacc2471",
+      "id": "2a315999-cb88-492c-9fb5-91e7cd45bca3",
       "name": "Send Meeting Invite",
       "webhookId": "2f607306-8442-4650-bc2f-f3c5ec1c3a80",
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -316,19 +316,37 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        800,
-        -240
+        -704,
+        608
       ],
-      "id": "5d25de1c-3aba-4a86-a24f-0ca510df11f7",
+      "id": "b9d6bdb9-bad3-40a2-b48c-e52353901677",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1408,
+        448
+      ],
+      "id": "b6c90db8-f008-40db-a0da-8e9aae879521",
+      "name": "Webhook",
+      "webhookId": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "kzkDb5ukCVH2uhjX",
+          "value": "TeOXqURlu5sfrgLT",
           "mode": "list",
-          "cachedResultUrl": "/workflow/kzkDb5ukCVH2uhjX",
+          "cachedResultUrl": "/workflow/TeOXqURlu5sfrgLT",
           "cachedResultName": "Email Creation Server"
         },
         "workflowInputs": {
@@ -445,29 +463,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        464,
-        -560
+        -1040,
+        288
       ],
-      "id": "de750dff-d864-4ebd-b1d4-0d6d8d8c5c9d",
+      "id": "5e48ee48-1749-4bf2-8810-2c1808fbf191",
       "name": "Call 'Email Creation Server'"
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        96,
-        -416
-      ],
-      "id": "503b8f15-446f-477a-84ce-92ec8525021f",
-      "name": "Webhook",
-      "webhookId": "9a25d01f-ae00-48de-8d4e-7e4950bd3b9c",
-      "retryOnFail": true,
-      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
@@ -507,12 +507,6 @@
     ]
   },
   "connections": {
-    "Decline Meeting Request": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "If accepted": {
       "main": [
         [
@@ -560,12 +554,6 @@
         ]
       ]
     },
-    "Calendar Got Booked": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "Create an event": {
       "main": [
         [
@@ -589,27 +577,11 @@
         ]
       ]
     },
-    "Delete an event": {
-      "main": [
-        []
-      ]
-    },
     "Send Meeting Invite": {
       "main": [
         [
           {
             "node": "If accepted",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Call 'Email Creation Server'": {
-      "main": [
-        [
-          {
-            "node": "Send Meeting Invite",
             "type": "main",
             "index": 0
           }
@@ -633,29 +605,34 @@
           }
         ]
       ]
+    },
+    "Call 'Email Creation Server'": {
+      "main": [
+        [
+          {
+            "node": "Send Meeting Invite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "d10768ee-fd3b-4d62-9dae-b2c3f9f09e09",
+  "versionId": "0bfece3d-21f7-45d6-90c8-10bf6636f797",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "uWN8RMLATFrUNwaj",
+  "id": "EQ3PTDl92oxwK8dD",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T18:12:24.605Z",
-      "updatedAt": "2025-10-06T18:12:24.605Z",
-      "id": "G74D4ZpdRxF4NP7l",
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
       "name": "Deployed"
     }
   ]

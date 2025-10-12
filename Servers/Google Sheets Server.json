@@ -3,40 +3,17 @@
   "nodes": [
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}"
+        "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}",
+        "autoFix": true
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        864,
-        -112
+        -896,
+        240
       ],
-      "id": "8d2c7282-58ba-405a-a0cb-1643d618e36d",
+      "id": "4d23a0ec-dfa8-4346-9b49-88b7f2479205",
       "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "mode": "list",
-          "value": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        688,
-        -112
-      ],
-      "id": "08c6e14a-cbc7-4eda-82c4-35f5d33a877d",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
-        }
-      }
     },
     {
       "parameters": {
@@ -150,17 +127,17 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1520,
-        -112
+        0,
+        224
       ],
-      "id": "6b0aaa6d-427b-4dc6-87c7-b93c27d33f9f",
+      "id": "0e723770-0f00-46fd-87bd-6cef755eb6e6",
       "name": "Append row in sheet",
       "executeOnce": true,
       "retryOnFail": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "rMYZebLCfIpWCqHZ",
-          "name": "Google Sheets account"
+          "id": "XTLIxat5pPSld6vn",
+          "name": "Google Sheets Mickey AI Clone"
         }
       },
       "onError": "continueErrorOutput"
@@ -178,17 +155,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        672,
-        112
+        -1088,
+        464
       ],
-      "id": "128950d5-e329-4a51-9850-9945f9bf55a8",
+      "id": "70438088-3349-4dc1-95cc-60a8750289e3",
       "name": "Leads Error",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -205,17 +182,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1824,
-        -224
+        304,
+        112
       ],
-      "id": "e333e8af-969c-446b-bf70-8ebf4980046a",
+      "id": "9636edb1-8bfb-4c5f-b172-2b79418b2c7d",
       "name": "Leads Success",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -228,10 +205,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        944,
-        48
+        -384,
+        288
       ],
-      "id": "b70c2a5a-d32c-427a-8f04-4757737a67be",
+      "id": "d4181ab5-1b39-4ad2-b895-76635b872c16",
       "name": "Sticky Note"
     },
     {
@@ -246,11 +223,12 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        688,
-        -320
+        -1072,
+        32
       ],
-      "id": "71b13340-f428-4db5-bf30-d9bc6be23422",
-      "name": "Lead Generator"
+      "id": "a4187c3c-34a6-46d8-843e-6c0935d6e77e",
+      "name": "Lead Generator",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -265,17 +243,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1824,
-        16
+        304,
+        352
       ],
-      "id": "10230eb2-2082-491f-b47e-66bc77f1e270",
+      "id": "78ffa5f9-f1fe-4da0-8585-b102cff89c5e",
       "name": "Google Sheets API Error",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -288,10 +266,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        336,
-        -128
+        -1424,
+        224
       ],
-      "id": "243b6683-6fe4-497d-8140-ce4702952acd",
+      "id": "25eb9fd2-195b-4f08-8195-283c408ab59a",
       "name": "Webhook",
       "webhookId": "3c7cb900-584b-470f-999f-9e015f9a938e",
       "retryOnFail": true,
@@ -331,17 +309,17 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1040,
-        -320
+        -480,
+        16
       ],
-      "id": "7007175e-8dcf-4f53-a67b-3b6719fbb998",
+      "id": "f33bdb7f-f005-4a31-8201-a70b436390b3",
       "name": "Get Existing Entries for Same Contact",
       "executeOnce": false,
       "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "rMYZebLCfIpWCqHZ",
-          "name": "Google Sheets account"
+          "id": "XTLIxat5pPSld6vn",
+          "name": "Google Sheets Mickey AI Clone"
         }
       }
     },
@@ -373,10 +351,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1248,
-        -320
+        -272,
+        16
       ],
-      "id": "1463fce3-01d3-4e27-bb1b-a92879a49f84",
+      "id": "7763a1e3-8998-440e-a934-5b9ed94794b8",
       "name": "If exists already"
     },
     {
@@ -392,19 +370,440 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1520,
-        -336
+        0,
+        0
       ],
-      "id": "87805e88-6f48-4197-93ab-f7c34ea4b1ca",
+      "id": "8b009f17-3bff-4a2f-ab29-554c37a2b958",
       "name": "Google Sheets Duplicate Entry",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk",
+          "mode": "list",
+          "cachedResultName": "Mickey AI Clone Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automated Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "='{{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}",
+            "Time": "='{{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }}",
+            "Name": "='{{ $('Lead Generator Fallback').item.json.output.name }}",
+            "Email": "='{{ $('Lead Generator Fallback').item.json.output.email }}",
+            "Phone Number": "='{{ $('Lead Generator Fallback').item.json.output.phone }}",
+            "Organization": "='{{ $('Lead Generator Fallback').item.json.output.organization }}",
+            "Designation": "='{{ $('Lead Generator Fallback').item.json.output.designation }}",
+            "Intent": "='{{ $('Lead Generator Fallback').item.json.output.intent }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Organization",
+              "displayName": "Organization",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Designation",
+              "displayName": "Designation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Intent",
+              "displayName": "Intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        800
+      ],
+      "id": "9f3a3bc3-6944-4abf-8764-8fb1753a20f9",
+      "name": "Append row in sheet1",
+      "executeOnce": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "XTLIxat5pPSld6vn",
+          "name": "Google Sheets Mickey AI Clone"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ Google Sheets Automated Leads  - New Lead Added",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nYayyy. You have a new lead added just now. \nDo take a look as their might be an opportunity waiting for you.\n\n👤 {{ $('Lead Generator Fallback').item.json.output.name || \"Not Avaliable\"}}\n📧 {{ $('Lead Generator Fallback').item.json.output.email || \"Not Avaliable\"}}\n📞 {{ $('Lead Generator Fallback').item.json.output.phone || \"Not Avaliable\"}}\n\n📋 Leads Sheet: https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=sharing\n\n🗓 Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        816,
+        688
+      ],
+      "id": "b78ea6a1-90df-41a1-bc7b-d2d48b41ea40",
+      "name": "Leads Success1",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Google Sheets API Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was a lead generation attempt made and it failed unexpectedly due to the failure in Google Sheets API. \n\nDo visit the n8n workflow once to examine the issue. \nWorkflow: {{ $workflow.id }}\nExecution: {{ $execution.id }}\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        816,
+        928
+      ],
+      "id": "62d463b2-17fb-4854-afd7-dbfc90ef0feb",
+      "name": "Google Sheets API Error1",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk",
+          "mode": "list",
+          "cachedResultName": "Mickey AI Clone Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automated Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WH00iu9XMalRgA9RCgDniKhIbR_Qwrunrx43jdwUExk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Phone Number",
+              "lookupValue": "={{ $json.output.phone }}"
+            },
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.output.email }}"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        32,
+        592
+      ],
+      "id": "12f26c66-595a-48a7-8d27-18963b21c1e8",
+      "name": "Get Existing Entries for Same Contact1",
+      "executeOnce": false,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "XTLIxat5pPSld6vn",
+          "name": "Google Sheets Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4033ea59-d25f-4140-8773-ce57f53b27d8",
+              "leftValue": "={{ $json.row_number }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        592
+      ],
+      "id": "7a2098bc-7f6a-4772-827f-6e6eefd4797a",
+      "name": "If exists already1"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Google Sheets Duplicate Entry Attempted",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was a duplicate lead generation attempt made and I was able to intercept it. \n\n👤 {{ $('Lead Generator Fallback').item.json.output.name || \"Not Avaliable\"}}\n📧 {{ $('Lead Generator Fallback').item.json.output.email || \"Not Avaliable\"}}\n📞 {{ $('Lead Generator Fallback').item.json.output.phone || \"Not Avaliable\"}}\n\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"hh:mm:ss a\") }} on {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"DDD\") }}\n📦 Tool: Google Sheets Server\n\n\nBest,  \nGoogle Sheets Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        512,
+        576
+      ],
+      "id": "fbd3bced-67bc-4dc1-b3a8-85bee9d50904",
+      "name": "Google Sheets Duplicate Entry1",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n### Main Models\n1. Gemini 2.0-Flash - Free, 200 RPD\n2. Gemini 2.0-Flash-Lite - Free, 200 RPD\n### Fallback Models\n1. GPT-4.1-Mini - $0.40, $1.60, No Daily Limit\n2. Gemini 2.0-Flash-Lite - Free, 200 RPD",
+        "height": 272,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        688
+      ],
+      "id": "4c6f3804-b45d-4b5d-a196-608545c06d0d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query.Query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are a lead generator and based on the request received {{ $json.query.Query }}, you append the lead into a google sheet.\n\n# Task\nGiven the user's {{ $json.query.Query }}, extract the name, email, phone, organization, designation and intent of the lead. Fields may or may not be present. \n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        592
+      ],
+      "id": "b1847c71-7f37-4d77-8b3c-abd53fc1818f",
+      "name": "Lead Generator Fallback"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        240
+      ],
+      "id": "8ec06ce2-c14b-4f4a-9e83-c1dde163a082",
+      "name": "Google Gemini 2.0 Flash",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        384
+      ],
+      "id": "e102d6ef-80d6-4c17-9b4f-cca6732adf28",
+      "name": "Google Gemini 2.0 Flash Lite",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        944
+      ],
+      "id": "e434ad2f-d66a-42eb-b294-320388cec041",
+      "name": "Google Gemini 2.0 Flash Lite Fallback",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        800
+      ],
+      "id": "fbb455d5-4fec-4985-bc5f-044375516c0c",
+      "name": "OpenAI GPT 4.1 Mini",
+      "credentials": {
+        "openAiApi": {
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"name\": \"Aman Jain\",\n  \"email\": \"amanjn2003@gmail.com\",\n  \"phone\": \"4253806319\",\n  \"organization\": \"Microsoft\",\n  \"designation\": \"Software Engineer\",\n  \"intent\": \"Hiring new grads\" \n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        800
+      ],
+      "id": "cf7e8b23-e782-4587-82be-6eaa9d85cab8",
+      "name": "Structured Output Parser Fallback"
     }
   ],
   "pinData": {
@@ -447,17 +846,6 @@
         ]
       ]
     },
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Lead Generator",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Append row in sheet": {
       "main": [
         [
@@ -481,6 +869,13 @@
         [
           {
             "node": "Get Existing Entries for Same Contact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lead Generator Fallback",
             "type": "main",
             "index": 0
           }
@@ -533,29 +928,136 @@
           }
         ]
       ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Leads Success1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets API Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Existing Entries for Same Contact1": {
+      "main": [
+        [
+          {
+            "node": "If exists already1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If exists already1": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Duplicate Entry1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Generator Fallback": {
+      "main": [
+        [
+          {
+            "node": "Get Existing Entries for Same Contact1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.0 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Lead Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.0 Flash Lite": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.0 Flash Lite Fallback": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser Fallback",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT 4.1 Mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Lead Generator Fallback",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser Fallback": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Lead Generator Fallback",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "847d9e51-988d-4a4a-9950-acd39c9e459d",
+  "versionId": "12a636f2-a883-43e0-b3d3-f06acda0250b",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "AVOyHGxl4SYih3FR",
+  "id": "4FHoJfwHiYJ79BvQ",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T18:12:24.605Z",
-      "updatedAt": "2025-10-06T18:12:24.605Z",
-      "id": "G74D4ZpdRxF4NP7l",
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
       "name": "Deployed"
     }
   ]

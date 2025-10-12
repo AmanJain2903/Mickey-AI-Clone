@@ -3,26 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "weeks"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -128,
-        0
-      ],
-      "id": "d8f3d7b4-0f08-4c6f-ba2e-4bc0765725a4",
-      "name": "Schedule Trigger",
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "options": {
           "dimensions": 1536
         }
@@ -30,15 +10,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1696,
-        -48
+        912,
+        208
       ],
-      "id": "29b2482a-83cf-442f-ac9c-1fe191113dc3",
+      "id": "6dd92009-079f-4115-a496-43e4277dfa70",
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -50,10 +30,10 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        1840,
-        -48
+        1056,
+        208
       ],
-      "id": "063287f6-7483-4240-a11e-27f74705daaa",
+      "id": "2e108191-0a05-4e0c-89e5-92afbb1c9d62",
       "name": "Default Data Loader"
     },
     {
@@ -64,10 +44,10 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        1840,
-        128
+        1056,
+        384
       ],
-      "id": "f1243861-83e0-4106-aff7-76d1ed327f3f",
+      "id": "c0a5a193-5cf5-4ea6-9299-88df8026883b",
       "name": "Recursive Character Text Splitter"
     },
     {
@@ -87,10 +67,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        128,
-        -240
+        -656,
+        16
       ],
-      "id": "8c3d7348-cc5f-4c5a-95de-70a126c81518",
+      "id": "ee3f7cfd-20f1-4dbe-a161-c8b103835598",
       "name": "Define Collections to Extract"
     },
     {
@@ -100,10 +80,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        336,
-        -240
+        -448,
+        16
       ],
-      "id": "1176774a-b208-4dc0-855a-6e84f62e679d",
+      "id": "27bd6105-bf01-4704-a6bb-0e1c7088fedd",
       "name": "Convert Collections to List"
     },
     {
@@ -113,16 +93,16 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        544,
-        -240
+        -240,
+        16
       ],
-      "id": "1f287963-ded3-4ebd-8c5d-44a40adcaa7b",
+      "id": "3dd918f0-b0a7-4cd8-9ad1-14e379b3097e",
       "name": "Loop over Collections"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://portfolio-4chlyf1.svc.aped-4627-b74a.pinecone.io/vectors/delete",
+        "url": "https://portfolio-1cfhmdk.svc.aped-4627-b74a.pinecone.io/vectors/delete",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "pineconeApi",
         "sendBody": true,
@@ -133,16 +113,16 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        784,
-        -48
+        0,
+        208
       ],
-      "id": "cd91543a-ced1-4210-88e6-a63928acee3f",
+      "id": "2643920b-94b5-4b13-a5bd-25f011ef3c37",
       "name": "Delete Namespace for Collection",
       "retryOnFail": true,
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       },
       "onError": "continueErrorOutput"
@@ -155,15 +135,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1040,
-        -256
+        256,
+        0
       ],
-      "id": "e8090dbc-c56e-4a03-9735-0e03e071ee0b",
+      "id": "a1977aad-edb5-4ae6-9a9a-d225bdb2c72d",
       "name": "Find Documents in Collection",
       "credentials": {
         "mongoDb": {
-          "id": "NKo8Dsqb9mpQXTaL",
-          "name": "MongoDB account"
+          "id": "zdfjBRDJE6SI1Zdc",
+          "name": "MongoDB PortfolioData Mickey AI Clone"
         }
       }
     },
@@ -177,10 +157,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1248,
-        -256
+        464,
+        0
       ],
-      "id": "66a142e2-5d34-4e78-a9c9-064714782232",
+      "id": "0359f6d5-79d3-4b3c-9496-c03ebb538e48",
       "name": "Exclude _id"
     },
     {
@@ -190,10 +170,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1472,
-        -256
+        688,
+        0
       ],
-      "id": "8957b213-7bfa-4956-9387-706ac2231a8c",
+      "id": "26ac28f6-2d0f-40e1-96af-7fff1133a750",
       "name": "Stringify Each Entry"
     },
     {
@@ -212,24 +192,24 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1696,
-        -256
+        912,
+        0
       ],
-      "id": "f6e0c248-5fb9-4e8a-baf2-b9c8cb78d218",
+      "id": "a6ca5d7b-9429-469b-8a8b-6380ffb587b1",
       "name": "Portfolio Data Vector Store",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
     {
       "parameters": {
         "sendTo": "amanjn2003@gmail.com",
-        "subject": "✅ Portfolio Vector Store Data Updated Successfully",
+        "subject": "✅ Portfolio Vector Store Updated Successfully",
         "emailType": "text",
-        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store data update has been completed successfully.  \nAll the collections have been processed, embedded, and stored in Pinecone without any issues.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nNo action is required — everything went smoothly.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🤖",
+        "message": "=Hi Aman,\n\nThe Portfolio vector store update has been completed successfully.  \nAll the collections have been processed, embedded, and stored in Pinecone without any issues.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nNo action is required — everything went smoothly.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🤖",
         "options": {
           "appendAttribution": true
         }
@@ -237,17 +217,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        784,
-        -256
+        0,
+        0
       ],
-      "id": "8f73d163-2066-467e-a8ff-cf389253ec4f",
+      "id": "a204bc1b-1b4d-4315-8292-4e2da4e2f017",
       "name": "Data Success",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       },
       "onError": "continueRegularOutput"
@@ -257,7 +237,7 @@
         "sendTo": "amanjn2003@gmail.com",
         "subject": "⚠️ Portfolio Vector Store Update Failed",
         "emailType": "text",
-        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution.  \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
+        "message": "=Hi Aman,\n\nThe Portfolio vector store update encountered an error during execution.  \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
         "options": {
           "appendAttribution": true
         }
@@ -265,17 +245,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        128,
-        16
+        -848,
+        272
       ],
-      "id": "ef9d54c7-534f-4d13-a7e8-b1cc54a247e6",
+      "id": "560c8d28-9d23-4715-a2ee-7284bee657c4",
       "name": "Workflow Error",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -284,7 +264,7 @@
         "sendTo": "amanjn2003@gmail.com",
         "subject": "⚠️ Portfolio Vector Store Update Encountered Error",
         "emailType": "text",
-        "message": "=Hi Aman,\n\nThe weekly Portfolio vector store update encountered an error during execution. \nThe namespace {{ $('Loop over Collections').item.json.collection }} was not deleted so it is not updated. \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
+        "message": "=Hi Aman,\n\nThe Portfolio vector store update encountered an error during execution. \nThe namespace {{ $('Loop over Collections').item.json.collection }} was not deleted so it is not updated. \nPlease review the workflow logs in n8n for more details.\n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nAction Required: Investigate and rerun the workflow after fixing the issue.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🚨",
         "options": {
           "appendAttribution": true
         }
@@ -292,17 +272,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1040,
-        -48
+        256,
+        208
       ],
-      "id": "37197794-6519-447f-b7ca-f519e66f3f03",
+      "id": "e0ae7a4e-971c-478b-8fe6-2a908a5b143a",
       "name": "Can't Delete Namespace",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -315,10 +295,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1264,
-        -16
+        480,
+        240
       ],
-      "id": "37a572da-30f4-48d9-b9c5-d96fba2f975c",
+      "id": "2b201f81-bb32-4ae6-8b15-c38c614a1ca4",
       "name": "Sticky Note"
     },
     {
@@ -328,46 +308,22 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.3,
       "position": [
-        672,
-        368
-      ],
-      "id": "90f94aa8-5b1b-4ac3-ac9f-680e0cef40a8",
-      "name": "When chat message received",
-      "webhookId": "12180925-7b5c-4f46-99b4-9acf3b107add"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "mode": "list",
-          "value": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        688,
+        -112,
         624
       ],
-      "id": "c7ca54bd-da16-46ac-bb92-2a377734b4a5",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
-        }
-      }
+      "id": "0bbc5711-55ab-4215-acfc-e08811557c94",
+      "name": "When chat message received",
+      "webhookId": "12180925-7b5c-4f46-99b4-9acf3b107add"
     },
     {
       "parameters": {},
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        928,
-        624
+        144,
+        880
       ],
-      "id": "ade99dc3-0e08-42ff-b3fd-97575d2d2ccc",
+      "id": "3776773d-965e-48f8-84ff-a6508145e98c",
       "name": "Simple Memory"
     },
     {
@@ -379,10 +335,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        832,
-        368
+        48,
+        624
       ],
-      "id": "b934e9a0-ccfd-4548-b02b-156a113de3d1",
+      "id": "73e7a44f-b1f6-4439-9523-092b8a5c78fc",
       "name": "Chat Bot"
     },
     {
@@ -392,10 +348,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        320,
-        352
+        -464,
+        608
       ],
-      "id": "7e2a8a85-4626-4b6c-8afd-3599d22c4609",
+      "id": "ad71fd4b-3d17-466c-ac36-c556296aa8ef",
       "name": "Sticky Note1"
     },
     {
@@ -407,15 +363,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -256,
-        928
+        -1040,
+        1184
       ],
-      "id": "842f6fd5-b3a4-41c2-9e99-622fce2abf40",
+      "id": "5ea84579-46e3-4976-8472-6520b9a855b4",
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -428,15 +384,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        48,
-        928
+        -736,
+        1184
       ],
-      "id": "31438144-3c76-4f6d-be8e-3718f8e7d8a8",
+      "id": "55afc41a-8981-403a-88bd-4211c1fcb3f1",
       "name": "Embeddings OpenAI2",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -449,15 +405,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        336,
-        928
+        -448,
+        1184
       ],
-      "id": "70e176ef-a9e2-4cc0-b16f-790a7a80e33b",
+      "id": "77ff2b4b-00f0-4431-8fc0-7e5013a5ce12",
       "name": "Embeddings OpenAI3",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -470,15 +426,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        608,
-        928
+        -176,
+        1184
       ],
-      "id": "d51f7c85-2403-4f82-8a9f-a546c04f98bb",
+      "id": "71644450-218f-4a36-b03a-6bd4f5a574bd",
       "name": "Embeddings OpenAI4",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -491,15 +447,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        896,
-        928
+        112,
+        1184
       ],
-      "id": "6b34f76b-975d-439a-a9b5-21c25ea214b9",
+      "id": "d8a4b3af-d629-41d1-a7b2-ce0e30280590",
       "name": "Embeddings OpenAI5",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -512,15 +468,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1168,
-        928
+        384,
+        1184
       ],
-      "id": "8700aac8-8fc3-4781-94ee-6e28ec73d8e7",
+      "id": "b95cc2d4-c816-4620-8842-56f26f1af8de",
       "name": "Embeddings OpenAI6",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -533,15 +489,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1984,
-        928
+        1200,
+        1184
       ],
-      "id": "6f28d7ae-968c-4175-9c7b-5ed3e1af4a32",
+      "id": "7d5ba923-818e-48f0-a744-2d268c94d221",
       "name": "Embeddings OpenAI7",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -554,15 +510,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1712,
-        928
+        928,
+        1184
       ],
-      "id": "f5837da5-fe1e-474b-8a12-d186dfb4be40",
+      "id": "9bc8b10c-9916-4c19-9924-22a4171fc24a",
       "name": "Embeddings OpenAI8",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -575,15 +531,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1440,
-        928
+        656,
+        1184
       ],
-      "id": "d4dcc884-342d-4f69-be98-01d8c9de1ed5",
+      "id": "7fd46f9c-6edd-48ea-a7e7-61e4e999550e",
       "name": "Embeddings OpenAI9",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -605,15 +561,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        -256,
-        752
+        -1040,
+        1008
       ],
-      "id": "4b7477a2-0145-44e8-8026-e934d5ee97c9",
+      "id": "2c476043-25c1-4d81-9de9-e1a574774372",
       "name": "projects",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -635,15 +591,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        48,
-        752
+        -736,
+        1008
       ],
-      "id": "cfe24118-e564-442d-aa81-a6dc56edcbcc",
+      "id": "c0d70277-35a9-4ad4-8fc1-45b974cf5e12",
       "name": "skills",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -665,15 +621,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        336,
-        752
+        -448,
+        1008
       ],
-      "id": "9e98041c-1d62-47fc-8ada-38bb728af16b",
+      "id": "017cae3a-ad2a-4948-9e24-b5dbc5adc02c",
       "name": "certifications",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -695,15 +651,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        608,
-        752
+        -176,
+        1008
       ],
-      "id": "2cf10f37-18b9-419c-a132-ffa5c478bde6",
+      "id": "21059467-f452-41e5-8d33-516a95bbb7c3",
       "name": "achievements",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -725,15 +681,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        896,
-        752
+        112,
+        1008
       ],
-      "id": "541f807f-05ed-43f4-a67e-b9a1f6c7c5b7",
+      "id": "4cab2d09-c78d-4b45-86ae-3a9193c1b9ed",
       "name": "experience",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -755,15 +711,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1168,
-        752
+        384,
+        1008
       ],
-      "id": "fcf09733-24fb-4acf-b9be-edf7cbed1666",
+      "id": "9a55f5e2-fe20-47ce-89e2-5279e0d1ac2f",
       "name": "education",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -785,15 +741,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1440,
-        752
+        656,
+        1008
       ],
-      "id": "35353a43-d622-4909-8d8f-422387c310b3",
+      "id": "8d9b406d-2897-4e20-a66d-8bb9b0c720df",
       "name": "about",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -815,15 +771,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1712,
-        752
+        928,
+        1008
       ],
-      "id": "92fef86d-acf4-42fc-85f5-948baa0fa418",
+      "id": "f9bf574a-ce5c-4677-b11e-1c7f86b86868",
       "name": "contacts",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -845,39 +801,126 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1984,
-        752
+        1200,
+        1008
       ],
-      "id": "25dcf846-6604-4d0a-b27e-ce575caa83bc",
+      "id": "bbbfa938-8be0-4fc5-af4a-091079f0f04d",
       "name": "publications",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        880
+      ],
+      "id": "57a266d7-9535-4ada-b09d-d6d85425f1e9",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n## Testing Bot\n1. Gemini-2.5-Pro - Free, 100RPD\n\n## Storage Updater\n1. OpenAI-text-embedding-3-small - $0.02, No Daily Limit",
+        "height": 272,
+        "width": 512
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        560
+      ],
+      "id": "2342348d-958a-4af2-a06a-09467b67ae48",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "53681b73-a6d8-45a2-8146-cd194b2b9001",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        144
+      ],
+      "id": "433627d0-80de-4152-91a0-16b13ba0b078",
+      "name": "Webhook",
+      "webhookId": "53681b73-a6d8-45a2-8146-cd194b2b9001",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "✅ Portfolio Vector Store Update Started",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nThe Portfolio vector store update has been started successfully.   \n\n🗓 Start Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Index: portfolio\n\nKeep an eye out for notifications regarding success or failure of the process.\n\nBest,  \nPortfolio Vector Store Updater Bot - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -848,
+        16
+      ],
+      "id": "1436c5dd-7d29-4b49-9b31-b18fb4d0004c",
+      "name": "Workflow Started",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.srv1057776.hstgr.cloud",
+            "user-agent": "python-requests/2.32.5",
+            "content-length": "0",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate",
+            "x-forwarded-for": "44.227.217.144",
+            "x-forwarded-host": "n8n.srv1057776.hstgr.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "5bbdfda2d0a0",
+            "x-real-ip": "44.227.217.144"
+          },
+          "params": {},
+          "query": {},
+          "body": {},
+          "webhookUrl": "https://n8n.srv1057776.hstgr.cloud/webhook/53681b73-a6d8-45a2-8146-cd194b2b9001",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "connections": {
-    "Schedule Trigger": {
-      "main": [
-        [
-          {
-            "node": "Define Collections to Extract",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Workflow Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Embeddings OpenAI": {
       "ai_embedding": [
         [
@@ -1030,17 +1073,6 @@
           {
             "node": "Chat Bot",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Chat Bot",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -1254,30 +1286,74 @@
           }
         ]
       ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chat Bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Error": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Workflow Started",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Workflow Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Success": {
+      "main": [
+        []
+      ]
+    },
+    "Workflow Started": {
+      "main": [
+        [
+          {
+            "node": "Define Collections to Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "c09853fd-5ff6-4bc2-8557-4f2647ea0403",
+  "versionId": "84e40182-80b6-47ea-99bc-fe6cd5a00ab3",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "PapwrhYgAIDxNcbq",
+  "id": "OKc1NrNeEZmyGJnC",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T19:53:07.647Z",
-      "updatedAt": "2025-10-06T19:53:07.647Z",
-      "id": "H9CgNjj1fwpkxyIt",
-      "name": "Deployment Ready"
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
+      "name": "Deployed"
     }
   ]
 }

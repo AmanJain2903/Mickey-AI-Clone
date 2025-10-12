@@ -8,10 +8,10 @@
       "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        112,
+        256
       ],
-      "id": "400a6c84-4483-40c8-afb7-3e0d3c14c9a9",
+      "id": "54eb18b3-70fd-4b96-bab3-5542f8dcbd7d",
       "name": "MCP Server Trigger",
       "webhookId": "1017240c-c58b-4479-9655-92ca441936e7"
     },
@@ -24,10 +24,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -112,
-        -256
+        0,
+        0
       ],
-      "id": "08ae0580-485d-4cad-8490-17c8f7bd0be9",
+      "id": "fadfe588-e116-40e6-aa05-b5f6363bac87",
       "name": "Sticky Note"
     },
     {
@@ -39,15 +39,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -1088,
-        416
+        -976,
+        672
       ],
-      "id": "d33ccf98-3029-4cba-936c-b3b796147375",
+      "id": "b368abdb-8e39-4edf-b39b-2a02305c5540",
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -60,15 +60,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -784,
-        416
+        -672,
+        672
       ],
-      "id": "85f88f90-8bf9-4413-abad-ab25aa1a30bc",
+      "id": "f64f5542-041f-4e98-a10e-1b3037daa1d9",
       "name": "Embeddings OpenAI2",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -81,15 +81,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -496,
-        416
+        -384,
+        672
       ],
-      "id": "c23db0b2-5204-4f43-b1b5-8f602f68e0e5",
+      "id": "dd047895-2712-4f6a-b4d1-ba84be75e88b",
       "name": "Embeddings OpenAI3",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -102,15 +102,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -224,
-        416
+        -112,
+        672
       ],
-      "id": "ed282cc5-9507-484d-a797-689049e74d5a",
+      "id": "217ee0a2-ee15-47a2-a633-e724d08adeb0",
       "name": "Embeddings OpenAI4",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -123,15 +123,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        64,
-        416
+        176,
+        672
       ],
-      "id": "6dee2391-3b45-4eeb-8728-05addc6885e4",
+      "id": "ab2b01ea-b2c3-4153-aa36-e35c83b38469",
       "name": "Embeddings OpenAI5",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -144,15 +144,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        336,
-        416
+        448,
+        672
       ],
-      "id": "a89ca455-424a-4357-b070-61ff2e9fa826",
+      "id": "0420da5f-a280-42cf-9e49-32f5e5b3d410",
       "name": "Embeddings OpenAI6",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -165,15 +165,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1152,
-        416
+        1264,
+        672
       ],
-      "id": "e88f81c7-b312-4166-9c87-90ebd9855d63",
+      "id": "b70e4715-61f0-43c4-9871-9add41ad0bd9",
       "name": "Embeddings OpenAI7",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -186,15 +186,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        880,
-        416
+        992,
+        672
       ],
-      "id": "fb325763-6f02-411c-ad59-7d5b457c44e2",
+      "id": "2778a890-301b-456b-855b-847781d3afcb",
       "name": "Embeddings OpenAI8",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -207,15 +207,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        608,
-        416
+        720,
+        672
       ],
-      "id": "40b2b55f-3919-4f5f-affd-94339a8951f8",
+      "id": "baaf702b-020b-4579-9f20-df72363a0bdd",
       "name": "Embeddings OpenAI9",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -229,7 +229,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "projects"
         }
@@ -237,15 +237,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        -1088,
-        240
+        -976,
+        496
       ],
-      "id": "7637753b-b9ee-4df1-b18e-ef88f0ee54a9",
+      "id": "8431778d-28af-480e-9aa3-51f8ef48c81a",
       "name": "projects",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -259,7 +259,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "skills"
         }
@@ -267,15 +267,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        -784,
-        240
+        -672,
+        496
       ],
-      "id": "02f2dcd5-5e6f-4fa4-a3b7-17813dec51db",
+      "id": "9a100729-940c-46b3-adef-9b6c8f91f343",
       "name": "skills",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -289,7 +289,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "certifications"
         }
@@ -297,15 +297,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        -496,
-        240
+        -384,
+        496
       ],
-      "id": "030a4d3a-72ae-4b23-9d77-db9feb6383ee",
+      "id": "3eaab197-d4b5-4389-8c60-3d4f1c9d9f16",
       "name": "certifications",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -319,7 +319,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "achievements"
         }
@@ -327,15 +327,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        -224,
-        240
+        -112,
+        496
       ],
-      "id": "08ba54c0-282d-4040-9928-e852890e71f5",
+      "id": "2689578f-42e0-4f9e-b68a-029703ac490e",
       "name": "achievements",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -349,7 +349,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "experience"
         }
@@ -357,15 +357,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        64,
-        240
+        176,
+        496
       ],
-      "id": "1c632fb1-e32c-402d-bb31-156cb8b14083",
+      "id": "e61f7a31-2270-48cb-99cf-f01c04ade0bb",
       "name": "experience",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -379,7 +379,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "education"
         }
@@ -387,15 +387,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        336,
-        240
+        448,
+        496
       ],
-      "id": "fb7c7692-1a55-435b-bf6e-8e6b4f58e589",
+      "id": "f61a8a96-0c43-4c92-97f1-0db40de03c98",
       "name": "education",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -409,7 +409,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "about"
         }
@@ -417,15 +417,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        608,
-        240
+        720,
+        496
       ],
-      "id": "e548196e-a9f9-44a7-b5b4-de3da1516b22",
+      "id": "c465a6bf-8eb9-41a0-8259-9cf1d51d92df",
       "name": "about",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -439,7 +439,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "contacts"
         }
@@ -447,15 +447,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        880,
-        240
+        992,
+        496
       ],
-      "id": "80b9769a-47f4-41de-a185-f0adf07db075",
+      "id": "00b9ae7a-62b4-4993-bea3-9cf4868de64e",
       "name": "contacts",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -469,7 +469,7 @@
           "mode": "list",
           "cachedResultName": "portfolio"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "publications"
         }
@@ -477,17 +477,32 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1.3,
       "position": [
-        1152,
-        240
+        1264,
+        496
       ],
-      "id": "5fc7be96-b7ca-4601-bec6-944c32b525ee",
+      "id": "98fdbd49-018d-4730-8d46-e8953b8869a9",
       "name": "publications",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n\n1. text-embedding-3-small - $0.02, No Daily Limit",
+        "height": 192,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        544,
+        16
+      ],
+      "id": "6775542c-aa83-4a31-a73d-718b95d93264",
+      "name": "Sticky Note2"
     }
   ],
   "pinData": {},
@@ -695,24 +710,18 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "f6187f15-7253-4e59-8e93-7116839dafc6",
+  "versionId": "fdd769b8-6414-4089-9931-8f305655e021",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "FLNlwPrzFY9SPMPg",
+  "id": "cUS6txwPHylmAhxl",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T19:53:07.647Z",
-      "updatedAt": "2025-10-06T19:53:07.647Z",
-      "id": "H9CgNjj1fwpkxyIt",
-      "name": "Deployment Ready"
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
+      "name": "Deployed"
     }
   ]
 }

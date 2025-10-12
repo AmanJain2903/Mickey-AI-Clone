@@ -3,45 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.Query }}",
-        "options": {
-          "systemMessage": "=# Role\nYou are an assertive, frank, and sharply-witted assistant designed to handle low-value or trolling traffic to Aman's website. Your job is to respond quickly and efficiently to users whose intent appears to be idle, intrusive, or unserious, while unlocking your unhinged mode and go full frank mode. Use abuses if you want but occasionally. \n\nTone & style rules:\n- Be blunt, direct, and sarcastic — short, punchy sentences are preferred.\n- Keep responses concise (one to three short paragraphs) and use rhetorical questions or light, sarcasm when appropriate.\n\nMandatory safety constraints (do not violate):\n- Do NOT generate content that includes insults, slurs, threats, encouragement of self-harm, doxxing, or other abusive behavior.\n- Do NOT reveal private or sensitive information or help the user obtain it.\n"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        -256,
-        -112
-      ],
-      "id": "57a98152-2ba8-430f-af4b-c1139f546c74",
-      "name": "Stalker Agent"
-    },
-    {
-      "parameters": {
-        "model": "grok-4-fast-non-reasoning",
-        "options": {
-          "temperature": 1.2
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
-      "typeVersion": 1,
-      "position": [
-        -256,
-        96
-      ],
-      "id": "88343efc-f8fa-4167-a61e-c22e143083a0",
-      "name": "xAI Grok Chat Model",
-      "credentials": {
-        "xAiApi": {
-          "id": "COxGLpOMOIVgt5vI",
-          "name": "xAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "workflowInputs": {
           "values": [
             {
@@ -53,34 +14,92 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -448,
-        -112
+        -64,
+        240
       ],
-      "id": "ac54bb5e-c06a-440a-9307-3464ffb357a7",
+      "id": "98561ed4-075a-4e95-b291-f3c9fc2575cf",
       "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThe sub agent workflow for handling random traffic - stalker agent. \n\nUse this agent when you need to answer queries from people who are just on the website for fun with no actual purpose.",
+        "height": 224,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fec86cfd-7642-4069-879b-0b1cec15e23b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "options": {
+          "systemMessage": "=# Role\nYou are a frank, and sharply-witted assistant designed to handle low-value or trolling traffic to Aman's website. Your job is to respond quickly and efficiently to users whose intent appears to be idle, intrusive, demeaning, or unserious, while unlocking your unhinged mode and going fully frank. You can also use abuses if you want but only when it is actually needed. \n\nTone & style rules:\n- Be blunt, direct, and sarcastic — short, punchy sentences are preferred.\n- Keep responses concise and use rhetorical questions or light & sarcasm.\n\nMandatory safety constraints (do not violate):\n- Do NOT generate content that includes insults, slurs, threats, encouragement of self-harm, doxxing, or other abusive behavior.\n- Do NOT reveal private or sensitive information or help the user obtain it.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        240
+      ],
+      "id": "65b11db9-4609-4f36-8328-155904adcd78",
+      "name": "Stalker Agent"
+    },
+    {
+      "parameters": {
+        "content": "## Model & Costing Details\n\n1. Grok 4 Fast-Non-Reasoning - $0.20, $0.50, No Daily Limit\n\n",
+        "height": 176,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        368,
+        384
+      ],
+      "id": "3aef33ae-9993-4db9-8623-38ccc97750c4",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "model": "grok-4-fast-non-reasoning",
+        "options": {
+          "temperature": 1.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
+      "typeVersion": 1,
+      "position": [
+        128,
+        432
+      ],
+      "id": "c848d2dd-5f03-4462-98c9-be65562b2fec",
+      "name": "xAI Grok 4 Fast Non Reasoning",
+      "credentials": {
+        "xAiApi": {
+          "id": "NBx2k5J07Gpk5jRz",
+          "name": "xAi Mickey AI Clone"
+        }
+      }
     }
   ],
   "pinData": {
     "When Executed by Another Workflow": [
       {
         "json": {
-          "Query": "Hey buddy. How are you?"
+          "Query": "Hey buddy. I am a bit confused what should I eat today for dinner?"
         }
       }
     ]
   },
   "connections": {
-    "xAI Grok Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Stalker Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "When Executed by Another Workflow": {
       "main": [
         [
@@ -91,29 +110,34 @@
           }
         ]
       ]
+    },
+    "xAI Grok 4 Fast Non Reasoning": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Stalker Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1ab0021d-6ad1-4b1e-808e-e4b90e7a169b",
+  "versionId": "c425b356-ca17-478a-a9bb-330453fc5741",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "V9PtyUgGac41KaEz",
+  "id": "5FEQ9WHhOlq3oj2R",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T18:12:24.605Z",
-      "updatedAt": "2025-10-06T18:12:24.605Z",
-      "id": "G74D4ZpdRxF4NP7l",
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
       "name": "Deployed"
     }
   ]

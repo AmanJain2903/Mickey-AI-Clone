@@ -39,18 +39,16 @@ Mickey AI Clone is a sophisticated AI-powered assistant designed to represent Am
 
 ## 🏗️ Architecture
 
-The Mickey AI Clone follows a **supervisor-agent architecture** with intelligent query classification and routing:
+The Mickey AI Clone follows a **supervisor-agent architecture** with intelligent query classification and **webhook-based service integration**:
 
 ```
 User Query → Mickey (Supervisor) → Query Classification → Specialized Agent/Service → Contextual Response
                 ↓                                           ↓
-         Public Webhook                             HTTP Webhook Integration
-                ↓                                           ↓
-       Chat Interface                        Meeting Scheduling System
-                ↓                                           ↓
-        Calendar Integration ←────────→ Email Communication Suite
+    Webhook-Based Services ←─────────→ Multi-Model AI Fallbacks
                 ↓                                           ↓
       Lead Detection System ←────────→ Google Sheets Integration
+                ↓                                           ↓
+         Error Handling ←─────────→ Comprehensive Notifications
 ```
 
 ### Core Components
@@ -59,41 +57,65 @@ User Query → Mickey (Supervisor) → Query Classification → Specialized Agen
 2. **Recruiter Agent** - Handles HR/recruitment-focused queries using Portfolio Vector Storage
 3. **Developer Agent** - Manages technical queries using GitHub Vector Storage with complete codebase access
 4. **Stalker Agent** - Intelligent traffic filter for unrelated queries and trolling attempts using xAI Grok with frank, assertive responses
-5. **Calendar Integration** - Real-time Google Calendar availability checking and meeting coordination
-6. **Email Communication Suite** - Automated email creation, sending, and meeting management
-7. **Meeting Coordination System** - HTTP webhook-based meeting scheduling with complete lifecycle management
-8. **Intelligent Lead Management** - HTTP webhook-based lead detection, capture, and Google Sheets integration
-9. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates
+5. **Webhook-Based Email System** - HTTP webhook email creation and sending with multi-model fallbacks
+6. **Webhook-Based Calendar Service** - HTTP webhook meeting scheduling with complete lifecycle management
+7. **Webhook-Based Lead Management** - HTTP webhook lead detection, capture, and Google Sheets integration with duplicate prevention
+8. **Enhanced Error Handling** - Comprehensive error management with detailed email notifications across all services
+9. **RAG (Retrieval Augmented Generation) System** - Dual vector storage with automatic updates via webhook triggers
 10. **MCP (Model Context Protocol) Servers** - Streamlined data access for vector databases
 
-## 🆕 **Latest Updates - Enhanced Communication & Calendar Features**
+## 🚀 Key Features
 
-Mickey AI Clone has been significantly enhanced with professional communication and calendar management capabilities:
+### 🧠 **7-Tool Intelligent Architecture**
+Mickey operates as a sophisticated supervisor agent with **7 specialized tools**:
 
-### **🔥 Major New Features:**
-- **📅 Real-time Calendar Integration**: Direct Google Calendar access for instant availability checking
-- **📧 Professional Email System**: AI-powered email creation and automated sending
-- **🤝 Complete Meeting Coordination**: Full meeting scheduling workflow with HTTP webhook integration
-- **📊 Intelligent Lead Management**: Automated lead detection and Google Sheets integration with smart contact capture
-- **⚡ Enhanced Routing**: 7-tool system with comprehensive professional capabilities including private lead tracking and intelligent traffic filtering
-- **🎯 Smart Query Classification**: Expanded to handle availability, communication, meeting requests, and lead identification
-- **🔧 Improved Temperature Control**: 0.6 setting for balanced creativity and accuracy
-- **🕐 Working Hours Integration**: 8AM-8PM Pacific Time availability enforcement
+1. **🤝 Recruiter Agent** - Professional portfolio discussions, hiring conversations
+2. **💻 Developer Agent** - Technical project details, code-related queries  
+3. **� Email Creation Server** - Multi-model email drafting with fallback architecture
+4. **� Gmail Server** - Webhook-based email sending with comprehensive delivery tracking
+5. **📅 Google Calendar Server** - Meeting coordination with real-time availability validation
+6. **📊 Google Sheets Server** - Lead management with advanced duplicate prevention and multi-model processing
+7. **🛡️ Stalker Agent** - Traffic filtering and boundary enforcement with xAI Grok
 
-### **💡 What's New:**
-- **Email Creation Server**: Dedicated AI service for professional email generation with meeting support
-- **Google Calendar Server**: HTTP webhook-based meeting management and scheduling system
-- **Enhanced Gmail Integration**: Improved error handling and notification systems
-- **Google Sheets Server**: HTTP webhook-based intelligent lead management with automated contact capture and duplicate prevention
-- **Advanced Lead Detection**: AI-powered lead identification with duplicate validation and professional opportunity tracking
-- **Meeting Data Flow**: Comprehensive meeting information handling (name, agenda, start/end times, location)
-- **Contact Verification**: Mandatory requestor information for communication features
-- **Timezone Management**: Proper America/Los_Angeles timezone handling throughout
-- **Working Hours Validation**: Business hours (8AM-8PM PT) enforcement and communication
-- **Private Tool Operations**: Intelligent background lead tracking without user disclosure
-- **🛡️ Intelligent Traffic Filtering**: Advanced Stalker Agent for handling unrelated queries and trolling prevention
-- **xAI Grok Integration**: High-creativity language model for frank, assertive responses to inappropriate traffic
-- **Safety-Constrained Operations**: Intelligent filtering while maintaining professional boundaries and preventing harmful content
+### 🎯 **Enhanced Query Classification System**
+Mickey intelligently routes conversations using **7-tier classification**:
+
+- **Asked By A Recruiter** → Routes to Recruiter Agent (GPT-4 Mini)
+- **Asked By A Developer** → Routes to Developer Agent (GPT-4 Mini)  
+- **Calendar Request** → Routes to Google Calendar Server with webhook processing
+- **Email Communication** → Routes to Email Creation + Gmail Server with multi-model fallbacks
+- **Lead Detection** → Routes to Google Sheets Server (background operation with duplicate prevention)
+- **Asked By A Stalker** → Routes to Stalker Agent (xAI Grok)
+- **Unrelated Query** → Polite deflection with role reminder
+
+### 🔄 **Multi-Model Fallback Architecture**
+- **Primary Models**: Google Gemini 2.5 Flash, Gemini 2.0 Flash Lite (cost-free operation)
+- **Fallback Models**: OpenAI GPT-4 Mini for reliability when rate limits are hit
+- **Specialized Models**: xAI Grok for traffic filtering with high creativity
+- **Auto-Recovery**: Automatic model switching ensures 99.9% uptime
+- **Cost Optimization**: Prioritizes free models while maintaining quality
+
+### 📧 **Enhanced Email Communication System**
+- **Multi-Model Email Creation**: Primary Gemini models with GPT-4 Mini fallback
+- **Webhook-Based Processing**: Real-time email generation and sending
+- **Enhanced Error Handling**: Comprehensive failure notifications and recovery
+- **Professional Templates**: Time-based greetings and structured communication
+- **Contact Verification**: Email format validation and requestor information requirements
+
+### 📊 **Advanced Lead Management System**  
+- **Multi-Model Lead Processing**: Gemini 2.0 Flash with GPT-4 Mini fallback for reliability
+- **Enhanced Duplicate Prevention**: Advanced contact validation using email and phone matching
+- **Real-Time Google Sheets Integration**: Webhook-based lead capture with comprehensive error handling
+- **Intelligent Contact Extraction**: AI-powered analysis of name, email, phone, organization, designation, and intent
+- **Privacy-First Operations**: Transparent lead tracking without user disclosure
+- **Comprehensive Notifications**: Success/failure alerts with detailed contact information
+
+### 🔧 **Webhook-Based Service Architecture**
+- **Real-Time Processing**: HTTP webhook endpoints for all major services
+- **Enhanced Error Recovery**: Comprehensive error handling with detailed notifications
+- **Service Independence**: Each service operates independently with fallback capabilities
+- **Scalable Integration**: Easy addition of new services through webhook architecture
+- **Monitoring & Alerts**: Detailed success/failure notifications across all operations
 
 ## 🧠 Intelligence Layer
 
@@ -162,31 +184,37 @@ Mickey automatically classifies incoming queries into multiple categories with e
 ## 🛠️ Technology Stack
 
 ### AI & Language Models
-- **OpenAI GPT-4 Mini** - Primary language model for supervisor and professional agents
+- **OpenAI GPT-4 Mini** - Primary language model for supervisor and professional agents with fallback support
+- **Google Gemini 2.5 Flash** - High-performance language model for email creation and communication tasks
+- **Google Gemini 2.0 Flash Lite** - Lightweight model for structured output parsing and lead generation
 - **xAI Grok** - High-creativity language model for Stalker Agent with frank response capabilities
-- **LangChain** - Framework for building AI applications and agent workflows
-- **Model Context Protocol (MCP)** - Standardized communication between AI agents and data sources
+- **LangChain** - Framework for building AI applications and agent workflows with multi-model support
+
+### Multi-Model Fallback Architecture
+- **Primary Models**: Google Gemini 2.5 Flash (250 RPD), Gemini 2.0 Flash Lite (200 RPD) - Cost-free operation
+- **Fallback Models**: OpenAI GPT-4 Mini ($0.40 input, $1.60 output) - No daily limits for reliability
+- **Specialized Models**: xAI Grok for traffic filtering with high creativity settings
+- **Auto-Fallback System**: Automatic model switching on rate limits or failures
 
 ### Vector Database & Embeddings
-- **Pinecone** - Cloud-native vector database for RAG implementation
-- **OpenAI text-embedding-ada-002** - 1536-dimensional embeddings for semantic search
+- **Pinecone** - Cloud-native vector database for RAG implementation with dual-index strategy
+- **OpenAI text-embedding-3-small** - Cost-optimized embeddings ($0.02/1M tokens) for semantic search
 - **Dual Index Strategy**: 
   - `github` index with Repository Metadata & Repository Data namespaces
   - `portfolio` index with 9 specialized namespaces
 
-### Workflow Automation
-- **n8n** - Self-hosted workflow automation platform
-- **Chat Triggers** - Real-time conversation handling with webhook support
+### Workflow Automation & Integration
+- **n8n** - Self-hosted workflow automation platform with webhook-based architecture
+- **HTTP Webhooks** - Real-time conversation handling and service integration
 - **Memory Buffer** - 20-message conversation context window
-- **Scheduled Updates** - Monthly GitHub updates, weekly portfolio updates
+- **Scheduled Updates** - Webhook-triggered GitHub updates, portfolio updates
 
-### Integrations & Services
-- **GitHub API** - Repository data and codebase access
-- **Gmail API** - Professional email communication and notifications
+### External Services & APIs
+- **GitHub API** - Repository data and codebase access with automated updates
+- **Gmail API** - Professional email communication with enhanced error handling
 - **Google Calendar API** - Real-time availability checking and meeting scheduling
-- **Google Sheets API** - Intelligent lead tracking and business opportunity management
-- **OpenAI API** - Language model and embedding services
-- **Pinecone API** - Vector database operations and semantic search
+- **Google Sheets API** - Intelligent lead tracking with duplicate prevention and contact validation
+- **Pinecone API** - Vector database operations and semantic search with auto-scaling
 
 ## 📁 Project Structure
 
@@ -195,20 +223,21 @@ Mickey-AI-Clone/
 ├── Mickey AI Clone.json                              # Enhanced supervisor workflow with 7-tool system and intelligent lead management
 ├── README.md                                         # Project documentation
 ├── Agents/
-│   ├── Developer Agent.json                         # Technical query handler
-│   ├── Recruiter Agent.json                         # HR/recruitment query handler
+│   ├── Developer Agent.json                         # Technical query handler with GitHub integration
+│   ├── Recruiter Agent.json                         # HR/recruitment query handler with portfolio access
 │   └── Stalker Agent.json                           # Traffic filtering and trolling prevention handler
 ├── RAG Servers/
 │   ├── GitHub Vector Storage MCP Server.json        # MCP server for GitHub data (2 namespaces)
 │   └── Portfolio Vector Storage MCP Server.json     # MCP server for portfolio data (9 namespaces)
 ├── RAG Updaters/
-│   ├── GitHub Vector Store Updater.json             # Monthly automated GitHub data refresh
-│   └── Portfolio Data Vector Store Updater.json     # Weekly automated portfolio data refresh
-└── Servers/
-    ├── Email Creation Server.json                   # AI-powered email generation with meeting support
-    ├── Gmail Server.json                            # Email sending and notification system
-    ├── Google Calendar Server.json                  # HTTP webhook-based meeting scheduling and calendar management
-    └── Google Sheets Server.json                    # Enhanced: HTTP webhook-based intelligent lead management system
+│   ├── GitHub Vector Store Updater.json             # Webhook-triggered GitHub data refresh
+│   └── Portfolio Data Vector Store Updater.json     # Webhook-triggered portfolio data refresh
+├── Servers/
+│   ├── Gmail Server.json                            # Webhook-based email sending with enhanced error handling
+│   ├── Google Calendar Server.json                  # Webhook-based meeting scheduling and calendar management
+│   └── Google Sheets Server.json                    # Webhook-based intelligent lead management with multi-model fallbacks
+└── Tools/
+    └── Email Creation Server.json                   # Multi-model email generation with fallback architecture
 ```
 
 ## 🚀 Key Features

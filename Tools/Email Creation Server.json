@@ -1,0 +1,434 @@
+{
+  "name": "Email Creation Server",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Query"
+            },
+            {
+              "name": "Requestor Name"
+            },
+            {
+              "name": "Requestor Email"
+            },
+            {
+              "name": "Requestor Phone"
+            },
+            {
+              "name": "Meeting Name"
+            },
+            {
+              "name": "Meeting Agenda"
+            },
+            {
+              "name": "Meeting Start"
+            },
+            {
+              "name": "Meeting End"
+            },
+            {
+              "name": "Meeting Location"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        16
+      ],
+      "id": "a10cee62-52a7-4a00-8d39-6fcd7356772b",
+      "name": "When Executed by Another Workflow",
+      "retryOnFail": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are Aman's AI Clone - Mickey's Personal Assistant for handling Emails. \n\n# Instructions\nBased on the {{ $json.Query }} recieved, you craft email subject and email body which can be sent to notify Aman. \nUse the actual requestor details as follows. \nName: {{ $json['Requestor Name'] }}\nEmail: {{ $json['Requestor Email'] }}\nPhone: {{ $json['Requestor Phone'] }}\nMeeting Name: {{ $json['Meeting Name'] }}\nMeeting Agenda: {{ $json['Meeting Agenda'] }}\nMeeting Start: {{ $json['Meeting Start'] }}, always convert this to Los Angeles time zone.\nMeeting End: {{ $json['Meeting End'] }}, always convert this to Los Angeles time zone.\nMeeting Location: {{ $json['Meeting Location'] }}\n\n# Important\n1. All these details may or may not be available. In the email body, but always include the details which are available, especially requestor's contact details.\n2. Always include requestor's name and requestor's email or phone number in the email body.\n\n# Rules\n1. Emails will be sent as and by Mickey and in third person. For example, if the request is John asking Aman for a time to meet. Then you must mail something like, \"John want's a meeting at 6PM tomorrow, would you be willing to take that up?\"\n2. Email subject will always start as \"Mickey AI Clone - Then the actual subject\"\n3. For email body, always format the email and make it structured. Leave line spaces also to make it look nicely formatted. \n4. Always start with a greeting to Aman. Greeting will be time based. For example Good Morning, Good Evening, Hello, etc. Use {{ $now.setZone(\"America/Los_Angeles\") }} for getting the current time. And obviously, do not greet with goodbye greetings like Good Day, Good Night, etc. \n5. Always end the email with ending regards and always as Mickey, on behalf of the actual requestor.\n\n\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8713c0d1-cabd-49e3-91fa-40dcac75ac4c",
+      "name": "Email Subject & Body",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"subject\": \"MickeyCloneAI - Requesting Meeting at 6PM Tomorrow.\",\n\t\"body\": \"Hi Aman,\\n\\nI hope you're doing well. This is MickeyCloneAI reaching out to confirm a meeting request for tomorrow at 6 PM.\\n\\nThe purpose of the meeting is to discuss the latest updates on the AI agent’s integration progress, review current challenges, and align on the next development milestones.\\n\\nPlease let me know if this time works for you or if you'd prefer a different slot. Once confirmed, I’ll send a calendar invite with the meeting link.\\n\\nLooking forward to your response.\\n\\nBest regards,\\nMickeyCloneAI\\nAI Development Assistant\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        208
+      ],
+      "id": "dbf66892-0d9d-4e7c-b98c-fe41c244d61d",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThis is the tool for creating Email subjects & body. This is used mainly by Gmail & Google Calendar servers.\n",
+        "height": 176,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        352
+      ],
+      "id": "0c961615-f324-4c39-a25b-777cc5401f74",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Email Creation Server Workflow Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was an automated email attempt made and the Email Creation Server failed unexpectedly. \n\nDo visit the n8n workflow once to examine the issue. \n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Email Creation Server\n\n\nBest,  \nEmail Creation Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -224,
+        112
+      ],
+      "id": "1a8406fb-d1ca-4358-a678-b8ba624f0b61",
+      "name": "Email Creation Server Error",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "amanjn2003@gmail.com",
+        "subject": "⚠️  Email Creation Server Workflow Failed",
+        "emailType": "text",
+        "message": "=Hi Aman,\n\nTheir was an automated email attempt made and the Email Creation Server failed unexpectedly. \n\nDo visit the n8n workflow once to examine the issue. \n\n🗓 Run Time: {{ $now.setZone(\"America/Los_Angeles\").toFormat(\"MM-dd-yyyy, hh:mm:ss a\") }}\n📦 Tool: Email Creation Server\n\n\nBest,  \nEmail Creation Server - n8n 🤖",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        848,
+        32
+      ],
+      "id": "47d2a236-36f3-4fee-aa42-c7c05becedd1",
+      "name": "Email Creation Server Error Copy",
+      "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
+      "executeOnce": true,
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n### Main Models\n1. Gemini 2.5-Flash - Free, 250 RPD\n2. Gemini 2.0-Flash-Lite - Free, 200 RPD\n### Fallback Models\n1. GPT-4.1-Mini - $0.40, $1.60, No Daily Limit\n2. Gemini 2.0-Flash-Lite - Free, 200 RPD",
+        "height": 272,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        544
+      ],
+      "id": "8a1fb0d7-30f9-4d2e-a6f7-5d2dc34aeaaf",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are Aman's AI Clone - Mickey's Personal Assistant for handling Emails. \n\n# Instructions\nBased on the {{ $('When Executed by Another Workflow').item.json.Query }} recieved, you craft email subject and email body which can be sent to notify Aman. \nUse the actual requestor details as follows. \nName: {{ $('When Executed by Another Workflow').item.json['Requestor Name'] }}\nEmail: {{ $('When Executed by Another Workflow').item.json['Requestor Email'] }}\nPhone: {{ $('When Executed by Another Workflow').item.json['Requestor Phone'] }}\nMeeting Name: {{ $('When Executed by Another Workflow').item.json['Meeting Name'] }}\nMeeting Agenda: {{ $('When Executed by Another Workflow').item.json['Meeting Agenda'] }}\nMeeting Start: {{ $('When Executed by Another Workflow').item.json['Meeting Start'] }}, always convert this to Los Angeles time zone.\nMeeting End: {{ $('When Executed by Another Workflow').item.json['Meeting End'] }}, always convert this to Los Angeles time zone.\nMeeting Location: {{ $('When Executed by Another Workflow').item.json['Meeting Location'] }}\n# Important\n1. All these details may or may not be available. In the email body, but always include the details which are available, especially requestor's contact details.\n2. Always include requestor's name and requestor's email or phone number in the email body.\n\n# Rules\n1. Emails will be sent as and by Mickey and in third person. For example, if the request is John asking Aman for a time to meet. Then you must mail something like, \"John want's a meeting at 6PM tomorrow, would you be willing to take that up?\"\n2. Email subject will always start as \"Mickey AI Clone - Then the actual subject\"\n3. For email body, always format the email and make it structured. Leave line spaces also to make it look nicely formatted. \n4. Always start with a greeting to Aman. Greeting will be time based. For example Good Morning, Good Evening, Hello, etc. Use {{ $now.setZone(\"America/Los_Angeles\") }} for getting the current time. And obviously, do not greet with goodbye greetings like Good Day, Good Night, etc. \n5. Always end the email with ending regards and always as Mickey, on behalf of the actual requestor.\n\n\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        16
+      ],
+      "id": "84e60891-06ee-4779-adb1-de93f1facf66",
+      "name": "Email Subject & Body Fallback",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        208
+      ],
+      "id": "f4691f19-9332-4a41-a88b-8282c017a308",
+      "name": "Google Gemini 2.5 Flash",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        368
+      ],
+      "id": "a32a3abc-7f3d-4f4b-b878-03792ca4e9d8",
+      "name": "Google Gemini 2.0 Flash Lite",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        608,
+        368
+      ],
+      "id": "0e66326b-24b8-4ba6-ba0b-75663a9e2e6f",
+      "name": "Google Gemini 2.0 Flash Lite Fallback",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        224
+      ],
+      "id": "d91a0732-419f-4356-b891-66788cd13cf6",
+      "name": "OpenAI GPT 4.1 Mini",
+      "credentials": {
+        "openAiApi": {
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"subject\": \"MickeyCloneAI - Requesting Meeting at 6PM Tomorrow.\",\n\t\"body\": \"Hi Aman,\\n\\nI hope you're doing well. This is MickeyCloneAI reaching out to confirm a meeting request for tomorrow at 6 PM.\\n\\nThe purpose of the meeting is to discuss the latest updates on the AI agent’s integration progress, review current challenges, and align on the next development milestones.\\n\\nPlease let me know if this time works for you or if you'd prefer a different slot. Once confirmed, I’ll send a calendar invite with the meeting link.\\n\\nLooking forward to your response.\\n\\nBest regards,\\nMickeyCloneAI\\nAI Development Assistant\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        224
+      ],
+      "id": "a24bb1f6-8e7f-4b47-a774-cc3ee129d944",
+      "name": "Structured Output Parser Fallback"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Query": "John is requesting a meeting at 2 PM on October 9th, 2025.",
+          "Requestor Name": "John Doe",
+          "Requestor Email": "johndoe@google.com",
+          "Requestor Phone": "4253806319",
+          "Meeting Name": "Recruiter Call",
+          "Meeting Agenda": "Discuss regarding opportunities at google.",
+          "Meeting Start": "2025-10-09T21:00:00Z",
+          "Meeting End": "2025-10-09T22:00:00Z",
+          "Meeting Location": "Online"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Email Subject & Body",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email Creation Server Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Subject & Body": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Email Subject & Body Fallback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Email Subject & Body",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Subject & Body Fallback": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Email Creation Server Error Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Subject & Body",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.0 Flash Lite": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini 2.0 Flash Lite Fallback": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser Fallback",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT 4.1 Mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Subject & Body Fallback",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser Fallback": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Email Subject & Body Fallback",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3dd74767-f118-4fb0-bf7d-b9bd7aa343fd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
+  },
+  "id": "TeOXqURlu5sfrgLT",
+  "tags": [
+    {
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
+      "name": "Deployed"
+    }
+  ]
+}

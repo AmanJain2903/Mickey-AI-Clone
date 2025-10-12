@@ -1,0 +1,121 @@
+{
+  "name": "Chat Data Download",
+  "nodes": [
+    {
+      "parameters": {
+        "collection": "={{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        -512,
+        -64
+      ],
+      "id": "fb109ec8-88d5-419e-bc96-36b1e911e113",
+      "name": "Find documents1",
+      "credentials": {
+        "mongoDb": {
+          "id": "SO2kLJyt6OLq26Tu",
+          "name": "MongoDB ChatHistory Mickey AI Clone"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let results = [];\n\nfor (const item of items) {\n  const doc = item.json;\n  for (const msg of (doc.messages || [])) {\n    results.push({\n      json: {\n        role: msg.type,\n        message: msg.data?.content || \"\"\n      }\n    });\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        -64
+      ],
+      "id": "17e49de6-d5e5-4de9-a1e5-f9d268ad1979",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "MickeyChatTestData"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        -64
+      ],
+      "id": "d49b6c91-a975-4953-af12-680b8777fce9",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -704,
+        -64
+      ],
+      "id": "4a692363-8b89-419d-b9c2-cfb4d1227750",
+      "name": "When chat message received",
+      "webhookId": "71f9f1bf-9ff0-461c-bf0d-39439c27b210"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Find documents1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Find documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0a380cb9-889b-43b2-bfe8-8ef41b834ec8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
+  },
+  "id": "OaxDioerTwTpYlD5",
+  "tags": []
+}

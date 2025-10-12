@@ -14,11 +14,94 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -480,
-        -112
+        -592,
+        64
       ],
-      "id": "7d9c8c4f-df85-4044-97a1-768bf8c96be7",
+      "id": "ce75b019-005b-490f-be4c-ad81c7cef378",
       "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "content": "## What's this?\n\nThe sub agent workflow for hiring buddy - recruiter agent. \n\nUse this agent when you need convincing answers, specifically from Aman's portfolio & documents.",
+        "height": 208,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        32
+      ],
+      "id": "d084b971-491b-4e2a-8907-898bc012a9e9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Query }}",
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "=# Role\nYou are Aman's hiring buddy who has access to Aman's portfolio data vector storages. You need to answer based on the vector stoarages for user's query {{ $json.Query }}\n\n# Tools\n1. Portfolio MCP: This MCP server should be called when you need access to data about Aman's profile. It includes data regarding Aman's portfolio & profile. \n\n# Instructions\nBased on user's query, search the vector database using Portfolio MCP tool and generate responses.  \nCall the MCP tool with {{ $json.Query }} in order to get data from it.\n\n# Tone\n1. Keep the tone friendly but professional. Most of the users querying you will be recruiters or hiring managers. Your proffesional tone will be crucial for Aman's future.  \n2. Be convincing in your answers. Never say anything that can bring Aman's reputition down. For example, if user asks about a skill which is missing from Aman's profile - do not say it negatively but be positive about it and you can say something like, I am sure he will work on it super hard if needed. \n\n# Important\n1. Only use the data in the vector storages to answer user's query. If you do not have the required data or you need more info from the user, prompt them for the same but never generate responses without using Vector Database.  \n2. For any unrelated queries the user's may have, which do not directly align with your goal and with the data you have, politely decline the user's request and tell them your role.  \n3. Always provide the {{ $json.Query }} to the Portfolio MCP tool. Never call the tool with an empty input. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -352,
+        64
+      ],
+      "id": "c345084a-a0b7-43d1-a8c8-71b94b257734",
+      "name": "Recruiter Agent"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://n8n.srv1057776.hstgr.cloud/mcp/1017240c-c58b-4479-9655-92ca441936e7",
+        "serverTransport": "httpStreamable",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        272
+      ],
+      "id": "c4b71e78-c776-4954-b432-c64a2dbb2037",
+      "name": "Portfolio MCP"
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n### Main Models\n1. Gemini 2.5-Flash-Lite - Free, 1000 RPD\n### Fallback Models\n1. GPT-4.1-Mini - $0.40, $1.60, No Daily Limit",
+        "height": 272,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ed32f386-5927-4f18-b518-59b585dc4ccd",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        272
+      ],
+      "id": "e30e7842-7fe1-4dbe-8617-336bbca9d3bc",
+      "name": "Google Gemini 2.5 Flash Lite",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XN2YBILCv7eNSrTw",
+          "name": "Google Gemini(PaLM) Mickey AI Clone"
+        }
+      }
     },
     {
       "parameters": {
@@ -32,64 +115,17 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -256,
-        96
+        -352,
+        272
       ],
-      "id": "cb287d08-d2b9-41ea-af7c-9aeec612e29f",
-      "name": "OpenAI Chat Model",
+      "id": "8ab19f2d-ed5c-4d48-91a6-3e7d3011b669",
+      "name": "OpenAI GPT 4.1 Mini",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.Query }}",
-        "options": {
-          "systemMessage": "=# Role\nYou are Aman's hiring buddy who has access to Aman's portfolio data vector storages. You need to answer based on the vector stoarages for user's query {{ $json.Query }}\n\n# Tools\n1. Portfolio MCP: This MCP server should be called when you need access to data about Aman's profile. It includes data regarding Aman's portfolio & profile. \n\n# Instructions\nBased on user's query, search the vector database using Portfolio MCP tool and generate responses.  \nCall the MCP tool with {{ $json.Query }} in order to get data from it.\n\n# Tone\n1. Keep the tone friendly but proffesional. Most of the users querying you will be recruiters or hiring managers. Your proffesional tone will be crucial for Aman's future.  \n2. Be convincing in your answers. Never say anything that can bring Aman's reputition down. For example, if user asks about a skill which is missing from Aman's profile - do not say it negatively but be positive about it and you can say something like, I am sure he will work on it super hard if needed. \n\n# Important\n1. Only use the data in the vector storages to answer user's query. If you do not have the required data or you need more info from the user, prompt them for the same but never generate responses without using Vector Database.  \n2. For any unrelated queries the user's may have, which do not directly align with your goal and with the data you have, politely decline the user's request and tell them your role.  \n3. Always provide the {{ $json.Query }} to the Portfolio MCP tool. Never call the tool with an empty input. "
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        -256,
-        -112
-      ],
-      "id": "e0e750fd-ff78-4b3d-8d96-654664e88094",
-      "name": "Recruiter Agent"
-    },
-    {
-      "parameters": {
-        "content": "## What's this?\n\nThe sub agent workflow for hiring buddy - recruiter agent. \n\nUse this agent when you need convincing answers, specifically from Aman's portfolio & documents.",
-        "height": 208,
-        "width": 288
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -304,
-        -352
-      ],
-      "id": "270b85d3-cd97-401a-9275-c5231dac9e6c",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "endpointUrl": "https://n8n.srv1046076.hstgr.cloud/mcp/1017240c-c58b-4479-9655-92ca441936e7",
-        "serverTransport": "httpStreamable",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
-      "typeVersion": 1.1,
-      "position": [
-        -112,
-        96
-      ],
-      "id": "5d7605a7-f363-4bd1-b88a-d038ea151386",
-      "name": "Portfolio MCP"
     }
   ],
   "pinData": {
@@ -113,17 +149,6 @@
         ]
       ]
     },
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Recruiter Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Portfolio MCP": {
       "ai_tool": [
         [
@@ -134,29 +159,45 @@
           }
         ]
       ]
+    },
+    "Google Gemini 2.5 Flash Lite": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Recruiter Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT 4.1 Mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Recruiter Agent",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "9f1a2098-07c9-4def-bd99-72af36f1f390",
+  "versionId": "33aa7f34-4ad6-4173-a590-cc6255f574fc",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "JCjpmNBNMt3QquCL",
+  "id": "VRCFSzgGm1iHQN7K",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T18:12:24.605Z",
-      "updatedAt": "2025-10-06T18:12:24.605Z",
-      "id": "G74D4ZpdRxF4NP7l",
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
       "name": "Deployed"
     }
   ]

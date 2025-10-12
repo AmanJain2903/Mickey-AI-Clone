@@ -3,36 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "workflowInputs": {
-          "values": [
-            {
-              "name": "Query"
-            },
-            {
-              "name": "Requestor Name"
-            },
-            {
-              "name": "Requestor Email"
-            },
-            {
-              "name": "Requestor Phone"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -256,
-        -208
-      ],
-      "id": "e1a58046-770d-48f6-b68d-bdd368fae02c",
-      "name": "When Executed by Another Workflow",
-      "retryOnFail": false,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "sendTo": "amanjn2003@gmail.com",
         "subject": "={{ $json.output.subject }}",
         "emailType": "text",
@@ -42,17 +12,17 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        320,
-        -528
+        0,
+        0
       ],
-      "id": "3dc5836d-d3cd-4730-ad3f-014218fdc61c",
+      "id": "b15b43b8-c9d8-4a28-bff7-74d3a2269e78",
       "name": "Send a message",
       "webhookId": "ad48c8c9-4056-4064-9318-591290abd32f",
       "executeOnce": true,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -69,10 +39,10 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        64,
-        -16
+        -256,
+        512
       ],
-      "id": "e7cd0ce1-dae9-4754-a73a-a973a134059b",
+      "id": "83cd2f54-85d9-45c2-9ba9-2f93bfe31729",
       "name": "Gmail Server Error",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
@@ -80,8 +50,8 @@
       "retryOnFail": false,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
@@ -94,10 +64,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        240,
-        -176
+        -80,
+        352
       ],
-      "id": "05b51927-bed8-4219-9fd5-456d20905763",
+      "id": "699704de-91f5-4741-b98e-9ef0c400efd7",
       "name": "Sticky Note"
     },
     {
@@ -113,10 +83,10 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        320,
-        -368
+        0,
+        160
       ],
-      "id": "39dff2df-6a1c-4b57-8e4c-e8f1e325599c",
+      "id": "8ab82997-fd31-4db3-9889-4e701ff299f2",
       "name": "Email Creation Server Error",
       "webhookId": "cfff951b-0fee-4187-8c24-efdf611b9e01",
       "executeOnce": true,
@@ -124,27 +94,45 @@
       "retryOnFail": false,
       "credentials": {
         "gmailOAuth2": {
-          "id": "uKHVlxwPwA4qSKVT",
-          "name": "Gmail account"
+          "id": "ZVeFOouONxO6EXZb",
+          "name": "Gmail Mickey AI Clone"
         }
       }
     },
     {
       "parameters": {
+        "httpMethod": "POST",
+        "path": "a851b570-c78b-4d50-9192-1ecbf45f5007",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -544,
+        320
+      ],
+      "id": "cf37a0fa-f04e-4b6e-a7be-28f9f351c055",
+      "name": "Webhook",
+      "webhookId": "a851b570-c78b-4d50-9192-1ecbf45f5007",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "kzkDb5ukCVH2uhjX",
+          "value": "TeOXqURlu5sfrgLT",
           "mode": "list",
-          "cachedResultUrl": "/workflow/kzkDb5ukCVH2uhjX",
+          "cachedResultUrl": "/workflow/TeOXqURlu5sfrgLT",
           "cachedResultName": "Email Creation Server"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "Query": "={{ $json.Query }}",
-            "Requestor Name": "={{ $json[\"Requestor Name\"] }}",
-            "Requestor Email": "={{ $json[\"Requestor Email\"] }}",
-            "Requestor Phone": "={{ $json[\"Requestor Phone\"] }}"
+            "Query": "={{ $json.query.Query }}",
+            "Requestor Name": "={{ $json.query[\"Requestor Name\"] }}",
+            "Requestor Email": "={{ $json.query[\"Requestor Email\"] }}",
+            "Requestor Phone": "={{ $json.query[\"Requestor Phone\"] }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -247,29 +235,48 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        64,
-        -384
+        -256,
+        144
       ],
-      "id": "9c8da34f-4c82-4c53-b1cc-83432cbd07ee",
+      "id": "16df74d4-67bd-4d91-bfda-6743f37e0ff7",
       "name": "Call 'Email Creation Server'",
       "retryOnFail": true,
       "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
-    "When Executed by Another Workflow": [
+    "Webhook": [
       {
         "json": {
-          "Query": "John is complimenting Aman on his profile.",
-          "Requestor Name": null,
-          "Requestor Email": null,
-          "Requestor Phone": null
+          "headers": {
+            "host": "n8n.srv1046076.hstgr.cloud",
+            "user-agent": "axios/1.12.0",
+            "content-length": "0",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.srv1046076.hstgr.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "c70f14ef469b",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {
+            "Query": "There might be a job opening at Google. Keep an eye on this opportunity.",
+            "Requestor Name": "John",
+            "Requestor Email": "j@google.com",
+            "Requestor Phone": ""
+          },
+          "body": {},
+          "webhookUrl": "https://n8n.srv1057776.hstgr.cloud/webhook/a851b570-c78b-4d50-9192-1ecbf45f5007",
+          "executionMode": "production"
         }
       }
     ]
   },
   "connections": {
-    "When Executed by Another Workflow": {
+    "Webhook": {
       "main": [
         [
           {
@@ -306,27 +313,21 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "f79db3f7-fe30-4785-bd94-9f8022aaa3f6",
+  "versionId": "1acf0d3a-cc11-4a00-96f3-fa333e119534",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "3V6okPNG2j9sG51q",
+  "id": "lZ2WNNNCXOLdRxJ3",
   "tags": [
     {
-      "createdAt": "2025-10-06T18:12:19.307Z",
-      "updatedAt": "2025-10-06T18:12:19.307Z",
-      "id": "6ldLNDEN5lPC48yy",
-      "name": "Completed Development"
-    },
-    {
-      "createdAt": "2025-10-06T18:12:24.605Z",
-      "updatedAt": "2025-10-06T18:12:24.605Z",
-      "id": "G74D4ZpdRxF4NP7l",
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
       "name": "Deployed"
     }
   ]

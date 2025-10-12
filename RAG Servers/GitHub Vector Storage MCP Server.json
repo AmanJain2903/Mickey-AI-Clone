@@ -11,7 +11,7 @@
         0,
         0
       ],
-      "id": "0411f9ba-e885-44b7-87a5-a4f45bf0237a",
+      "id": "9c1cb276-8581-4efe-91be-749c2ab700ed",
       "name": "MCP Server Trigger",
       "webhookId": "3dde79eb-a0b8-46c6-80b9-cdd07e971138"
     },
@@ -27,12 +27,12 @@
         -240,
         416
       ],
-      "id": "bc3bba26-edbf-4469-96fa-5fa2f3f1d664",
+      "id": "1d1490d7-acce-43ce-b475-c61669b291a0",
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -46,7 +46,7 @@
           "mode": "list",
           "cachedResultName": "github"
         },
-        "topK": 5,
+        "topK": 50,
         "options": {
           "pineconeNamespace": "Repository Metadata"
         }
@@ -57,12 +57,12 @@
         -240,
         224
       ],
-      "id": "d5b28236-66d3-4e88-94a3-05422fc71c22",
+      "id": "702eae77-f2f8-4cd5-97e9-5e7952ba219f",
       "name": "Pinecone Vector Store Metadata",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -78,12 +78,12 @@
         400,
         416
       ],
-      "id": "5ea1d9db-7ab7-461f-bdb0-35dec6fff03f",
+      "id": "df2ae9c9-8438-491a-96c1-433faa86d9ad",
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "bQxW0gjt5BQOa1iQ",
-          "name": "OpenAi account"
+          "id": "4z2DDGESaaKkoF3o",
+          "name": "OpenAi Mickey AI Clone"
         }
       }
     },
@@ -97,7 +97,7 @@
           "mode": "list",
           "cachedResultName": "github"
         },
-        "topK": 5,
+        "topK": 20,
         "options": {
           "pineconeNamespace": "Repository Data"
         }
@@ -108,12 +108,12 @@
         400,
         224
       ],
-      "id": "454808f2-dc12-4a0e-bd03-070b1513a350",
+      "id": "aa31d12b-699a-4997-afc4-18ea5defa105",
       "name": "Pinecone Vector Store Data",
       "credentials": {
         "pineconeApi": {
-          "id": "IyHlGPWaKhxMrE0j",
-          "name": "PineconeApi account"
+          "id": "zOOdahgzo9Yn8osc",
+          "name": "PineconeApi Mickey AI Clone"
         }
       }
     },
@@ -129,8 +129,23 @@
         64,
         224
       ],
-      "id": "0b9091ae-c54a-493b-9ae8-447e652bc7f3",
+      "id": "61b4af92-fe62-4223-b9cb-95614f958ae7",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Model & Costing Details\n\n\n1. text-embedding-3-small - $0.02, No Daily Limit",
+        "height": 192,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        672,
+        320
+      ],
+      "id": "38c7a2ca-4103-42a2-aa81-744683e490fd",
+      "name": "Sticky Note2"
     }
   ],
   "pinData": {},
@@ -184,11 +199,18 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "34cdc307-94ab-41ec-a4e3-7ca797f84ba5",
+  "versionId": "fe0d24cc-6ac4-4f22-a5c7-f784f2204407",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3359998986e490c92dfbe517df3b4d3344009b1a725fe897f76028abe415198c"
+    "instanceId": "eae71291ca9ec46ccb4522348f7019542193bb331bd418cb4a4a7a83e59e28f3"
   },
-  "id": "BPbtmlIxMqtQuy2k",
-  "tags": []
+  "id": "krlJHqEKOD9Ndzjj",
+  "tags": [
+    {
+      "createdAt": "2025-10-10T19:34:23.534Z",
+      "updatedAt": "2025-10-10T19:34:23.534Z",
+      "id": "f5pZo61SB513J06v",
+      "name": "Deployed"
+    }
+  ]
 }
