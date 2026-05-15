@@ -1,6 +1,6 @@
 # Mickey AI Clone 🤖
 
-## NOW MIGRATED TO LANGGRAPH AND LANGCHAIN BASED AGENTIC FLOW. REFER TO THIS REPO FOR THE WORKFLOW. THE MIGRATION IS NOT OPEN-SOURCE.
+## NOW MIGRATED TO LANGGRAPH AND LANGCHAIN BASED AGENTIC FLOW WHICH IS PART OF A PRIVATE SERVICE AND IS NOT OPEN SOURCE. THIS REPO INCLUDES THE EXACT REPLICA OF THE WORKFLOW IN N8N.
 
 > **An intelligent AI assistant that serves as Aman's digital clone, capable of answering queries about his portfolio, projects, and professional profile### 📅 **NEW: Calendar & - **🗞️ Professional Boundaries &### 📊 *### 🔒 **Professional Boundaries & Data Management**
 - **Scope Enforcement**: Strict adherence to professional query handling with enhanced capabilities
